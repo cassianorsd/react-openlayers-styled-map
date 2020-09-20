@@ -4,16 +4,21 @@ import { StyledMapProps } from './interfaces'
 import { Container } from './styles'
 import OSM from 'ol/source/OSM'
 import TileLayer from 'ol/layer/Tile'
+import addDefaultControls from './functions/defaultControls'
+import StyledMenu from './StyledMenu'
 const StyledMapComponent: React.FC<StyledMapProps> = ({
   height,
   width,
   id,
-  osmBasemap
+  osmBasemap,
+  defaultControls,
+  controlsMenu
 }) => {
   const { setTarget, map } = useMap()
   useEffect(() => {
     setTarget(id || 'map')
     if (osmBasemap) map.addLayer(new TileLayer({ source: new OSM() }))
+    if (defaultControls) addDefaultControls({ map, defaultControls })
   }, [id])
   return (
     <Container
@@ -27,6 +32,7 @@ const StyledMapComponent: React.FC<StyledMapProps> = ({
           height: '100%'
         }}
       />
+      {controlsMenu && <StyledMenu controlsMenu={controlsMenu} />}
     </Container>
   )
 }

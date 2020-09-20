@@ -1,4 +1,4 @@
-import { DefaultControlsProps } from '../Hooks/interfaces'
+import { DefaultControlsProps } from './functions/defaultControls'
 
 export interface StyledMapProps {
   width?: number
@@ -6,4 +6,10 @@ export interface StyledMapProps {
   id?: string
   osmBasemap?: boolean
   defaultControls?: DefaultControlsProps
+  controlsMenu?: {
+    streetView?: {
+      activeLabel?: string
+      widthOnActive?: number
+    }
+  }
 }

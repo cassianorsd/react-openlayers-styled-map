@@ -64,6 +64,7 @@
   ],
   "dependencies": {
     "ol": "^6.4.3",
+    "react-icons": "^3.11.0",
     "styled-components": "^5.2.0"
   }
 }

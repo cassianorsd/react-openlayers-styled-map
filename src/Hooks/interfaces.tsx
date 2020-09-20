@@ -20,9 +20,7 @@ export interface MapContextProps {
   setTarget: (id: string) => void
   activeLayers: ActiveLayersProps | {}
   addLayer: (data: AddLayerProps) => void
-  removeLayer(data: RemoveLayerProps) => void
-}
-
-export interface DefaultControlsProps {
-  zoomSlider?: boolean
+  removeLayer: (data: RemoveLayerProps) => void
+  activeMenuControl: string | undefined
+  setActiveMenuControl: (controlKey: string) => void
 }

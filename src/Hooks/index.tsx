@@ -7,7 +7,6 @@ import {
   RemoveLayerProps
 } from './interfaces'
 import 'ol/ol.css'
-
 const MapContext = React.createContext<MapContextProps | undefined>(undefined)
 
 const MapProvider: React.FC = ({ children }) => {
@@ -17,10 +16,12 @@ const MapProvider: React.FC = ({ children }) => {
       view: new View({
         center: [0, 0],
         zoom: 2
-      })
+      }),
+      controls: []
     })
   )
   const [activeLayers, setActiveLayers] = useState<ActiveLayersProps>({})
+  const [activeMenuControl, setActiveMenuControl] = useState<string>('')
 
   const setTarget = useCallback(
     (id) => {
@@ -35,7 +36,7 @@ const MapProvider: React.FC = ({ children }) => {
       map.addLayer(layerObject)
       setActiveLayers((prev) => ({ ...prev, [layerKey]: layerObject }))
     },
-    [map]
+    [map, activeLayers]
   )
 
   const removeLayer = useCallback(
@@ -53,12 +54,20 @@ const MapProvider: React.FC = ({ children }) => {
           return layers
         })
     },
-    [map]
+    [map, activeLayers]
   )
 
   return (
     <MapContext.Provider
-      value={{ map, setTarget, activeLayers, addLayer, removeLayer }}
+      value={{
+        map,
+        setTarget,
+        activeLayers,
+        addLayer,
+        removeLayer,
+        activeMenuControl,
+        setActiveMenuControl
+      }}
     >
       {children}
     </MapContext.Provider>
