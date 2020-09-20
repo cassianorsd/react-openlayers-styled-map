@@ -1,14 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { useMap } from '../../../Hooks'
-import { Container } from './styles'
-
+import React, { useCallback, useEffect, useState } from 'react';
+import { useMap } from '../../../Hooks';
+import { Container } from './styles';
+import Spinner from 'react-spinkit';
 export interface MenuButtonProps {
-  icon?: React.ReactNode
-  activeLabel?: string
-  onEnabled: () => void
-  onDisabled: () => void
-  widthOnActive?: number
-  controlKey: string
+  icon?: React.ReactNode;
+  activeLabel?: string;
+  onEnabled: () => void;
+  onDisabled: () => void;
+  widthOnActive?: number;
+  controlKey: string;
+  color?: string;
+  loading?: boolean;
 }
 
 const MenuButton: React.FC<MenuButtonProps> = ({
@@ -17,40 +19,44 @@ const MenuButton: React.FC<MenuButtonProps> = ({
   widthOnActive,
   onEnabled,
   onDisabled,
-  controlKey
+  controlKey,
+  color,
+  loading,
 }) => {
-  const [active, setActive] = useState(false)
-  const { activeMenuControl, setActiveMenuControl } = useMap()
+  const [active, setActive] = useState(false);
+  const { activeMenuControl, setActiveMenuControl } = useMap();
 
   const handleClick = useCallback(() => {
     if (!active) {
-      onEnabled()
-      setActiveMenuControl(controlKey)
+      onEnabled();
+      setActiveMenuControl(controlKey);
     } else {
-      onDisabled()
-      setActiveMenuControl('')
+      onDisabled();
+      setActiveMenuControl('');
     }
-  }, [active])
+  }, [active, controlKey, setActiveMenuControl, onEnabled, onDisabled]);
   useEffect(() => {
     if (activeMenuControl !== controlKey) {
-      setActive(false)
+      setActive(false);
     } else {
-      setActive(true)
+      setActive(true);
     }
-  }, [activeMenuControl, controlKey])
+  }, [activeMenuControl, controlKey]);
   return (
     <Container
       onClick={handleClick}
       active={active}
       hasActiveLabel={!!activeLabel}
       widthOnActive={widthOnActive}
+      color={color}
     >
       {activeLabel && active && (
         <span className='activeText'>{activeLabel}</span>
       )}
-      {Icon && Icon}
+      {loading && <Spinner name='circle' color='#fff' fadeIn='quarter' />}
+      {!loading && Icon && Icon}
     </Container>
-  )
-}
+  );
+};
 
-export default MenuButton
+export default MenuButton;

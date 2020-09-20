@@ -30,15 +30,6 @@ const MapProvider: React.FC = ({ children }) => {
     [map]
   )
 
-  const addLayer = useCallback(
-    ({ layerKey, layerObject }: AddLayerProps) => {
-      if (layerKey in activeLayers) removeLayer({ layerKey })
-      map.addLayer(layerObject)
-      setActiveLayers((prev) => ({ ...prev, [layerKey]: layerObject }))
-    },
-    [map, activeLayers]
-  )
-
   const removeLayer = useCallback(
     ({ layerKey, layerObject }: RemoveLayerProps) => {
       if (layerKey && layerKey in activeLayers) {
@@ -55,6 +46,14 @@ const MapProvider: React.FC = ({ children }) => {
         })
     },
     [map, activeLayers]
+  )
+  const addLayer = useCallback(
+    ({ layerKey, layerObject }: AddLayerProps) => {
+      if (layerKey in activeLayers) removeLayer({ layerKey })
+      map.addLayer(layerObject)
+      setActiveLayers((prev) => ({ ...prev, [layerKey]: layerObject }))
+    },
+    [map, activeLayers, removeLayer]
   )
 
   return (
