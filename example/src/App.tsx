@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { ExampleComponent } from 'react-openlayers-map'
+import { StyledMap } from 'react-openlayers-map'
 import 'react-openlayers-map/dist/index.css'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <StyledMap height={500} width={500} osmBasemap />
 }
 
 export default App
