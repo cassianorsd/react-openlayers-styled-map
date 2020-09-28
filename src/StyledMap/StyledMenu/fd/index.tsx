@@ -28,20 +28,26 @@ const MenuButton: React.FC<MenuButtonProps> = ({
 
   const handleClick = useCallback(() => {
     if (!active) {
-      onEnabled();
       setActiveMenuControl(controlKey);
-    } else {
-      onDisabled();
-      setActiveMenuControl('');
-    }
-  }, [active, controlKey, setActiveMenuControl, onEnabled, onDisabled]);
-  useEffect(() => {
-    if (activeMenuControl !== controlKey) {
-      setActive(false);
-    } else {
+      onEnabled();
       setActive(true);
+    } else {
+      setActiveMenuControl('');
+      onDisabled();
+      setActive(false);
     }
-  }, [activeMenuControl, controlKey]);
+  }, [onEnabled, active, onDisabled, setActiveMenuControl, controlKey]);
+
+  useEffect(() => {
+    if (activeMenuControl !== controlKey && active) {
+      setActive(false);
+      onDisabled();
+    } else if (activeMenuControl === controlKey && !active) {
+      setActive(true);
+      onEnabled();
+    }
+  }, [activeMenuControl, controlKey, active, onDisabled, onEnabled]);
+
   return (
     <Container
       onClick={handleClick}

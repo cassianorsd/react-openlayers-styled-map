@@ -1,6 +1,6 @@
-import styled, { ThemedStyledInterface } from 'styled-components';
 import { DefaultControlsProps } from './functions/defaultControls';
-import { GoogleStreetViewProps } from './StyledMenu/Controls/GoogleStreetView';
+import { StyledMenuProps } from './StyledMenu/';
+
 const theme = {
   colors: {
     color1: '#036d19',
@@ -10,11 +10,11 @@ const theme = {
     color5: '#FE2C54',
     color6: '#FFA500',
     color7: '#f9d423',
+    color8: '#9ACD32',
   },
 };
 
-export type ThemeProps = typeof theme;
-export const themeStyled = styled as ThemedStyledInterface<ThemeProps>;
+export type ColorPallete = typeof theme;
 
 export interface StyledMapProps {
   width?: number;
@@ -22,9 +22,6 @@ export interface StyledMapProps {
   id?: string;
   osmBasemap?: boolean;
   defaultControls?: DefaultControlsProps;
-  controlsMenu?: {
-    streetView?: GoogleStreetViewProps;
-    exportImage?: {};
-  };
-  theme?: ThemeProps;
+  controlsMenu?: StyledMenuProps;
+  theme?: ColorPallete;
 }

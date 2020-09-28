@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { MapProvider, useMap } from '../Hooks';
 import { StyledMapProps } from './interfaces';
-import { Container, MapStyle } from './styles';
+import { Container } from './styles';
 import OSM from 'ol/source/OSM';
 import TileLayer from 'ol/layer/Tile';
 import addDefaultControls from './functions/defaultControls';
 import StyledMenu from './StyledMenu';
-import { ThemeProvider } from 'styled-components';
+import 'semantic-ui-css/semantic.min.css';
+
 const StyledMapComponent: React.FC<StyledMapProps> = ({
   height,
   width,
@@ -14,7 +15,6 @@ const StyledMapComponent: React.FC<StyledMapProps> = ({
   osmBasemap,
   defaultControls,
   controlsMenu,
-  theme,
 }) => {
   const { setTarget, map } = useMap();
   useEffect(() => {
@@ -27,17 +27,14 @@ const StyledMapComponent: React.FC<StyledMapProps> = ({
       height={height ? `${height}px` : '100%'}
       width={width ? `${width}px` : '100%'}
     >
-      <ThemeProvider theme={{ ...theme }}>
-        <div
-          id={id || 'map'}
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-        />
-        {controlsMenu && <StyledMenu controlsMenu={controlsMenu} />}
-        <MapStyle />
-      </ThemeProvider>
+      <div
+        id={id || 'map'}
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+      />
+      {controlsMenu && <StyledMenu {...controlsMenu} />}
     </Container>
   );
 };

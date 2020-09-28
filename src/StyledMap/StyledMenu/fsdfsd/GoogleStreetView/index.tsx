@@ -1,10 +1,8 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import MenuButton, { MenuButtonProps } from '../../MenuButton';
 import { FaStreetView } from 'react-icons/fa';
 import { useMap } from '../../../../Hooks';
 import { toLonLat } from 'ol/proj';
-import { ThemeContext } from 'styled-components';
-import { ThemeProps } from '../../../interfaces';
 
 export type GoogleStreetViewProps = Pick<
   MenuButtonProps,
@@ -37,11 +35,10 @@ const GoogleStreetView: React.FC<GoogleStreetViewProps> = ({
       map.un('click', onMapClick);
     }
   }, [map, onMapClick]);
-  const { colors } = useContext<ThemeProps>(ThemeContext);
 
   return (
     <MenuButton
-      color={colors.color5}
+      color='red'
       controlKey='GoogleStreetView'
       activeLabel={activeLabel || 'Google Street View'}
       icon={Icon || <FaStreetView size={20} color='#fff' />}

@@ -1,13 +1,13 @@
-import { Map, View } from 'ol'
-import React, { useCallback, useContext, useState } from 'react'
+import { Map, View } from 'ol';
+import React, { useCallback, useContext, useState } from 'react';
 import {
   ActiveLayersProps,
   AddLayerProps,
   MapContextProps,
-  RemoveLayerProps
-} from './interfaces'
-import 'ol/ol.css'
-const MapContext = React.createContext<MapContextProps | undefined>(undefined)
+  RemoveLayerProps,
+} from './interfaces';
+import 'ol/ol.css';
+const MapContext = React.createContext<MapContextProps | undefined>(undefined);
 
 const MapProvider: React.FC = ({ children }) => {
   const [map] = useState<Map>(
@@ -15,46 +15,48 @@ const MapProvider: React.FC = ({ children }) => {
       layers: [],
       view: new View({
         center: [0, 0],
-        zoom: 2
+        zoom: 2,
       }),
-      controls: []
+      controls: [],
     })
-  )
-  const [activeLayers, setActiveLayers] = useState<ActiveLayersProps>({})
-  const [activeMenuControl, setActiveMenuControl] = useState<string>('')
+  );
+  const [activeLayers, setActiveLayers] = useState<ActiveLayersProps>({});
+  const [activeMenuControl, setActiveMenuControl] = useState<
+    string | undefined
+  >(undefined);
 
   const setTarget = useCallback(
     (id) => {
-      map.setTarget(id)
+      map.setTarget(id);
     },
     [map]
-  )
+  );
 
   const removeLayer = useCallback(
     ({ layerKey, layerObject }: RemoveLayerProps) => {
       if (layerKey && layerKey in activeLayers) {
-        map.removeLayer(activeLayers[layerKey])
+        map.removeLayer(activeLayers[layerKey]);
       }
       if (layerObject) {
-        map.removeLayer(layerObject)
+        map.removeLayer(layerObject);
       }
       if (layerKey)
         setActiveLayers((previous) => {
-          const layers = previous
-          delete layers[layerKey]
-          return layers
-        })
+          const layers = previous;
+          delete layers[layerKey];
+          return layers;
+        });
     },
     [map, activeLayers]
-  )
+  );
   const addLayer = useCallback(
     ({ layerKey, layerObject }: AddLayerProps) => {
-      if (layerKey in activeLayers) removeLayer({ layerKey })
-      map.addLayer(layerObject)
-      setActiveLayers((prev) => ({ ...prev, [layerKey]: layerObject }))
+      if (layerKey in activeLayers) removeLayer({ layerKey });
+      map.addLayer(layerObject);
+      setActiveLayers((prev) => ({ ...prev, [layerKey]: layerObject }));
     },
     [map, activeLayers, removeLayer]
-  )
+  );
 
   return (
     <MapContext.Provider
@@ -65,19 +67,19 @@ const MapProvider: React.FC = ({ children }) => {
         addLayer,
         removeLayer,
         activeMenuControl,
-        setActiveMenuControl
+        setActiveMenuControl,
       }}
     >
       {children}
     </MapContext.Provider>
-  )
-}
+  );
+};
 
 function useMap(): MapContextProps {
-  const context = useContext(MapContext)
+  const context = useContext(MapContext);
   if (!context) {
-    throw new Error('useMap must be used within a GeoProvider')
+    throw new Error('useMap must be used within a GeoProvider');
   }
-  return context
+  return context;
 }
-export { MapProvider, useMap }
+export { MapProvider, useMap };
