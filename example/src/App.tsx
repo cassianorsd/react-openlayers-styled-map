@@ -49,6 +49,10 @@ const App = () => {
                     <Controls.GoogleStreetView styled activeLabel='Street View' />
                     <Controls.ExportMapImage styled />
                     <Controls.ExportMapPDF styled />
+                    <Controls.MeasureDistance styled activeLabel='Medir Distância' />
+                    <Controls.MeasureArea styled activeLabel='Medir Área' />
+                    <Controls.MeasureRadius styled />
+                    <Controls.ClearMeasures styled />
                   </>
                 )
               }}

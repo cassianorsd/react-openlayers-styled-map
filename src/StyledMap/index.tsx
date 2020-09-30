@@ -7,6 +7,7 @@ import TileLayer from 'ol/layer/Tile';
 import addDefaultControls from './functions/defaultControls';
 import StyledMenu from './StyledMenu';
 import 'semantic-ui-css/semantic.min.css';
+import { MeasureStyle } from '../Controls/Measure/styles';
 
 const StyledMapComponent: React.FC<StyledMapProps> = ({
   height,
@@ -42,6 +43,7 @@ const StyledMapComponent: React.FC<StyledMapProps> = ({
 const StyledMap: React.FC<StyledMapProps> = (props) => (
   <MapProvider>
     <StyledMapComponent {...props} />
+    <MeasureStyle />
   </MapProvider>
 );
 

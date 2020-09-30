@@ -34,28 +34,33 @@ const MapProvider: React.FC = ({ children }) => {
 
   const removeLayer = useCallback(
     ({ layerKey, layerObject }: RemoveLayerProps) => {
-      if (layerKey && layerKey in activeLayers) {
-        map.removeLayer(activeLayers[layerKey]);
-      }
-      if (layerObject) {
-        map.removeLayer(layerObject);
-      }
-      if (layerKey)
-        setActiveLayers((previous) => {
-          const layers = previous;
+      setActiveLayers((prev) => {
+        if (layerKey && layerKey in prev) {
+          map.removeLayer(prev[layerKey]);
+        }
+        if (layerObject) {
+          map.removeLayer(layerObject);
+        }
+        if (layerKey) {
+          const layers = prev;
           delete layers[layerKey];
           return layers;
-        });
+        }
+        return prev;
+      });
     },
-    [map, activeLayers]
+    [map]
   );
+
   const addLayer = useCallback(
     ({ layerKey, layerObject }: AddLayerProps) => {
-      if (layerKey in activeLayers) removeLayer({ layerKey });
-      map.addLayer(layerObject);
-      setActiveLayers((prev) => ({ ...prev, [layerKey]: layerObject }));
+      setActiveLayers((prev) => {
+        if (layerKey in prev) removeLayer({ layerKey });
+        map.addLayer(layerObject);
+        return { ...prev, [layerKey]: layerObject };
+      });
     },
-    [map, activeLayers, removeLayer]
+    [map, removeLayer]
   );
 
   return (

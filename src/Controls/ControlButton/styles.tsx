@@ -55,6 +55,7 @@ export const StyledButton = styled.div<StyledButtonProps>`
     font-size: 12px;
     padding: 0px 5px 0px;
     animation: ${textTransition} 700ms;
+    line-height: 1em;
   }
 
   justify-content: ${({ active, hasActiveLabel }): string =>

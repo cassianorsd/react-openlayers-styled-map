@@ -1,7 +1,5 @@
 import { Map } from 'ol';
 import BaseLayer from 'ol/layer/Base';
-import { SetStateAction } from 'react';
-
 export interface AddLayerProps {
   layerKey: string;
   layerObject: BaseLayer;
