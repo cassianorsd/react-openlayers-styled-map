@@ -72,6 +72,13 @@ interface StopMeasureProps {
 const StopMeasure = ({ map }: StopMeasureProps): void => {
   map.removeInteraction(draw);
 };
-
-const MeasureDistanceLib = { StartMeasure, StopMeasure };
+interface ClearOverlaysProps {
+  map: Map;
+}
+const ClearOverlays = ({ map }: ClearOverlaysProps): void => {
+  overlays.forEach((overlay) => {
+    map.removeOverlay(overlay);
+  });
+};
+const MeasureDistanceLib = { StartMeasure, StopMeasure, ClearOverlays };
 export default MeasureDistanceLib;

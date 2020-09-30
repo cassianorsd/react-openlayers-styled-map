@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import ControlButton, { ControlButtonProps } from '../../ControlButton';
 import { FaTrashAlt } from 'react-icons/fa';
 import MeasureLib from '../MeasureLib';
+import DrawCircleLib from '../DrawCircleLib';
 
 import { useMap } from '../../../Hooks';
 import VectorLayer from 'ol/layer/Vector';
@@ -33,7 +34,13 @@ const ClearMeasures: React.FC<ClearMeasuresProps> = ({
         const layer = activeLayers.measureDistance as VectorLayer;
         layer.getSource().clear();
       }
+      if ('measureRadius' in activeLayers) {
+        const layer = activeLayers.measureRadius as VectorLayer;
+        layer.getSource().clear();
+      }
       MeasureLib.ClearOverlays({ map });
+
+      DrawCircleLib.ClearOverlays({ map });
       setActiveMenuControl(undefined);
     }, 750);
   }, [setActiveMenuControl, activeLayers, map]);

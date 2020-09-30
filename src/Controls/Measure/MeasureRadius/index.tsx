@@ -46,7 +46,7 @@ const MeasureRadius: React.FC<MeasureRadiusProps> = ({
           }),
         }),
       });
-      addLayer({ layerKey: 'MeasureRadius', layerObject: vector });
+      addLayer({ layerKey: 'measureRadius', layerObject: vector });
     }
   }, [map, addLayer, source]);
 
