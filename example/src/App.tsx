@@ -34,12 +34,12 @@ const App = () => {
               width={800}
               osmBasemap
               defaultControls={{
-                fullScreenMode: {},
+                fullScreenMode: true,
                 zoomButtons: true,
-                zoomSlider: true,
+                zoomSlider: {},
                 scale: {
-                  type: 'bar',
-                  units: 'metric',
+                  bar: true,
+                  minWidth: 130,
                   steps: 4
                 }
               }}
