@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { MapProvider, useMap } from '../Hooks';
 import { Container } from './styles';
 import OSM from 'ol/source/OSM';
@@ -12,12 +12,13 @@ import { MeasureStyle } from '../Controls/Measure/styles';
 import { StyledMenuProps } from './StyledMenu/';
 
 export interface StyledMapProps {
-  width?: number;
-  height?: number;
+  width?: string;
+  height?: string;
   id?: string;
   osmBasemap?: boolean;
   defaultControls?: DefaultControlsProps;
   controlsMenu?: StyledMenuProps;
+  testing?: ReactNode[];
 }
 
 const StyledMapComponent: React.FC<StyledMapProps> = ({
@@ -35,10 +36,7 @@ const StyledMapComponent: React.FC<StyledMapProps> = ({
     if (defaultControls) addDefaultControls({ map, defaultControls });
   }, [id, osmBasemap, defaultControls, map, setTarget]);
   return (
-    <Container
-      height={height ? `${height}px` : '100%'}
-      width={width ? `${width}px` : '100%'}
-    >
+    <Container height={height || '100%'} width={width || '100%'}>
       <div
         id={id || 'map'}
         style={{

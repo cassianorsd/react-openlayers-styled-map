@@ -30,8 +30,8 @@ const App = () => {
           <div style={{ display: 'flex' }}>
             <StyledMap
               id='map1'
-              height={800}
-              width={800}
+              height='800px'
+              width='800px'
               osmBasemap
               defaultControls={{
                 fullScreenMode: true,
