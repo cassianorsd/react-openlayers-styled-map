@@ -35,13 +35,13 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
             color: 'rgba(255, 255, 255, 0.2)',
           }),
           stroke: new Stroke({
-            color: '#ffcc33',
+            color: '#ffcc32',
             width: 2,
           }),
           image: new Circle({
             radius: 7,
             fill: new Fill({
-              color: '#ffcc33',
+              color: '#ffcc32',
             }),
           }),
         }),

@@ -1,13 +1,24 @@
 import React, { useEffect } from 'react';
 import { MapProvider, useMap } from '../Hooks';
-import { StyledMapProps } from './interfaces';
 import { Container } from './styles';
 import OSM from 'ol/source/OSM';
 import TileLayer from 'ol/layer/Tile';
-import addDefaultControls from './functions/defaultControls';
+import addDefaultControls, {
+  DefaultControlsProps,
+} from './functions/defaultControls';
 import StyledMenu from './StyledMenu';
 import 'semantic-ui-css/semantic.min.css';
 import { MeasureStyle } from '../Controls/Measure/styles';
+import { StyledMenuProps } from './StyledMenu/';
+
+export interface StyledMapProps {
+  width?: number;
+  height?: number;
+  id?: string;
+  osmBasemap?: boolean;
+  defaultControls?: DefaultControlsProps;
+  controlsMenu?: StyledMenuProps;
+}
 
 const StyledMapComponent: React.FC<StyledMapProps> = ({
   height,
