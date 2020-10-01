@@ -21,12 +21,13 @@ import { StyledMap, Controls } from 'react-openlayers-map'
 const Page = () => {
   return (
             <StyledMap
-              id='map1' // Optional, just in case of conflict with other components
+              id='map' // Optional, just in case of conflict with other components
               height='800px'
               width='800px'
               osmBasemap //Enable OSM Background for quick testing
-              defaultControls={{
-                fullScreenMode: true, 
+              defaultControls={{   
+                // You can use boolean value or access Openlayers options for each default control as follow:
+                fullScreenMode: { tipLabel: 'Click to toggle' }, 
                 zoomButtons: true,
                 zoomSlider: {},
                 scale: {
@@ -52,6 +53,55 @@ const Page = () => {
   )
 }
 ```
+
+### Hooks / Methods Abstractions
+
+#### Access map object
+```tsx
+
+import { useMap } from 'react-openlayers-map'
+const Sidebar = () => {
+  const { map } = useMap();
+  //map is the pure ol map object, so you can access all the power of the OpenLayers lib
+  useEffect(()=>{
+    map.addOverlay(...)
+    map.addInteraction(...)
+    map.addLayer(...)
+    map.on('click',()=>{})
+  },[])
+  return <div>My Sidebar</div>
+}
+```
+
+#### Abstraction that comes with the library
+
+```tsx
+
+import { useMap } from 'react-openlayers-map'
+const Component = () => {
+  const = {
+    activeLayers,
+    addLayer,
+    removeLayer,
+    setActiveMenuControl
+    } = useMap();
+
+
+  setActiveMenuControl('GoogleStreetView') // Remotely enable menu control
+  setActiveMenuControl(undefined) // Disable all menu controls, this method triggers the onDisable method on the currently active control
+
+
+  //addLayer method wraps around map.addLayer and register the objects in the activeLayers
+  // for and easy to use access for custom management components Ex: like Layer Selectors or TreeViews
+  addLayer('layerUniqueName2',new TileLayer({source: new OSM()})) 
+  console.log(activeLayers)
+  // {layerUniqueName1:layerObject, layerUniqueName2:layerObject}
+
+  removeLayer('layerUniqueName2')
+}
+```
+
+
 
 ## License
 

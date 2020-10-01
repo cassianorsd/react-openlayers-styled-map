@@ -9,6 +9,7 @@ import {
   Link
 } from "react-router-dom";
 
+
 const App = () => {
   return (
     <Router>
@@ -34,7 +35,7 @@ const App = () => {
               width='800px'
               osmBasemap
               defaultControls={{
-                fullScreenMode: true,
+                fullScreenMode: { tipLabel: 'Click to toggle' },
                 zoomButtons: true,
                 zoomSlider: {},
                 scale: {
