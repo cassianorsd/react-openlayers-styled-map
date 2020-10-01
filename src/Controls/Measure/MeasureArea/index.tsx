@@ -23,32 +23,35 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
   controlKey,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
-  const { map, addLayer } = useMap();
-
-  useEffect(() => {
-    if (map && source) {
-      const vector = new VectorLayer({
-        zIndex: 1000,
-        source: source,
-        style: new Style({
+  const [vector] = useState<VectorLayer>(
+    new VectorLayer({
+      zIndex: 1000,
+      source: source,
+      style: new Style({
+        fill: new Fill({
+          color: 'rgba(255, 255, 255, 0.2)',
+        }),
+        stroke: new Stroke({
+          color: '#ffcc32',
+          width: 2,
+        }),
+        image: new Circle({
+          radius: 7,
           fill: new Fill({
-            color: 'rgba(255, 255, 255, 0.2)',
-          }),
-          stroke: new Stroke({
             color: '#ffcc32',
-            width: 2,
-          }),
-          image: new Circle({
-            radius: 7,
-            fill: new Fill({
-              color: '#ffcc32',
-            }),
           }),
         }),
-      });
+      }),
+    })
+  );
+  const { map, addLayer, activeLayers } = useMap();
+
+  useEffect(() => {
+    if (map) {
+      console.log(activeLayers);
       addLayer({ layerKey: 'measureArea', layerObject: vector });
     }
-  }, [map, addLayer, source]);
+  }, [map, addLayer, vector, activeLayers]);
 
   const onEnable = useCallback(() => {
     if (map && source) {
