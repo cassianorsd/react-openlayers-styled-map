@@ -55,12 +55,12 @@ const MapProvider: React.FC = ({ children }) => {
   const addLayer = useCallback(
     ({ layerKey, layerObject }: AddLayerProps) => {
       setActiveLayers((prev) => {
-        if (layerKey in prev) removeLayer({ layerKey });
+        if (layerKey in prev) map.removeLayer(prev[layerKey]);
         map.addLayer(layerObject);
         return { ...prev, [layerKey]: layerObject };
       });
     },
-    [map, removeLayer]
+    [map]
   );
 
   return (
