@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import ControlButton, { ControlButtonProps } from '../../ControlButton';
 import { FaDrawPolygon } from 'react-icons/fa';
-import MeasureLib from '../MeasureLib';
+import MeasureAreaLib from './MeasureAreaLib';
 import { useMap } from '../../../Hooks';
 import VectorSource from 'ol/source/Vector';
 import Fill from 'ol/style/Fill';
@@ -55,7 +55,7 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
 
   const onEnable = useCallback(() => {
     if (map && source) {
-      MeasureLib.StartMeasure({
+      MeasureAreaLib.StartMeasure({
         map,
         source,
         type: GeometryType.POLYGON,
@@ -64,7 +64,7 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
   }, [map, source]);
 
   const onDisable = useCallback(() => {
-    if (map) MeasureLib.StopMeasure({ map });
+    if (map) MeasureAreaLib.StopMeasure({ map });
   }, [map]);
 
   return (

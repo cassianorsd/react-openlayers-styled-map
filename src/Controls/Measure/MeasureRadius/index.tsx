@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import ControlButton, { ControlButtonProps } from '../../ControlButton';
 import { RiShareCircleFill } from 'react-icons/ri';
-import DrawCircleLib from '../DrawCircleLib';
+import DrawCircleLib from './DrawCircleLib';
 import { useMap } from '../../../Hooks';
 import VectorSource from 'ol/source/Vector';
 import Fill from 'ol/style/Fill';
@@ -48,7 +48,7 @@ const MeasureRadius: React.FC<MeasureRadiusProps> = ({
 
   useEffect(() => {
     if (map) {
-      addLayer({ layerKey: 'measureDistance', layerObject: vector });
+      addLayer({ layerKey: 'measureRadius', layerObject: vector });
     }
   }, [vector, addLayer, map]);
 

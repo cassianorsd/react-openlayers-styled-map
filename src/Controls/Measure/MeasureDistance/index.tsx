@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import ControlButton, { ControlButtonProps } from '../../ControlButton';
 import { FaRuler } from 'react-icons/fa';
-import MeasureLib from '../MeasureLib';
+import MeasureDistanceLib from './MeasureDistanceLib';
 import { useMap } from '../../../Hooks';
 import VectorSource from 'ol/source/Vector';
 import Fill from 'ol/style/Fill';
@@ -48,14 +48,13 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
 
   useEffect(() => {
     if (map) {
-      // map.addLayer(vector);
       addLayer({ layerKey: 'measureDistance', layerObject: vector });
     }
   }, [map, addLayer, vector]);
 
   const onEnable = useCallback(() => {
     if (map && source) {
-      MeasureLib.StartMeasure({
+      MeasureDistanceLib.StartMeasure({
         map,
         source,
         type: GeometryType.LINE_STRING,
@@ -64,7 +63,7 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
   }, [map, source]);
 
   const onDisable = useCallback(() => {
-    if (map) MeasureLib.StopMeasure({ map });
+    if (map) MeasureDistanceLib.StopMeasure({ map });
   }, [map]);
 
   return (

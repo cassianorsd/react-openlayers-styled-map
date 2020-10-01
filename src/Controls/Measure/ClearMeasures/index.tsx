@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import ControlButton, { ControlButtonProps } from '../../ControlButton';
 import { FaTrashAlt } from 'react-icons/fa';
-import MeasureLib from '../MeasureLib';
-import DrawCircleLib from '../DrawCircleLib';
+import DrawCircleLib from '../MeasureRadius/DrawCircleLib';
+import MeasureDistanceLib from '../MeasureDistance/MeasureDistanceLib';
+import MeasureAreaLib from '../MeasureArea/MeasureAreaLib';
 
 import { useMap } from '../../../Hooks';
 import VectorLayer from 'ol/layer/Vector';
@@ -26,6 +27,7 @@ const ClearMeasures: React.FC<ClearMeasuresProps> = ({
     if (!map) return;
     setIsClearing(true);
     setTimeout(() => {
+      console.log(activeLayers);
       if ('measureArea' in activeLayers) {
         const layer = activeLayers.measureArea as VectorLayer;
         layer.getSource().clear();
@@ -38,8 +40,8 @@ const ClearMeasures: React.FC<ClearMeasuresProps> = ({
         const layer = activeLayers.measureRadius as VectorLayer;
         layer.getSource().clear();
       }
-      MeasureLib.ClearOverlays({ map });
-
+      MeasureAreaLib.ClearOverlays({ map });
+      MeasureDistanceLib.ClearOverlays({ map });
       DrawCircleLib.ClearOverlays({ map });
       setActiveMenuControl(undefined);
     }, 750);
