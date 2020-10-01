@@ -7,6 +7,7 @@ import {
   RemoveLayerProps,
 } from './interfaces';
 import 'ol/ol.css';
+import TileLayer from 'ol/layer/Tile';
 const MapContext = React.createContext<MapContextProps | undefined>(undefined);
 
 const MapProvider: React.FC = ({ children }) => {
@@ -52,13 +53,17 @@ const MapProvider: React.FC = ({ children }) => {
     [map]
   );
 
-  const addLayer = useCallback(({ layerKey, layerObject }: AddLayerProps) => {
-    setActiveLayers((prev) => {
-      // if (layerKey in prev) map.removeLayer(prev[layerKey]);
-      // map.addLayer(layerObject);
-      return { ...prev, [layerKey]: layerObject };
-    });
-  }, []);
+  const addLayer = useCallback(
+    ({ layerKey, layerObject }: AddLayerProps): void => {
+      map.addLayer(layerObject as TileLayer);
+      setActiveLayers((prev) => {
+        // if (layerKey in prev) map.removeLayer(prev[layerKey]);
+        // map.addLayer(layerObject);
+        return { ...prev, [layerKey]: layerObject };
+      });
+    },
+    [map]
+  );
 
   return (
     <MapContext.Provider
