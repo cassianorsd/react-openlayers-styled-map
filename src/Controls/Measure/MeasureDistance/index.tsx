@@ -44,14 +44,14 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
       }),
     })
   );
-  const { map } = useMap();
+  const { map, addLayer } = useMap();
 
   useEffect(() => {
     if (map) {
-      map.addLayer(vector);
-      // addLayer({ layerKey: 'measureDistance', layerObject: vector });
+      // map.addLayer(vector);
+      addLayer({ layerKey: 'measureDistance', layerObject: vector });
     }
-  }, [map, vector]);
+  }, [map, addLayer, vector]);
 
   const onEnable = useCallback(() => {
     if (map && source) {

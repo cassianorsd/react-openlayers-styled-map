@@ -44,14 +44,14 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
       }),
     })
   );
-  const { map } = useMap();
+  const { map, addLayer } = useMap();
 
   useEffect(() => {
     if (map) {
-      map.addLayer(vector);
-      // addLayer({ layerKey: 'measureArea', layerObject: vector });
+      // map.addLayer(vector);
+      addLayer({ layerKey: 'measureArea', layerObject: vector });
     }
-  }, [map, vector]);
+  }, [map, addLayer, vector]);
 
   const onEnable = useCallback(() => {
     if (map && source) {
