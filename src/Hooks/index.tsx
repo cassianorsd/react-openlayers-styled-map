@@ -52,16 +52,13 @@ const MapProvider: React.FC = ({ children }) => {
     [map]
   );
 
-  const addLayer = useCallback(
-    ({ layerKey, layerObject }: AddLayerProps) => {
-      setActiveLayers((prev) => {
-        if (layerKey in prev) map.removeLayer(prev[layerKey]);
-        map.addLayer(layerObject);
-        return { ...prev, [layerKey]: layerObject };
-      });
-    },
-    [map]
-  );
+  const addLayer = useCallback(({ layerKey, layerObject }: AddLayerProps) => {
+    setActiveLayers((prev) => {
+      // if (layerKey in prev) map.removeLayer(prev[layerKey]);
+      // map.addLayer(layerObject);
+      return { ...prev, [layerKey]: layerObject };
+    });
+  }, []);
 
   return (
     <MapContext.Provider
