@@ -1,13 +1,8 @@
 import { Map, View } from 'ol';
 import React, { useCallback, useContext, useState } from 'react';
-import {
-  ActiveLayersProps,
-  AddLayerProps,
-  MapContextProps,
-  RemoveLayerProps,
-} from './interfaces';
+import { AddLayerProps, MapContextProps, RemoveLayerProps } from './interfaces';
 import 'ol/ol.css';
-import TileLayer from 'ol/layer/Tile';
+import BaseLayer from 'ol/layer/Base';
 const MapContext = React.createContext<MapContextProps | undefined>(undefined);
 
 const MapProvider: React.FC = ({ children }) => {
@@ -21,7 +16,6 @@ const MapProvider: React.FC = ({ children }) => {
       controls: [],
     })
   );
-  const [activeLayers, setActiveLayers] = useState<ActiveLayersProps>({});
   const [activeMenuControl, setActiveMenuControl] = useState<
     string | undefined
   >(undefined);
@@ -34,33 +28,37 @@ const MapProvider: React.FC = ({ children }) => {
   );
 
   const removeLayer = useCallback(
-    ({ layerKey, layerObject }: RemoveLayerProps) => {
-      setActiveLayers((prev) => {
-        if (layerKey && layerKey in prev) {
-          map.removeLayer(prev[layerKey]);
-        }
-        if (layerObject) {
-          map.removeLayer(layerObject);
-        }
-        if (layerKey) {
-          const layers = prev;
-          delete layers[layerKey];
-          return layers;
-        }
-        return prev;
-      });
+    ({ layerKey, layerObject }: RemoveLayerProps): void => {
+      if (layerObject) {
+        map.removeLayer(layerObject);
+      } else if (layerKey) {
+        map
+          .getLayers()
+          .getArray()
+          .filter((layer: BaseLayer) => layer.get('layerKey') === layerKey)
+          .forEach((layer) => map.removeLayer(layer));
+      }
     },
     [map]
   );
 
   const addLayer = useCallback(
     ({ layerKey, layerObject }: AddLayerProps): void => {
-      map.addLayer(layerObject as TileLayer);
-      setActiveLayers((prev) => {
-        // if (layerKey in prev) map.removeLayer(prev[layerKey]);
-        // map.addLayer(layerObject);
-        return { ...prev, [layerKey]: layerObject };
-      });
+      layerObject.set('layerKey', layerKey);
+      removeLayer({ layerKey });
+      map.addLayer(layerObject);
+    },
+    [map, removeLayer]
+  );
+
+  const getLayer = useCallback(
+    (layerKey: string): BaseLayer | undefined => {
+      if (!map) return undefined;
+      const layer = map
+        .getLayers()
+        .getArray()
+        .find((layer: BaseLayer) => layer.get('layerKey') === layerKey);
+      return layer || undefined;
     },
     [map]
   );
@@ -70,11 +68,11 @@ const MapProvider: React.FC = ({ children }) => {
       value={{
         map,
         setTarget,
-        activeLayers,
         addLayer,
         removeLayer,
         activeMenuControl,
         setActiveMenuControl,
+        getLayer,
       }}
     >
       {children}

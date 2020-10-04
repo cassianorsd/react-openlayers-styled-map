@@ -50,7 +50,7 @@ const MeasureRadius: React.FC<MeasureRadiusProps> = ({
     if (map) {
       addLayer({ layerKey: 'measureRadius', layerObject: vector });
     }
-  }, [vector, addLayer, map]);
+  }, [map, addLayer, vector]);
 
   const onEnable = useCallback(() => {
     if (map && source) {

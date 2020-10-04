@@ -73,7 +73,7 @@ const Sidebar = () => {
 }
 ```
 
-#### Abstraction that comes with the library
+#### Abstractions that comes with the library
 
 ```tsx
 

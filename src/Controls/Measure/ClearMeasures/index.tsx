@@ -21,31 +21,25 @@ const ClearMeasures: React.FC<ClearMeasuresProps> = ({
   controlKey,
 }) => {
   const [isClearing, setIsClearing] = useState(false);
-  const { setActiveMenuControl, activeLayers, map } = useMap();
+  const { setActiveMenuControl, map, getLayer } = useMap();
 
   const onEnable = useCallback(() => {
     if (!map) return;
     setIsClearing(true);
     setTimeout(() => {
-      console.log(activeLayers);
-      if ('measureArea' in activeLayers) {
-        const layer = activeLayers.measureArea as VectorLayer;
-        layer.getSource().clear();
-      }
-      if ('measureDistance' in activeLayers) {
-        const layer = activeLayers.measureDistance as VectorLayer;
-        layer.getSource().clear();
-      }
-      if ('measureRadius' in activeLayers) {
-        const layer = activeLayers.measureRadius as VectorLayer;
-        layer.getSource().clear();
-      }
+      const clearLayer = (key: string): void => {
+        const layer = getLayer(key) as VectorLayer;
+        if (layer) layer.getSource().clear();
+      };
+      clearLayer('measureDistance');
+      clearLayer('measureArea');
+      clearLayer('measureRadius');
       MeasureAreaLib.ClearOverlays({ map });
       MeasureDistanceLib.ClearOverlays({ map });
       DrawCircleLib.ClearOverlays({ map });
       setActiveMenuControl(undefined);
     }, 750);
-  }, [setActiveMenuControl, activeLayers, map]);
+  }, [setActiveMenuControl, getLayer, map]);
 
   const onDisable = useCallback(() => {
     setIsClearing(false);

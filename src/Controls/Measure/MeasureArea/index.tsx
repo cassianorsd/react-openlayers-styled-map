@@ -32,13 +32,13 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
           color: 'rgba(255, 255, 255, 0.2)',
         }),
         stroke: new Stroke({
-          color: '#ffcc32',
+          color: '#ffcc33',
           width: 2,
         }),
         image: new Circle({
           radius: 7,
           fill: new Fill({
-            color: '#ffcc32',
+            color: '#ffcc33',
           }),
         }),
       }),
@@ -48,8 +48,8 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
 
   useEffect(() => {
     if (map) {
-      // map.addLayer(vector);
       addLayer({ layerKey: 'measureArea', layerObject: vector });
+      // map.addLayer(vector);
     }
   }, [map, addLayer, vector]);
 

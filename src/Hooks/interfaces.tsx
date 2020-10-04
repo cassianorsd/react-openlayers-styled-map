@@ -10,22 +10,18 @@ export interface RemoveLayerProps {
   layerObject?: BaseLayer;
 }
 
-export interface ActiveLayersProps {
-  [key: string]: BaseLayer;
-}
-
-export interface ActiveMenuControl {
-  controlKey: string;
-  enable: () => void;
-  disable: () => void;
-}
+// export interface ActiveMenuControl {
+//   controlKey: string;
+//   enable: () => void;
+//   disable: () => void;
+// }
 
 export interface MapContextProps {
   map: Map;
   setTarget: (id: string) => void;
-  activeLayers: ActiveLayersProps | {};
   addLayer: (data: AddLayerProps) => void;
   removeLayer: (data: RemoveLayerProps) => void;
+  getLayer: (layerKey: string) => BaseLayer | undefined;
   activeMenuControl: string | undefined;
   setActiveMenuControl: (key: string | undefined) => void;
 }
