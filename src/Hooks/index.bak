@@ -3,6 +3,52 @@ import React, { useCallback, useContext, useState } from 'react';
 import { AddLayerProps, MapContextProps, RemoveLayerProps } from './interfaces';
 import 'ol/ol.css';
 import BaseLayer from 'ol/layer/Base';
+import globalHook, { Store } from 'use-global-hook';
+import TileLayer from 'ol/layer/Tile';
+import { OSM } from 'ol/source';
+
+type GlobalMapState = {
+  map: Map;
+};
+
+type GlobalMapActions = {
+  initMap: (initMapProps: InitMapProps) => void;
+};
+
+export interface InitMapProps {
+  id: string;
+}
+const initMap = (
+  store: Store<GlobalMapState, GlobalMapActions>,
+  { id }: InitMapProps
+): void => {
+  const el = document.getElementById(id);
+  if (el) store.state.map.setTarget(el);
+};
+
+const initialGlobalMapState: GlobalMapState = {
+  map: new Map({
+    target: undefined,
+    layers: [
+      new TileLayer({
+        source: new OSM(),
+      }),
+    ],
+    view: new View({
+      center: [0, 0],
+      zoom: 2,
+    }),
+    controls: [],
+  }),
+};
+const globalActions = {
+  initMap,
+};
+const useGlobalMap = globalHook<GlobalMapState, GlobalMapActions>(
+  React,
+  initialGlobalMapState,
+  globalActions
+);
 
 const MapContext = React.createContext<MapContextProps | undefined>(undefined);
 
@@ -81,11 +127,16 @@ const MapProvider: React.FC = ({ children }) => {
   );
 };
 
-function useMap(): MapContextProps {
+interface Test extends MapContextProps {
+  initMap: (initMapProps: InitMapProps) => void;
+}
+
+function useMap(): Test {
   const context = useContext(MapContext);
+  const [store, actions] = useGlobalMap();
   if (!context) {
     throw new Error('useMap must be used within a GeoProvider');
   }
-  return context;
+  return { ...context, initMap: actions.initMap, map: store.map };
 }
 export { MapProvider, useMap, MapContext };

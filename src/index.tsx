@@ -1,6 +1,6 @@
 import React from 'react';
 import Controls from './Controls';
-import { useMap, MapProvider } from './Hooks';
+import { useMap, MapProvider, MapContext } from './Hooks';
 import StyledMap from './StyledMap';
 
 const Card: React.FC & { Body: React.FC } = ({ children }) => (
@@ -9,4 +9,4 @@ const Card: React.FC & { Body: React.FC } = ({ children }) => (
 const Body: React.FC = () => <div>Body</div>;
 Card.Body = Body;
 
-export { StyledMap, Controls, useMap, MapProvider, Card };
+export { StyledMap, Controls, useMap, MapProvider, Card, MapContext };

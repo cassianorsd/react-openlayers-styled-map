@@ -1,6 +1,5 @@
 import React from 'react'
-
-import { StyledMap, Controls } from 'react-openlayers-map'
+import { StyledMap, Controls, MapProvider } from 'react-openlayers-map'
 import 'react-openlayers-map/dist/index.css'
 import {
   BrowserRouter as Router,
@@ -29,38 +28,39 @@ const App = () => {
           </Route>
         <Route path="/">
           <div style={{ display: 'flex' }}>
-            <StyledMap
-              id='map1'
-              height='800px'
-              width='800px'
-              osmBasemap
-              defaultControls={{
-                fullScreenMode: { tipLabel: 'Click to toggle' },
-                zoomButtons: true,
-                zoomSlider: {},
-                scale: {
-                  bar: true,
-                  minWidth: 130,
-                  steps: 4
-                }
-              }}
-              controlsMenu={{
-                styled: true, children: (
-                  <>
-                    <Controls.GoogleStreetView styled activeLabel='Street View' />
-                    <Controls.ExportMapImage styled />
-                    <Controls.ExportMapPDF styled />
-                    <Controls.MeasureDistance styled activeLabel='Medir Distância' />
-                    <Controls.MeasureArea styled activeLabel='Medir Área' />
-                    <Controls.MeasureRadius styled />
-                    <Controls.ClearMeasures styled />
-                  </>
-                )
-              }}
-            />
+            <MapProvider>
+              <StyledMap
+                id='map1'
+                height='800px'
+                width='800px'
+                osmBasemap
+                defaultControls={{
+                  fullScreenMode: { tipLabel: 'Click to toggle' },
+                  zoomButtons: true,
+                  zoomSlider: {},
+                  scale: {
+                    bar: true,
+                    minWidth: 130,
+                    steps: 4
+                  }
+                }}
+                controlsMenu={{
+                  styled: true, children: (
+                    <>
+                      <Controls.GoogleStreetView styled activeLabel='Street View' />
+                      <Controls.ExportMapImage styled />
+                      <Controls.ExportMapPDF styled />
+                      <Controls.MeasureDistance styled activeLabel='Medir Distância' />
+                      <Controls.MeasureArea styled activeLabel='Medir Área' />
+                      <Controls.MeasureRadius styled />
+                      <Controls.ClearMeasures styled />
+                    </>
+                  )
+                }}
+              />
+            </MapProvider>
           </div>
         </Route>
-
       </Switch>
     </Router>
   )
