@@ -2,12 +2,19 @@
 
 > Openlayers map component wrapped in react component with style and global hooks
 
-[![NPM](https://img.shields.io/npm/v/react-openlayers-map.svg)](https://www.npmjs.com/package/react-openlayers-map) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-openlayers-styled-map.svg)](https://www.npmjs.com/package/react-openlayers-styled-map) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save react-openlayers-map
+npm install --save react-openlayers-styled-map
+//or
+yarn add react-openlayers-styled-map
+
+//ATTENTION
+//react-openlayers-styled-map uses Openlayers (ol) package as peer dependency
+npm install ol
+yarn add ol
 ```
 
 ## Usage
