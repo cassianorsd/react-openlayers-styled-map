@@ -9,7 +9,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { MeasureStyle } from '../Controls/Measure/styles';
 import { StyledMenuProps } from './StyledMenu/';
 import TileLayer from 'ol/layer/Tile';
-import { OSM, XYZ } from 'ol/source';
+import { OSM } from 'ol/source';
 
 export interface StyledMapProps {
   width?: string;
@@ -41,14 +41,6 @@ const StyledMap: React.FC<StyledMapProps> = ({
     });
     if (osmBasemap) {
       map.addLayer(new TileLayer({ source: new OSM() }));
-      map.addLayer(
-        new TileLayer({
-          source: new XYZ({
-            url:
-              'https://geo.jaraguadosul.sc.gov.br/ortomosaico2020/{z}/{x}/{y}.png',
-          }),
-        })
-      );
     }
     if (defaultControls) addDefaultControls({ map, defaultControls });
   }, [
