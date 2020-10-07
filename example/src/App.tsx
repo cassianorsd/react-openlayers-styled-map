@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyledMap, Controls } from 'react-openlayers-map'
-import 'react-openlayers-map/dist/index.css'
+import { StyledMap, Controls } from 'react-openlayers-styled-map'
+// import 'react-openlayers-map/dist/index.css'
 import {
   BrowserRouter as Router,
   Switch,

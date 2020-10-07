@@ -24,7 +24,7 @@ yarn add ol
 ```tsx
 import React, { Component } from 'react'
 
-import { StyledMap, Controls } from 'react-openlayers-map'
+import { StyledMap, Controls } from 'react-openlayers-styled-map'
 
 const Page = () => {
   return (
@@ -69,7 +69,7 @@ const Page = () => {
 #### Access map object
 ```tsx
 
-import { useMap } from 'react-openlayers-map'
+import { useMap } from 'react-openlayers-styled-map'
 const Sidebar = () => {
   const { map } = useMap();
   //map is the pure ol map object, so you can access all the power of the OpenLayers lib
@@ -87,7 +87,7 @@ const Sidebar = () => {
 
 ```tsx
 
-import { useMap } from 'react-openlayers-map'
+import { useMap } from 'react-openlayers-styled-map'
 const Component = () => {
   const = {
     getLayer,
@@ -122,7 +122,7 @@ You can create a new custom control just wrapping the default ControlButton comp
 
 ```tsx
 import React, { useCallback } from 'react';
-import { Controls,useMap } from 'react-openlayers-map'
+import { Controls,useMap } from 'react-openlayers-styled-map'
 import { FaCrosshairs } from 'react-icons/fa';
 import { toLonLat } from 'ol/proj';
 import { MapBrowserEvent } from 'ol';

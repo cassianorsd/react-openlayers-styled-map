@@ -17,9 +17,10 @@
     "@types/node": "link:../node_modules/@types/node",
     "@types/react": "link:../node_modules/@types/react",
     "@types/react-dom": "link:../node_modules/@types/react-dom",
+    "ol": "^6.4.3",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
-    "react-openlayers-map": "link:..",
+    "react-openlayers-styled-map": "link:..",
     "react-router-dom": "^5.2.0",
     "react-scripts": "link:../node_modules/react-scripts",
     "typescript": "link:../node_modules/typescript"
