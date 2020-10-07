@@ -11,23 +11,23 @@ import {
 
 const App = () => {
   return (
-    <Router>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/blank">Blank</Link>
-          </li>
-        </ul>
-      </nav>
-      <Switch>
-        <Route path="/blank">
-          This is a blank page to test remount of map component
+    <div style={{ display: 'flex', justifyContent: 'center', width: '100%', alignItems: 'center', flexDirection: 'column' }}>
+      <Router>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/blank">Blank Page</Link>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route path="/blank">
+            This is a blank page to test unmount effect on map component.
           </Route>
-        <Route path="/">
-          <div style={{ display: 'flex' }}>
+          <Route path="/">
             <StyledMap
               id='map1'
               height='800px'
@@ -59,10 +59,10 @@ const App = () => {
                 )
               }}
             />
-          </div>
-        </Route>
-      </Switch>
-    </Router>
+          </Route>
+        </Switch>
+      </Router>
+    </div>
   )
 }
 
