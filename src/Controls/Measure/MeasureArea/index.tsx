@@ -49,7 +49,6 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
   useEffect(() => {
     if (map) {
       addLayer({ layerKey: 'measureArea', layerObject: vector });
-      // map.addLayer(vector);
     }
   }, [map, addLayer, vector]);
 

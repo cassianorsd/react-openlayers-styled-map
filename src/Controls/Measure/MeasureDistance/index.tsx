@@ -54,7 +54,6 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
 
   const onEnable = useCallback(() => {
     if (map && source) {
-      console.log(map);
       MeasureDistanceLib.StartMeasure({
         map,
         source,
