@@ -1,8 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Spinner from 'react-spinkit';
 import { useMap } from '../../Hooks';
-import { ActiveMenuControl } from '../../Hooks/interfaces';
 import { StyledButton, OlButton, Container } from './styles';
+
+export interface ActiveMenuControl {
+  controlKey: string;
+  enable: () => void;
+  disable: () => void;
+}
 
 export interface ControlButtonProps {
   styled?: boolean;

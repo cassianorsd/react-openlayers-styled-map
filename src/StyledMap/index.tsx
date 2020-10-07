@@ -1,8 +1,6 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useMap } from '../Hooks';
 import { Container } from './styles';
-// import OSM from 'ol/source/OSM';
-// import TileLayer from 'ol/layer/Tile';
 import addDefaultControls, {
   DefaultControlsProps,
 } from './functions/defaultControls';
@@ -23,7 +21,7 @@ export interface StyledMapProps {
   testing?: ReactNode[];
 }
 
-const StyledMapComponent: React.FC<StyledMapProps> = ({
+const StyledMap: React.FC<StyledMapProps> = ({
   height,
   width,
   id,
@@ -34,7 +32,6 @@ const StyledMapComponent: React.FC<StyledMapProps> = ({
   const { map, initMap } = useMap();
   useEffect(() => {
     initMap({ id: id || 'map' });
-    // setTarget(id || 'map');
     if (osmBasemap) map.addLayer(new TileLayer({ source: new OSM() }));
     if (defaultControls) addDefaultControls({ map, defaultControls });
   }, [id, osmBasemap, defaultControls, map, initMap]);
@@ -53,11 +50,4 @@ const StyledMapComponent: React.FC<StyledMapProps> = ({
   );
 };
 
-// const StyledMap: React.FC<StyledMapProps> = (props) => (
-//   <MapProvider>
-//     <StyledMapComponent {...props} />
-//     <MeasureStyle />
-//   </MapProvider>
-// );
-
-export default StyledMapComponent;
+export default StyledMap;
