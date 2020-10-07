@@ -1,6 +1,6 @@
-# react-openlayers-map
+# react-openlayers-styled-map
 
-> Openlayers styled map components ported into react with hooks
+> Openlayers map component wrapped in react component with style and global hooks
 
 [![NPM](https://img.shields.io/npm/v/react-openlayers-map.svg)](https://www.npmjs.com/package/react-openlayers-map) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -109,7 +109,7 @@ const Component = () => {
 
 ## Custom Menu Control
 
-You can create a new custom control just wrapping the default ControlButton component and pass to it enable/disable callbacks and a unique key.
+You can create a new custom control just wrapping the default ControlButton component and point the enable/disable callbacks and a unique key.
 
 
 ```tsx
@@ -157,19 +157,16 @@ Usage
 
 
 ```tsx
-
-            <StyledMap
-              // ...
-              controlsMenu={{
-                styled: true, children: (
-                  <>
-                    <PrintMapCoordinates />
-                  </>
-                )
-              }}
-            />
-  )
-}
+<StyledMap
+  // ...
+  controlsMenu={{
+    styled: true, children: (
+      <>
+        <PrintMapCoordinates />
+      </>
+    )
+  }}
+/>
 ```
 
 ## License

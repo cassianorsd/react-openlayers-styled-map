@@ -1,10 +1,10 @@
 {
-  "name": "react-openlayers-map",
-  "version": "1.0.0",
+  "name": "react-openlayers-styled-map",
+  "version": "0.0.1",
   "description": "Openlayers map component ported into react",
   "author": "cassianorsd",
   "license": "MIT",
-  "repository": "cassianorsd/react-openlayers-map",
+  "repository": "cassianorsd/react-openlayers-styled-map",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
