@@ -33,6 +33,8 @@ const App = () => {
               height='800px'
               width='800px'
               osmBasemap
+              startCoordinates={[-49.20, -26.50]}
+              startZoom={11}
               defaultControls={{
                 fullScreenMode: { tipLabel: 'Click to toggle' },
                 zoomButtons: true,

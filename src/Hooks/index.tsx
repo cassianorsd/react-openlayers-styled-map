@@ -3,6 +3,7 @@ import React from 'react';
 import 'ol/ol.css';
 import BaseLayer from 'ol/layer/Base';
 import globalHook, { Store } from 'use-global-hook';
+import { fromLonLat } from 'ol/proj';
 
 interface GlobalMapState {
   map: Map;
@@ -31,10 +32,18 @@ interface GlobalMapActions {
 
 export interface InitMapProps {
   id: string;
+  startZoom?: number;
+  startCoordinates?: [number, number];
 }
-const initMap = (store: MapStore, { id }: InitMapProps): void => {
+
+const initMap = (
+  store: MapStore,
+  { id, startZoom, startCoordinates }: InitMapProps
+): void => {
   const el = document.getElementById(id);
   if (el) store.state.map.setTarget(el);
+  store.state.map.getView().setZoom(startZoom || 10);
+  store.state.map.getView().setCenter(fromLonLat(startCoordinates || [0, 0]));
 };
 
 const setActiveMenuControl = (

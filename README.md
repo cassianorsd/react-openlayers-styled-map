@@ -24,6 +24,8 @@ const Page = () => {
               id='map' // Optional, just in case of conflict with other components
               height='800px'
               width='800px'
+              startCoordinates={[-49.20, -26.50]}
+              startZoom={11}
               osmBasemap //Enable OSM Background for quick testing
               defaultControls={{   
                 // You can use boolean value or access Openlayers options for each default control as follow:
@@ -69,7 +71,7 @@ const Sidebar = () => {
     map.addLayer(...)
     map.on('click',()=>{})
   },[])
-  return <div>My Sidebar</div>
+  return <div>My Sidebar Component</div>
 }
 ```
 
@@ -80,7 +82,7 @@ const Sidebar = () => {
 import { useMap } from 'react-openlayers-map'
 const Component = () => {
   const = {
-    activeLayers,
+    getLayer,
     addLayer,
     removeLayer,
     setActiveMenuControl
@@ -89,19 +91,86 @@ const Component = () => {
 
   setActiveMenuControl('GoogleStreetView') // Remotely enable menu control
   setActiveMenuControl(undefined) // Disable all menu controls, this method triggers the onDisable method on the currently active control
-
-
+  
   //addLayer method wraps around map.addLayer and register the objects in the activeLayers
   // for and easy to use access for custom management components Ex: like Layer Selectors or TreeViews
-  addLayer('layerUniqueName2',new TileLayer({source: new OSM()})) 
-  console.log(activeLayers)
-  // {layerUniqueName1:layerObject, layerUniqueName2:layerObject}
+  addLayer({ 
+    layerKey: 'layerUniqueName2',
+    layerObject:new TileLayer({source: new OSM()})
+    });
+  console.log(getLayer('layerUniqueName2'))
+  // {layerKey:'layerUniqueName2',layerObject:object}
 
+  //remove layer from map
   removeLayer('layerUniqueName2')
 }
 ```
 
 
+## Custom Menu Control
+
+You can create a new custom control just wrapping the default ControlButton component and pass to it enable/disable callbacks and a unique key.
+
+
+```tsx
+import React, { useCallback } from 'react';
+import { Controls,useMap } from 'react-openlayers-map'
+import { FaCrosshairs } from 'react-icons/fa';
+import { toLonLat } from 'ol/proj';
+import { MapBrowserEvent } from 'ol';
+
+const PrintMapCoordinates: React.FC = () => {
+  const { map } = useMap();
+
+  const onMapClick = (e: MapBrowserEvent): void => {
+    const coords = toLonLat(e.coordinate);
+    alert(coords);
+  };
+
+  const onEnable = useCallback(() => {
+    map.getViewport().style.cursor = 'crosshair';
+    map.on('click', onMapClick);
+  }, [map]);
+
+  const onDisable = useCallback(() => {
+    map.getViewport().style.cursor = '';
+    map.un('click', onMapClick);
+  }, [map]);
+
+  return (
+    <Controls.ControlButton
+      styled
+      icon={<FaCrosshairs size={20} color='#fff' />}
+      activeLabel='Print Map Coordinates'
+      color='#FE2C54'
+      activeMenuControl={{
+        controlKey: 'PrintMapCoordinates',
+        disable: onDisable,
+        enable: onEnable,
+      }}
+    />
+  );
+};
+```
+
+Usage
+
+
+```tsx
+
+            <StyledMap
+              // ...
+              controlsMenu={{
+                styled: true, children: (
+                  <>
+                    <PrintMapCoordinates />
+                  </>
+                )
+              }}
+            />
+  )
+}
+```
 
 ## License
 

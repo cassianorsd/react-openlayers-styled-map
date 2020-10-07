@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useMap } from '../Hooks';
 import { Container } from './styles';
 import addDefaultControls, {
@@ -9,7 +9,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { MeasureStyle } from '../Controls/Measure/styles';
 import { StyledMenuProps } from './StyledMenu/';
 import TileLayer from 'ol/layer/Tile';
-import { OSM } from 'ol/source';
+import { OSM, XYZ } from 'ol/source';
 
 export interface StyledMapProps {
   width?: string;
@@ -18,7 +18,8 @@ export interface StyledMapProps {
   osmBasemap?: boolean;
   defaultControls?: DefaultControlsProps;
   controlsMenu?: StyledMenuProps;
-  testing?: ReactNode[];
+  startZoom?: number;
+  startCoordinates?: [number, number];
 }
 
 const StyledMap: React.FC<StyledMapProps> = ({
@@ -28,13 +29,37 @@ const StyledMap: React.FC<StyledMapProps> = ({
   osmBasemap,
   defaultControls,
   controlsMenu,
+  startZoom,
+  startCoordinates,
 }) => {
   const { map, initMap } = useMap();
   useEffect(() => {
-    initMap({ id: id || 'map' });
-    if (osmBasemap) map.addLayer(new TileLayer({ source: new OSM() }));
+    initMap({
+      id: id || 'map',
+      startCoordinates: startCoordinates,
+      startZoom: startZoom,
+    });
+    if (osmBasemap) {
+      map.addLayer(new TileLayer({ source: new OSM() }));
+      map.addLayer(
+        new TileLayer({
+          source: new XYZ({
+            url:
+              'https://geo.jaraguadosul.sc.gov.br/ortomosaico2020/{z}/{x}/{y}.png',
+          }),
+        })
+      );
+    }
     if (defaultControls) addDefaultControls({ map, defaultControls });
-  }, [id, osmBasemap, defaultControls, map, initMap]);
+  }, [
+    id,
+    osmBasemap,
+    defaultControls,
+    map,
+    initMap,
+    startCoordinates,
+    startZoom,
+  ]);
   return (
     <Container height={height || '100%'} width={width || '100%'}>
       <div
