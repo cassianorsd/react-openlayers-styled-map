@@ -78,7 +78,7 @@ const ExportPDFModal: React.FC<ExportPDFModalProps> = ({
   const [isRendering, setIsRendering] = useState(false);
 
   const onSubmit = handleSubmit(({ orientation, pageSize }) => {
-    if (orientation && pageSize) {
+    if (orientation && pageSize && map) {
       ExportMapPDFLib.exportPDF({
         map,
         orientation: orientation.value,

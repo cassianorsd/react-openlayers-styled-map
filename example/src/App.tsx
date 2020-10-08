@@ -37,7 +37,7 @@ const App = () => {
               startZoom={11}
               defaultControls={{
                 fullScreenMode: { tipLabel: 'Click to toggle' },
-                zoomButtons: true,
+                zoomButtons: {},
                 zoomSlider: {},
                 scale: {
                   bar: true,

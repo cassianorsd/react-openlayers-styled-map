@@ -14,7 +14,7 @@ const StyledMenu: React.FC<StyledMenuProps> = ({ styled, children }) => {
     const container = document.getElementById('styledmenu');
     if (!container) return;
     const control = new Control({ element: container });
-    map.addControl(control);
+    if (map) map.addControl(control);
   }, [map]);
   if (!children) return <span />;
   return (

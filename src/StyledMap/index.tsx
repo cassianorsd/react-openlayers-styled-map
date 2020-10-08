@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
-import { useMap } from '../Hooks';
+import { ControlProps, useMap } from '../Hooks';
 import { Container } from './styles';
-import addDefaultControls, {
-  DefaultControlsProps,
-} from './functions/defaultControls';
-import StyledMenu from './StyledMenu';
+// import { DefaultControlsProps } from './functions/defaultControls';
+// import StyledMenu from './StyledMenu';
 import 'semantic-ui-css/semantic.min.css';
 import { MeasureStyle } from '../Controls/Measure/styles';
 import { StyledMenuProps } from './StyledMenu/';
-import TileLayer from 'ol/layer/Tile';
-import { OSM } from 'ol/source';
+import StyledMenuV2 from './StyledMenuV2';
+// import { Coordinate } from 'ol/coordinate';
+// import TileLayer from 'ol/layer/Tile';
+// import { OSM } from 'ol/source';
 
 export interface StyledMapProps {
   width?: string;
   height?: string;
   id?: string;
   osmBasemap?: boolean;
-  defaultControls?: DefaultControlsProps;
+  defaultControls?: ControlProps;
   controlsMenu?: StyledMenuProps;
   startZoom?: number;
   startCoordinates?: [number, number];
@@ -32,26 +32,16 @@ const StyledMap: React.FC<StyledMapProps> = ({
   startZoom,
   startCoordinates,
 }) => {
-  const { map, initMap } = useMap();
+  const { initMap } = useMap();
   useEffect(() => {
     initMap({
       id: id || 'map',
-      startCoordinates: startCoordinates,
+      startCoordinates: startCoordinates || [0, 0],
       startZoom: startZoom,
+      defaultControls,
+      defaultOSMBasemap: osmBasemap,
     });
-    if (osmBasemap) {
-      map.addLayer(new TileLayer({ source: new OSM() }));
-    }
-    if (defaultControls) addDefaultControls({ map, defaultControls });
-  }, [
-    id,
-    osmBasemap,
-    defaultControls,
-    map,
-    initMap,
-    startCoordinates,
-    startZoom,
-  ]);
+  }, [id, osmBasemap, defaultControls, initMap, startCoordinates, startZoom]);
   return (
     <Container height={height || '100%'} width={width || '100%'}>
       <div
@@ -61,7 +51,7 @@ const StyledMap: React.FC<StyledMapProps> = ({
           height: '100%',
         }}
       />
-      {controlsMenu && <StyledMenu {...controlsMenu} />}
+      {controlsMenu && <StyledMenuV2 {...controlsMenu} />}
       <MeasureStyle />
     </Container>
   );
