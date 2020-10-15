@@ -18,8 +18,8 @@ const MapDebug:React.FC = () => {
           zoomButtons:{},
           zoomSlider:{}
         }}
-        startCoordinates={[-49.20,-26.50]}
-        startZoom={11}
+        startCoordinates={[-69.20,10]}
+        startZoom={4}
       >
         <StyledMap.Controls showRibbon >
           <Controls.GoogleStreetView styled/>

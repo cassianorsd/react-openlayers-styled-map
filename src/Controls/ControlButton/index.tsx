@@ -43,16 +43,35 @@ const ControlButton: React.FC<ControlButtonProps> = ({
     }
   }, [activeMenuControl, controlKey, active, enable, disable]);
 
-  if (!styled) {
-    return (
-      <button onClick={handleClick} className={styles.olButton}>
-        {loading && <Spinner name='circle' color='#fff' fadeIn='quarter' />}
+  return (
+    <button
+      onClick={handleClick}
+      className={
+        styles.controlButton +
+        ' ' +
+        (active ? styles.active : '') +
+        ' ' +
+        (styled ? styles.styled : '')
+      }
+      id={`${controlKey}-button`}
+    >
+      <div
+        className={styles.content}
+        style={{ backgroundColor: styled ? color || '#fff' : 'inherit' }}
+      >
+        {styled && activeLabel && (
+          <span className={styles.activeLabel}>{activeLabel}</span>
+        )}
+        {loading && (
+          <div className={styles.IconDiv}>
+            <Spinner name='circle' color='#fff' fadeIn='quarter' />
+          </div>
+        )}
         {!loading && Icon && <div className={styles.IconDiv}>{Icon}</div>}
         {children}
-      </button>
-    );
-  }
-
+      </div>
+    </button>
+  );
   return (
     <div
       className={

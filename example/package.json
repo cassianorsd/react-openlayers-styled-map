@@ -22,6 +22,7 @@
     "react": "link:../node_modules/react",
     "react-device-detect": "^1.14.0",
     "react-dom": "link:../node_modules/react-dom",
+    "react-hook-form": "^6.9.2",
     "react-openlayers-styled-map": "link:..",
     "react-router-dom": "^5.2.0",
     "react-scripts": "link:../node_modules/react-scripts",
