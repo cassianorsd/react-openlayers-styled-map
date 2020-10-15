@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ControlButton, { ControlButtonProps } from '../../ControlButton';
 import { FaDrawPolygon } from 'react-icons/fa';
 import MeasureAreaLib from './MeasureAreaLib';
 import { useMap } from '../../../Hooks';
@@ -10,17 +9,18 @@ import Style from 'ol/style/Style';
 import Circle from 'ol/style/Circle';
 import VectorLayer from 'ol/layer/Vector';
 import GeometryType from 'ol/geom/GeometryType';
-export interface MeasureAreaProps
-  extends Omit<ControlButtonProps, 'loading' | 'activeMenuControl'> {
-  controlKey?: string;
-}
+import ControlButton, { ControlButtonProps } from '../../ControlButton';
+
+export type MeasureAreaProps = Omit<
+  ControlButtonProps,
+  'controlKey' | 'disable' | 'enable' | 'loading'
+>;
 
 const MeasureArea: React.FC<MeasureAreaProps> = ({
   styled,
   activeLabel,
   icon,
   color,
-  controlKey,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -72,11 +72,9 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
       icon={icon || <FaDrawPolygon size={20} color='#fff' />}
       activeLabel={activeLabel || 'Measure Area'}
       color={color || '#446CD5'}
-      activeMenuControl={{
-        controlKey: controlKey || 'MeasureArea',
-        disable: onDisable,
-        enable: onEnable,
-      }}
+      controlKey='MeasureArea'
+      enable={onEnable}
+      disable={onDisable}
     />
   );
 };

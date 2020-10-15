@@ -1,24 +1,22 @@
 import React, { useCallback, useState } from 'react';
-import ControlButton, { ControlButtonProps } from '../../ControlButton';
 import { FaTrashAlt } from 'react-icons/fa';
 import DrawCircleLib from '../MeasureRadius/DrawCircleLib';
 import MeasureDistanceLib from '../MeasureDistance/MeasureDistanceLib';
 import MeasureAreaLib from '../MeasureArea/MeasureAreaLib';
-
 import { useMap } from '../../../Hooks';
 import VectorLayer from 'ol/layer/Vector';
+import ControlButton, { ControlButtonProps } from '../../ControlButton';
 
-export interface ClearMeasuresProps
-  extends Omit<ControlButtonProps, 'loading' | 'activeMenuControl'> {
-  controlKey?: string;
-}
+export type ClearMeasuresProps = Omit<
+  ControlButtonProps,
+  'controlKey' | 'disable' | 'enable' | 'loading'
+>;
 
 const ClearMeasures: React.FC<ClearMeasuresProps> = ({
   styled,
   activeLabel,
   icon,
   color,
-  controlKey,
 }) => {
   const [isClearing, setIsClearing] = useState(false);
   const { setActiveMenuControl, map, getLayer } = useMap();
@@ -51,11 +49,9 @@ const ClearMeasures: React.FC<ClearMeasuresProps> = ({
       icon={icon || <FaTrashAlt size={20} color='#fff' />}
       activeLabel={activeLabel || 'Limpando Medidas'}
       color={color || '#446CD5'}
-      activeMenuControl={{
-        controlKey: controlKey || 'ClearMeasures',
-        disable: onDisable,
-        enable: onEnable,
-      }}
+      enable={onEnable}
+      disable={onDisable}
+      controlKey='ClearMeasures'
       loading={isClearing}
     />
   );

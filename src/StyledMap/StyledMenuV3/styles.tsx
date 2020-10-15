@@ -5,6 +5,7 @@ export const Container = styled.div`
   right: 0px;
   width: 15px;
   height: auto;
+  max-height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

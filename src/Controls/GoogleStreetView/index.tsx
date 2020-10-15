@@ -1,20 +1,20 @@
 import React, { useCallback } from 'react';
-import ControlButton, { ControlButtonProps } from '../ControlButton';
 import { FaStreetView } from 'react-icons/fa';
 import { useMap } from '../../Hooks';
 import GoogleStreetViewLib from './GoogleStreetViewLib';
+import ControlButton, { ControlButtonProps } from '../ControlButton';
 
-export interface GoogleStreetViewProps
-  extends Omit<ControlButtonProps, 'loading' | 'activeMenuControl'> {
-  controlKey?: string;
-}
+export type GoogleStreetViewProps = Omit<
+  ControlButtonProps,
+  'controlKey' | 'disable' | 'enable' | 'loading'
+>;
 
 const GoogleStreetView: React.FC<GoogleStreetViewProps> = ({
   styled,
   activeLabel,
-  icon,
+  children,
   color,
-  controlKey,
+  icon,
 }) => {
   const { map } = useMap();
 
@@ -32,16 +32,16 @@ const GoogleStreetView: React.FC<GoogleStreetViewProps> = ({
 
   return (
     <ControlButton
-      styled={styled}
+      styled={!!styled}
       icon={icon || <FaStreetView size={20} color='#fff' />}
-      activeLabel={activeLabel || 'Google Street View'}
       color={color || '#FE2C54'}
-      activeMenuControl={{
-        controlKey: controlKey || 'GoogleStreetView',
-        disable: onDisable,
-        enable: onEnable,
-      }}
-    />
+      activeLabel={activeLabel || 'Google Street View'}
+      controlKey='GoogleStreetView'
+      enable={onEnable}
+      disable={onDisable}
+    >
+      {children}
+    </ControlButton>
   );
 };
 

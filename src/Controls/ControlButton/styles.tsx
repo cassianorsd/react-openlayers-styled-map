@@ -1,73 +1,76 @@
-import styled, { keyframes } from 'styled-components';
+import { rgba } from 'polished';
+import styled from 'styled-components';
 
-interface ContainerProps {
-  styled: boolean;
-}
-
-export const Container = styled.div<ContainerProps>`
-  right: 0.5em;
-`;
-
-const textTransition = keyframes`
-  from {
-    opacity:0;
-  }
-  to{
-
-    opacity:1;
-  }
-`;
-
-interface StyledButtonProps {
-  active?: boolean;
-  hasActiveLabel?: boolean;
-  widthOnActive?: number;
+interface ButtonProps {
   color?: string;
+  hasActiveLabel?: boolean;
 }
-export const StyledButton = styled.div<StyledButtonProps>`
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  position: relative;
+
+export const Button = styled.button<ButtonProps>`
   left: -20px;
-  margin: 5px 0px 5px;
-  background-color: ${({ active, color }): string =>
-    active ? 'orange' : color || 'grey'};
-  -webkit-transition: all 300ms ease;
-  -moz-transition: all 300ms ease;
-  -ms-transition: all 300ms ease;
-  -o-transition: all 300ms ease;
-  transition: all 300ms ease;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 5px 0px;
-  box-sizing: border-box;
+  position: relative;
 
-  .activeText {
-    font-size: 12px;
-    padding: 0px 5px 0px;
-    animation: ${textTransition} 700ms;
-    line-height: 1em;
+  & + button {
+    margin-top: 10px;
   }
 
-  justify-content: ${({ active, hasActiveLabel }): string =>
-    active && hasActiveLabel ? 'space-between' : 'center'};
-  width: ${({ active, hasActiveLabel, widthOnActive }): string =>
-    active && hasActiveLabel ? `${widthOnActive || 130}px` : '30px'};
-  left: ${({ active, hasActiveLabel, widthOnActive }): string =>
-    active && hasActiveLabel ? `-${(widthOnActive || 130) - 10}px` : '-20px'};
-`;
-
-export const OlButton = styled.button`
-  &.active {
-    background-color: orange !important;
+  &.styled {
+    display: inline-block;
+    min-width: 30px;
+    max-width: 30px;
+    width: max-content;
+    height: 30px;
+    border-radius: 15px;
+    transition: all 200ms ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.active {
+      background-color: #ffd700 !important;
+      overflow: visible;
+      svg {
+        color: #000 !important;
+      }
+      span.active-label {
+        max-width: 150px;
+        background-color: ${rgba('#ffd700', 0.8)};
+        opacity: 1;
+        text-indent: 0%;
+        color: #000;
+        font-size: 12px;
+      }
+    }
+    span.active-label {
+      display: none;
+      width: max-content;
+      height: 30px;
+      max-width: 0px;
+      transition: all 200ms ease;
+      opacity: 0;
+      top: 0px;
+      position: absolute;
+      right: 35px;
+      color: transparent;
+      height: 30px;
+      overflow: hidden;
+      border-radius: 15px;
+      background-color: rgba(0, 0, 0, 0);
+      color: rgba(0, 0, 0, 0);
+      box-sizing: border-box;
+      padding: 2px 10px 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 12px;
+      white-space: nowrap;
+      text-indent: 100%;
+      font-size: 0;
+      font-weight: normal;
+    }
   }
+  ${({ color }): string => {
+    if (color) return `background-color: ${color}!important;`;
+    return '';
+  }};
 `;

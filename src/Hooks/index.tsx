@@ -3,7 +3,8 @@ import React from 'react';
 import 'ol/ol.css';
 import BaseLayer from 'ol/layer/Base';
 import globalHook, { Store } from 'use-global-hook';
-import { OSM } from 'ol/source';
+import { OSM, TileDebug } from 'ol/source';
+import { Options as TileDebugOptions } from 'ol/source/TileDebug';
 import TileLayer from 'ol/layer/Tile';
 import { fromLonLat } from 'ol/proj';
 import { Control } from 'ol/control';
@@ -61,6 +62,7 @@ export interface InitMapProps {
     scale?: ScaleLineOptions;
   };
   defaultOSMBasemap?: boolean;
+  tileDebug?: TileDebugOptions;
 }
 
 const initMap = (
@@ -71,6 +73,7 @@ const initMap = (
     startZoom,
     defaultControls,
     defaultOSMBasemap,
+    tileDebug,
   }: InitMapProps
 ): void => {
   if (store.state.map) {
@@ -89,7 +92,7 @@ const initMap = (
     controls.push(new ZoomSlider(defaultControls.zoomSlider));
 
   // const styledMenuContainer = document.createElement('div');
-  const styledMenuContainer = document.getElementById('StyledMenuV2');
+  const styledMenuContainer = document.getElementById('StyledMenu');
   if (styledMenuContainer) {
     styledMenuContainer.id = 'styledMenuContainer';
     const styledMenuControl = new Control({ element: styledMenuContainer });
@@ -97,7 +100,14 @@ const initMap = (
   }
 
   const layers: BaseLayer[] = [];
-  if (defaultOSMBasemap) layers.push(new TileLayer({ source: new OSM() }));
+  if (defaultOSMBasemap)
+    layers.push(new TileLayer({ zIndex: 1, source: new OSM() }));
+
+  if (tileDebug)
+    layers.push(
+      new TileLayer({ zIndex: 1000, source: new TileDebug(tileDebug) })
+    );
+
   const map = new Map({
     target: el,
     layers,
@@ -107,6 +117,7 @@ const initMap = (
     }),
     controls,
   });
+  store.actions.setActiveMenuControl(undefined);
   console.log('[MAP ENGINE] Started.');
 
   store.setState({ ...store.state, map });

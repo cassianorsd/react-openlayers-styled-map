@@ -1,37 +1,33 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import Spinner from 'react-spinkit';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { useMap } from '../../Hooks';
-import { StyledButton, OlButton, Container } from './styles';
-
-export interface ActiveMenuControl {
-  controlKey: string;
-  enable: () => void;
-  disable: () => void;
-}
+// import { Button } from './styles';
+import Spinner from 'react-spinkit';
+import styles from './styles.scss';
 
 export interface ControlButtonProps {
   styled?: boolean;
-  loading?: boolean;
-  icon?: React.ReactNode;
-  activeLabel?: string;
+  icon?: ReactNode;
   color?: string;
-  activeMenuControl: ActiveMenuControl;
+  activeLabel?: string;
+  controlKey: string;
+  enable?: () => void;
+  disable?: () => void;
+  loading?: boolean;
 }
 
 const ControlButton: React.FC<ControlButtonProps> = ({
+  children,
   styled,
-  loading,
-  activeLabel,
   icon: Icon,
   color,
-  activeMenuControl: thisControl,
-  children,
+  controlKey,
+  disable,
+  enable,
+  activeLabel,
+  loading,
 }) => {
   const [active, setActive] = useState(false);
-
-  const { activeMenuControl, setActiveMenuControl } = useMap();
-  const { controlKey, enable, disable } = thisControl;
-
+  const { setActiveMenuControl, activeMenuControl } = useMap();
   const handleClick = useCallback(() => {
     if (!active) setActiveMenuControl(controlKey);
     else setActiveMenuControl(undefined);
@@ -40,37 +36,62 @@ const ControlButton: React.FC<ControlButtonProps> = ({
   useEffect(() => {
     if (activeMenuControl === controlKey && !active) {
       setActive(true);
-      enable();
+      if (enable) enable();
     } else if (activeMenuControl !== controlKey && active) {
       setActive(false);
-      disable();
+      if (disable) disable();
     }
   }, [activeMenuControl, controlKey, active, enable, disable]);
 
+  if (!styled) {
+    return (
+      <button onClick={handleClick} className={styles.olButton}>
+        {loading && <Spinner name='circle' color='#fff' fadeIn='quarter' />}
+        {!loading && Icon && <div className={styles.IconDiv}>{Icon}</div>}
+        {children}
+      </button>
+    );
+  }
+
   return (
-    <Container className={styled ? '' : 'ol-control'} styled={!!styled}>
-      {styled && (
-        <StyledButton
-          color={color || 'teal'}
-          active={active}
-          onClick={handleClick}
-          hasActiveLabel={!!activeLabel}
-        >
-          {activeLabel && active && (
-            <span className='activeText'>{activeLabel}</span>
-          )}
-          {loading && <Spinner name='circle' color='#fff' fadeIn='quarter' />}
-          {!loading && Icon && Icon}
-        </StyledButton>
-      )}
-      {!styled && (
-        <OlButton className={active ? 'active' : ''} onClick={handleClick}>
-          {Icon}
-        </OlButton>
-      )}
-      {children}
-    </Container>
+    <div
+      className={
+        styles.controlButton +
+        ` ${styled ? styles.styled : ''} ${active ? styles.active : ''}`
+      }
+      // className={styles.controlButton}
+      // color={color}
+      onClick={handleClick}
+
+      // hasActiveLabel={!!activeLabel}
+    >
+      <div
+        className={styles.controlButtonContent}
+        style={{ backgroundColor: color || '#fff' }}
+      >
+        {activeLabel && (
+          <span className={styles.activeLabel}>{activeLabel}</span>
+        )}
+        {loading && <Spinner name='circle' color='#fff' fadeIn='quarter' />}
+
+        {!loading && Icon && <div className={styles.IconDiv}>{Icon}</div>}
+        {children}
+      </div>
+    </div>
   );
+  // return (
+  //   <Button
+  //     className={`${styled ? 'styled' : ''} ${active ? 'active' : ''}`}
+  //     color={color}
+  //     onClick={handleClick}
+  //     hasActiveLabel={!!activeLabel}
+  //   >
+  //     {activeLabel && <span className='active-label'>{activeLabel}</span>}
+  //     {loading && <Spinner name='circle' color='#fff' fadeIn='quarter' />}
+  //     {!loading && Icon && Icon}
+  //     {children}
+  //   </Button>
+  // );
 };
 
 export default ControlButton;

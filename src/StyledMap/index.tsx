@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
 import { ControlProps, useMap } from '../Hooks';
 import { Container } from './styles';
-// import { DefaultControlsProps } from './functions/defaultControls';
-// import StyledMenu from './StyledMenu';
 import 'semantic-ui-css/semantic.min.css';
 import { MeasureStyle } from '../Controls/Measure/styles';
 import { StyledMenuProps } from './StyledMenu/';
-import StyledMenuV2 from './StyledMenuV2';
-// import { Coordinate } from 'ol/coordinate';
-// import TileLayer from 'ol/layer/Tile';
-// import { OSM } from 'ol/source';
+import StyledMenu from './StyledMenu';
+import { Options as TileDebugOptions } from 'ol/source/TileDebug';
+import StyledMenuV3, { StyledMenuV3Props } from './StyledMenuV3';
 
 export interface StyledMapProps {
   width?: string;
@@ -20,9 +17,12 @@ export interface StyledMapProps {
   controlsMenu?: StyledMenuProps;
   startZoom?: number;
   startCoordinates?: [number, number];
+  tileDebug?: TileDebugOptions;
 }
 
-const StyledMap: React.FC<StyledMapProps> = ({
+const StyledMap: React.FC<StyledMapProps> & {
+  Controls: React.FC<StyledMenuV3Props>;
+} = ({
   height,
   width,
   id,
@@ -31,6 +31,8 @@ const StyledMap: React.FC<StyledMapProps> = ({
   controlsMenu,
   startZoom,
   startCoordinates,
+  tileDebug,
+  children,
 }) => {
   const { initMap } = useMap();
   useEffect(() => {
@@ -40,8 +42,17 @@ const StyledMap: React.FC<StyledMapProps> = ({
       startZoom: startZoom,
       defaultControls,
       defaultOSMBasemap: osmBasemap,
+      tileDebug,
     });
-  }, [id, osmBasemap, defaultControls, initMap, startCoordinates, startZoom]);
+  }, [
+    id,
+    osmBasemap,
+    defaultControls,
+    initMap,
+    startCoordinates,
+    startZoom,
+    tileDebug,
+  ]);
   return (
     <Container height={height || '100%'} width={width || '100%'}>
       <div
@@ -51,10 +62,13 @@ const StyledMap: React.FC<StyledMapProps> = ({
           height: '100%',
         }}
       />
-      {controlsMenu && <StyledMenuV2 {...controlsMenu} />}
+      {controlsMenu && <StyledMenu {...controlsMenu} />}
+      {children}
       <MeasureStyle />
     </Container>
   );
 };
+
+StyledMap.Controls = StyledMenuV3;
 
 export default StyledMap;

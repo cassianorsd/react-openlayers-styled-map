@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ControlButton, { ControlButtonProps } from '../../ControlButton';
 import { FaRuler } from 'react-icons/fa';
 import MeasureDistanceLib from './MeasureDistanceLib';
 import { useMap } from '../../../Hooks';
@@ -10,17 +9,17 @@ import Style from 'ol/style/Style';
 import Circle from 'ol/style/Circle';
 import VectorLayer from 'ol/layer/Vector';
 import GeometryType from 'ol/geom/GeometryType';
-export interface MeasureDistanceProps
-  extends Omit<ControlButtonProps, 'loading' | 'activeMenuControl'> {
-  controlKey?: string;
-}
+import ControlButton, { ControlButtonProps } from '../../ControlButton';
 
+export type MeasureDistanceProps = Omit<
+  ControlButtonProps,
+  'controlKey' | 'disable' | 'enable' | 'loading'
+>;
 const MeasureDistance: React.FC<MeasureDistanceProps> = ({
   styled,
   activeLabel,
   icon,
   color,
-  controlKey,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -72,11 +71,9 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
       icon={icon || <FaRuler size={20} color='#fff' />}
       activeLabel={activeLabel || 'Measure Distance'}
       color={color || '#446CD5'}
-      activeMenuControl={{
-        controlKey: controlKey || 'MeasureDistance',
-        disable: onDisable,
-        enable: onEnable,
-      }}
+      controlKey='MeasureDistance'
+      enable={onEnable}
+      disable={onDisable}
     />
   );
 };

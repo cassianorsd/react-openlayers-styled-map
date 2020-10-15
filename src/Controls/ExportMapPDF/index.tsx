@@ -1,12 +1,14 @@
 import React, { useCallback, useState } from 'react';
-import ControlButton, { ControlButtonProps } from '../ControlButton';
 import { FaFilePdf } from 'react-icons/fa';
 import ExportPDFModal, { ExportPDFModalOptions } from './ExportPDFModal';
 import { useMap } from '../../Hooks';
+import ControlButton, { ControlButtonProps } from '../ControlButton';
 
 export interface ExportMapPDFProps
-  extends Omit<ControlButtonProps, 'loading' | 'activeMenuControl'> {
-  controlKey?: string;
+  extends Omit<
+    ControlButtonProps,
+    'controlKey' | 'disable' | 'enable' | 'loading'
+  > {
   options?: ExportPDFModalOptions;
 }
 
@@ -15,7 +17,6 @@ const ExportMapPDF: React.FC<ExportMapPDFProps> = ({
   activeLabel,
   icon,
   color,
-  controlKey,
   options,
 }) => {
   const [isModalOpen, setModalIsOpen] = useState(false);
@@ -26,7 +27,7 @@ const ExportMapPDF: React.FC<ExportMapPDFProps> = ({
     setModalIsOpen(true);
   }, []);
 
-  const onDisable = useCallback(() => { }, []);
+  const onDisable = useCallback(() => {}, []);
   const closeModal = useCallback(() => {
     setModalIsOpen(false);
     setActiveMenuControl(undefined);
@@ -38,11 +39,9 @@ const ExportMapPDF: React.FC<ExportMapPDFProps> = ({
       icon={icon || <FaFilePdf size={20} color='#fff' />}
       activeLabel={activeLabel || ''}
       color={color || '#9ACD32'}
-      activeMenuControl={{
-        controlKey: controlKey || 'ExportMapPDF',
-        disable: onDisable,
-        enable: onEnable,
-      }}
+      controlKey='ExportMapPDF'
+      enable={onEnable}
+      disable={onDisable}
       loading={isModalOpen}
     >
       <ExportPDFModal

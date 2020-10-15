@@ -1,12 +1,11 @@
 import React from 'react';
 import { Container } from './styles';
 
-export interface StyledMenuProps {
+export interface StyledMenuV3Props {
   showRibbon?: boolean;
-  children?: React.ReactNode;
 }
 
-const StyledMenu: React.FC<StyledMenuProps> = ({
+const StyledMenuV3: React.FC<StyledMenuV3Props> = ({
   showRibbon = true,
   children,
 }) => {
@@ -20,4 +19,4 @@ const StyledMenu: React.FC<StyledMenuProps> = ({
     </Container>
   );
 };
-export default StyledMenu;
+export default StyledMenuV3;
