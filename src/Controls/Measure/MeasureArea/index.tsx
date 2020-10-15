@@ -71,7 +71,7 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
       styled={styled}
       icon={icon || <FaDrawPolygon size={20} color='#fff' />}
       activeLabel={activeLabel || 'Measure Area'}
-      color={color || '#446CD5'}
+      color={color || 'blue'}
       controlKey='MeasureArea'
       enable={onEnable}
       disable={onDisable}

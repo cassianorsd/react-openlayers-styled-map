@@ -32,7 +32,7 @@ const PinCoordinates: React.FC<PinCoordinatesProps> = ({
       styled={styled}
       icon={icon || <FaMapMarkerAlt size={20} color='#fff' />}
       activeLabel={activeLabel || 'Pin Coordinates'}
-      color={color || '#FF8C00'}
+      color={color || 'orange'}
       controlKey='PinCoordinates'
       enable={onEnable}
       disable={onDisable}

@@ -1,0 +1,53 @@
+
+$red:#FE2C54;
+$green: #9ACD32;
+$blue: #446CD5;
+$orange:#FF8C00;
+$yellow:#FFFF42;
+$controlActiveColor:#ffd700;
+$blank:#fff;
+
+
+@mixin hover($color){
+  &:hover {
+    background-color: darken($color,10%);
+  }
+}
+
+.red {
+  background-color: $red;
+}
+.red.hover {
+  @include hover($red);
+}
+.green {
+  background-color: $green;
+}
+.green.hover {
+  @include hover($green);
+}
+.blue {
+  background-color: $blue;
+}
+.blue.hover {
+  @include hover($blue);
+}
+.orange {
+  background-color: $orange;
+}
+.orange.hover {
+  @include hover($orange);
+}
+.blank {
+  background-color: $blank;
+}
+.blank.hover {
+  @include hover($blank);
+}
+.yellow {
+  background-color: $yellow;
+}
+.yellow.hover {
+  @include hover($yellow);
+}
+

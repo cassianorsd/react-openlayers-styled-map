@@ -1,9 +1,8 @@
 import React from 'react';
-import { Container } from './styles';
-
+import styles from './StyledMenu.module.scss';
+import classNames from 'classnames';
 export interface StyledMenuProps {
   showRibbon?: boolean;
-  children?: React.ReactNode;
 }
 
 const StyledMenu: React.FC<StyledMenuProps> = ({
@@ -12,12 +11,16 @@ const StyledMenu: React.FC<StyledMenuProps> = ({
 }) => {
   if (!children) return <span />;
   return (
-    <Container
+    <div
       id='StyledMenu'
-      className={`ol-control ${showRibbon ? 'ribbon' : ''}`}
+      className={classNames(
+        'ol-control',
+        styles.container,
+        showRibbon && styles.ribbon
+      )}
     >
       {children}
-    </Container>
+    </div>
   );
 };
 export default StyledMenu;

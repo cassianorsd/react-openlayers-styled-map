@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react';
 import { ControlProps, useMap } from '../Hooks';
-import { Container } from './styles';
 import 'semantic-ui-css/semantic.min.css';
 import { MeasureStyle } from '../Controls/Measure/styles';
-import { StyledMenuProps } from './StyledMenu/';
-import StyledMenu from './StyledMenu';
 import { Options as TileDebugOptions } from 'ol/source/TileDebug';
-import StyledMenuV3, { StyledMenuV3Props } from './StyledMenuV3';
+import StyledMenu, { StyledMenuProps } from './StyledMenu';
+import styles from './styles.module.scss';
 
 export interface StyledMapProps {
-  width?: string;
-  height?: string;
   id?: string;
   osmBasemap?: boolean;
   defaultControls?: ControlProps;
@@ -21,10 +17,8 @@ export interface StyledMapProps {
 }
 
 const StyledMap: React.FC<StyledMapProps> & {
-  Controls: React.FC<StyledMenuV3Props>;
+  Controls: React.FC<StyledMenuProps>;
 } = ({
-  height,
-  width,
   id,
   osmBasemap,
   defaultControls,
@@ -54,7 +48,7 @@ const StyledMap: React.FC<StyledMapProps> & {
     tileDebug,
   ]);
   return (
-    <Container height={height || '100%'} width={width || '100%'}>
+    <div className={styles.container}>
       <div
         id={id || 'map'}
         style={{
@@ -65,10 +59,10 @@ const StyledMap: React.FC<StyledMapProps> & {
       {controlsMenu && <StyledMenu {...controlsMenu} />}
       {children}
       <MeasureStyle />
-    </Container>
+    </div>
   );
 };
 
-StyledMap.Controls = StyledMenuV3;
+StyledMap.Controls = StyledMenu;
 
 export default StyledMap;

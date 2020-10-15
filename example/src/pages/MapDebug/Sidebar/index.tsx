@@ -149,12 +149,13 @@ const Sidebar:React.FC = () => {
           name='xyzLayerOptions' 
           style={{height:'80px',width:'100%'}}
           />
-          <label htmlFor="xyzSourceOptions">XYZ Source Config: </label>
+          <label htmlFor="xyzSourceOptions">XYZ Source Config: &nbsp;
           <a rel="noopener noreferrer" 
           target="_blank" 
           href="https://openlayers.org/en/latest/apidoc/module-ol_source_XYZ-XYZ.html">
             Open OL Specification
           </a>
+          </label>
           <textarea 
           defaultValue={JSON.stringify(
             {
@@ -187,12 +188,15 @@ const Sidebar:React.FC = () => {
           <span style={{fontWeight:'bold',fontSize:'18px'}}>
           WMS Tiles
           </span>
-          <label htmlFor="xyzLayerOptions">Layer Options: </label>
+          <label htmlFor="xyzLayerOptions">
+            Layer Options: &nbsp;
             <a rel="noopener noreferrer" 
               target="_blank"
               href="https://openlayers.org/en/latest/apidoc/module-ol_layer_Tile-TileLayer.html">
               Open OL Specification
-            </a>
+            </a>         
+          </label>
+
           <textarea 
           defaultValue={JSON.stringify(
             {
@@ -203,12 +207,14 @@ const Sidebar:React.FC = () => {
           name='wmsLayerOptions' 
           style={{height:'80px',width:'100%'}}
           />
-          <label htmlFor="wmsOptions">TiledWMS Source Config: </label>
-          <a rel="noopener noreferrer" 
-            target="_blank" 
-            href="https://openlayers.org/en/latest/apidoc/module-ol_source_XYZ-XYZ.html">
-              See OL Specification
-          </a>
+          <label htmlFor="wmsOptions">
+            TiledWMS Source Config: &nbsp;
+            <a rel="noopener noreferrer" 
+              target="_blank" 
+              href="https://openlayers.org/en/latest/apidoc/module-ol_source_XYZ-XYZ.html">
+                See OL Specification
+            </a>
+          </label>
           <textarea 
           defaultValue={JSON.stringify(
             {

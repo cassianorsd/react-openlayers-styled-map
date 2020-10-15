@@ -34,7 +34,7 @@ const GoogleStreetView: React.FC<GoogleStreetViewProps> = ({
     <ControlButton
       styled={!!styled}
       icon={icon || <FaStreetView size={20} color='#fff' />}
-      color={color || '#FE2C54'}
+      color={color || 'red'}
       activeLabel={activeLabel || 'Google Street View'}
       controlKey='GoogleStreetView'
       enable={onEnable}

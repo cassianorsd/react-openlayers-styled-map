@@ -2,87 +2,55 @@ import React, { useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { Map, Overlay } from 'ol';
 import { Coordinate } from 'ol/coordinate';
-import {
-  PopupContent,
-  PopupCloser,
-  PopupContainer,
-  CopyButton,
-} from './styles';
 import { FaRegCopy, FaTimes } from 'react-icons/fa';
 import { toLonLat } from 'ol/proj';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import cogoToast from 'cogo-toast';
+import styles from './styles.scss';
+
 interface PopupProps {
   onClose: () => void;
   position: Coordinate;
 }
+
 const Popup: React.FC<PopupProps> = ({ onClose, position }) => {
+  console.log(onClose, position);
   const handleCopy = useCallback((text: string) => {
     cogoToast.success(`Copied: ${text}`);
   }, []);
 
   return (
-    <PopupContainer>
-      <PopupCloser onClick={onClose}>
-        <FaTimes size={16} />
-      </PopupCloser>
-      <PopupContent>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <div>
-            <b>Location:</b>
+    <div>
+      <span className={styles.closer} onClick={onClose}>
+        <FaTimes size={18} />
+      </span>
+      <div className={styles.content}>
+        <div className={styles.title}>Location:</div>
+        <div className={styles.panesContainer}>
+          <div className={styles.leftPane}>
+            <span>
+              <b>Lon:</b> {toLonLat(position)[0].toFixed(4)}
+            </span>
+            <span>
+              <b>Lat:</b> {toLonLat(position)[1].toFixed(4)}
+            </span>
           </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              width: '100%',
-            }}
-          >
-            <div
-              style={{
-                flexBasis: '75%',
-                display: 'flex',
-                flexDirection: 'column',
-                width: '100%',
-              }}
+          <div className={styles.rightPane}>
+            <CopyToClipboard
+              text={`${toLonLat(position)[1].toFixed(5)}, ${toLonLat(
+                position
+              )[0].toFixed(5)}`}
+              onCopy={handleCopy}
             >
-              <span>
-                <b>Lon:</b> {toLonLat(position)[0].toFixed(4)}
-              </span>
-              <span>
-                <b>Lat:</b> {toLonLat(position)[1].toFixed(4)}
-              </span>
-            </div>
-            <div
-              style={{
-                flexBasis: '25%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <CopyToClipboard
-                text={`${toLonLat(position)[1].toFixed(5)}, ${toLonLat(
-                  position
-                )[0].toFixed(5)}`}
-                onCopy={handleCopy}
-              >
-                <CopyButton>
-                  <FaRegCopy size={20} />
-                  <span>Copy</span>
-                </CopyButton>
-              </CopyToClipboard>
-            </div>
+              <button className={styles.copyButton}>
+                <FaRegCopy size={20} />
+                <span>Copy</span>
+              </button>
+            </CopyToClipboard>
           </div>
         </div>
-      </PopupContent>
-    </PopupContainer>
+      </div>
+    </div>
   );
 };
 
@@ -97,10 +65,15 @@ interface AddPopupOptions {
 }
 const addPopup = ({ map, position, options }: AddPopupOptions): void => {
   const container = document.createElement('div');
+  const content = document.createElement('div');
+  container.appendChild(content);
+  container.classList.add(styles.popup);
 
+  if (!container) return;
   const popupOverlay = new Overlay({
     element: container,
     autoPan: true,
+    autoPanMargin: 100,
     autoPanAnimation: {
       duration: 250,
     },
@@ -110,7 +83,7 @@ const addPopup = ({ map, position, options }: AddPopupOptions): void => {
   }
   overlays.push(popupOverlay);
   map.addOverlay(popupOverlay);
-  popupOverlay.setPosition(position);
+  map.getViewport().style.cursor = 'crosshair';
   ReactDOM.render(
     React.createElement(Popup, {
       position: position,
@@ -121,6 +94,7 @@ const addPopup = ({ map, position, options }: AddPopupOptions): void => {
     }),
     container
   );
+  popupOverlay.setPosition(position);
 };
 
 function clearOverlays(map: Map): void {

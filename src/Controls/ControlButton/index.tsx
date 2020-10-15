@@ -1,13 +1,14 @@
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { useMap } from '../../Hooks';
-// import { Button } from './styles';
 import Spinner from 'react-spinkit';
 import styles from './styles.scss';
+import Theme, { ThemeProps } from '../../Theme';
+import classnames from 'classnames';
 
 export interface ControlButtonProps {
   styled?: boolean;
   icon?: ReactNode;
-  color?: string;
+  color?: keyof ThemeProps;
   activeLabel?: string;
   controlKey: string;
   enable?: () => void;
@@ -46,18 +47,20 @@ const ControlButton: React.FC<ControlButtonProps> = ({
   return (
     <button
       onClick={handleClick}
-      className={
-        styles.controlButton +
-        ' ' +
-        (active ? styles.active : '') +
-        ' ' +
-        (styled ? styles.styled : '')
-      }
+      className={classnames(
+        styles.controlButton,
+        active && styles.active,
+        styled && styles.styled
+      )}
       id={`${controlKey}-button`}
     >
       <div
-        className={styles.content}
-        style={{ backgroundColor: styled ? color || '#fff' : 'inherit' }}
+        className={classnames(
+          styles.content,
+          Theme.red,
+          Theme[color || 'blank'],
+          Theme.hover
+        )}
       >
         {styled && activeLabel && (
           <span className={styles.activeLabel}>{activeLabel}</span>
@@ -72,45 +75,6 @@ const ControlButton: React.FC<ControlButtonProps> = ({
       </div>
     </button>
   );
-  return (
-    <div
-      className={
-        styles.controlButton +
-        ` ${styled ? styles.styled : ''} ${active ? styles.active : ''}`
-      }
-      // className={styles.controlButton}
-      // color={color}
-      onClick={handleClick}
-
-      // hasActiveLabel={!!activeLabel}
-    >
-      <div
-        className={styles.controlButtonContent}
-        style={{ backgroundColor: color || '#fff' }}
-      >
-        {activeLabel && (
-          <span className={styles.activeLabel}>{activeLabel}</span>
-        )}
-        {loading && <Spinner name='circle' color='#fff' fadeIn='quarter' />}
-
-        {!loading && Icon && <div className={styles.IconDiv}>{Icon}</div>}
-        {children}
-      </div>
-    </div>
-  );
-  // return (
-  //   <Button
-  //     className={`${styled ? 'styled' : ''} ${active ? 'active' : ''}`}
-  //     color={color}
-  //     onClick={handleClick}
-  //     hasActiveLabel={!!activeLabel}
-  //   >
-  //     {activeLabel && <span className='active-label'>{activeLabel}</span>}
-  //     {loading && <Spinner name='circle' color='#fff' fadeIn='quarter' />}
-  //     {!loading && Icon && Icon}
-  //     {children}
-  //   </Button>
-  // );
 };
 
 export default ControlButton;
