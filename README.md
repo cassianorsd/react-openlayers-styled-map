@@ -18,6 +18,12 @@ npm install ol
 yarn add ol
 ```
 
+# Styled and Unstyled
+
+![!Styled Map](/README/styled-minimap.png)
+![!UnStyled Map](/README/unstyled-minimap.png)
+
+
 ## Usage
 
 ### Map Component
@@ -30,15 +36,17 @@ const Page = () => {
   return (
             <StyledMap
               id='map' // Optional, just in case of conflict with other components
-              height='800px'
-              width='800px'
               startCoordinates={[-49.20, -26.50]}
               startZoom={11}
+              tileDebug // Enable tile debug overlay for testing
               osmBasemap //Enable OSM Background for quick testing
               defaultControls={{   
-                // You can use boolean value or access Openlayers options for each default control as follow:
+                /*
+                You can leave {} to enable the default props for each control
+                See Openlayers Specific control documentation for custom properties
+                */
                 fullScreenMode: { tipLabel: 'Click to toggle' }, 
-                zoomButtons: true,
+                zoomButtons:{},
                 zoomSlider: {},
                 scale: {
                   bar: true,
@@ -46,20 +54,18 @@ const Page = () => {
                   steps: 4
                 }
               }}
-              controlsMenu={{
-                styled: true, children: (
-                  <>
-                    <Controls.GoogleStreetView styled activeLabel='Street View' />
-                    <Controls.ExportMapImage styled />
-                    <Controls.ExportMapPDF styled />
-                    <Controls.MeasureDistance styled activeLabel='Medir Distância' />
-                    <Controls.MeasureArea styled activeLabel='Medir Área' />
-                    <Controls.MeasureRadius styled />
-                    <Controls.ClearMeasures styled />
-                  </>
-                )
-              }}
-            />
+            >
+              <StyledMap.Controls showRibbon >
+                <Controls.GoogleStreetView styled activeLabel='custom label'/>
+                <Controls.ExportMapImage  styled color='purple'/>
+                <Controls.ExportMapPDF  styled />
+                <Controls.MeasureArea styled />
+                <Controls.MeasureDistance styled />
+                <Controls.MeasureRadius styled />
+                <Controls.ClearMeasures styled />
+                <Controls.PinCoordinates styled />     
+              </StyledMap.Controls>       
+            </StyledMap>
   )
 }
 ```
@@ -127,7 +133,7 @@ import { FaCrosshairs } from 'react-icons/fa';
 import { toLonLat } from 'ol/proj';
 import { MapBrowserEvent } from 'ol';
 
-const PrintMapCoordinates: React.FC = () => {
+const MyCustomControl: React.FC = () => {
   const { map } = useMap();
 
   const onMapClick = (e: MapBrowserEvent): void => {
@@ -151,11 +157,9 @@ const PrintMapCoordinates: React.FC = () => {
       icon={<FaCrosshairs size={20} color='#fff' />}
       activeLabel='Print Map Coordinates'
       color='#FE2C54'
-      activeMenuControl={{
-        controlKey: 'PrintMapCoordinates',
-        disable: onDisable,
-        enable: onEnable,
-      }}
+      enable={onEnable}
+      disable={onDisable}
+      controlKey='PrintMapCoordinates'
     />
   );
 };
@@ -165,16 +169,11 @@ Usage
 
 
 ```tsx
-<StyledMap
-  // ...
-  controlsMenu={{
-    styled: true, children: (
-      <>
-        <PrintMapCoordinates />
-      </>
-    )
-  }}
-/>
+<StyledMap {...ANOTHER PROPS}>
+    <StyledMap.Controls showRibbon >
+      <MyCustomControl styled />     
+    </StyledMap.Controls>       
+</StyledMap>
 ```
 
 ## License

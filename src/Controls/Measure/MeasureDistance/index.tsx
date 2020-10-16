@@ -70,7 +70,7 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
       styled={styled}
       icon={icon || <FaRuler size={20} color='#fff' />}
       activeLabel={activeLabel || 'Measure Distance'}
-      color={color || 'blue'}
+      color={color || '#446CD5'}
       controlKey='MeasureDistance'
       enable={onEnable}
       disable={onDisable}

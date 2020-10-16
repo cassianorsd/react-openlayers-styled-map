@@ -44,7 +44,7 @@ const Sidebar:React.FC = () => {
         layerKey:xyzKey,
         layerObject: new TileLayer({
           ...layerOptions,
-          source: new XYZ(sourceOptions)
+          source: new XYZ(sourceOptions),
         })
       })
     }
@@ -147,7 +147,7 @@ const Sidebar:React.FC = () => {
           ref={register} 
           id='xyzLayerOptions' 
           name='xyzLayerOptions' 
-          style={{height:'80px',width:'100%'}}
+          style={{height:'70px',width:'100%'}}
           />
           <label htmlFor="xyzSourceOptions">XYZ Source Config: &nbsp;
           <a rel="noopener noreferrer" 
@@ -163,11 +163,12 @@ const Sidebar:React.FC = () => {
               maxZoom:18,
               tileSize:256,
               transition:200,
+              crossOrigin:true
             },null,2)}
           ref={register} 
           id='xyzSourceOptions' 
           name='xyzSourceOptions' 
-          style={{height:'150px',width:'100%'}}
+          style={{height:'120px',width:'100%'}}
           />
           <br/>
           <label htmlFor="xyzKey">Name an unique key for the layer:</label>
@@ -205,7 +206,7 @@ const Sidebar:React.FC = () => {
           ref={register} 
           id='wmsLayerOptions' 
           name='wmsLayerOptions' 
-          style={{height:'80px',width:'100%'}}
+          style={{height:'70px',width:'100%'}}
           />
           <label htmlFor="wmsOptions">
             TiledWMS Source Config: &nbsp;
@@ -222,11 +223,12 @@ const Sidebar:React.FC = () => {
               params: {'LAYERS': 'topp:states', 'TILED': true},
               serverType: 'geoserver',
               transition: 0,
+              crossOrigin:true
             },null,2)}
           ref={register} 
           id='wmsSourceOptions' 
           name='wmsSourceOptions' 
-          style={{height:'200px',width:'100%'}}
+          style={{height:'120px',width:'100%'}}
           />
           <label htmlFor="wmsKey" >Name an unique key for the layer:</label>
           <input 

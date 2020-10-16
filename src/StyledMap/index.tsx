@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { ControlProps, useMap } from '../Hooks';
 import 'semantic-ui-css/semantic.min.css';
-import { MeasureStyle } from '../Controls/Measure/styles';
 import { Options as TileDebugOptions } from 'ol/source/TileDebug';
 import StyledMenu, { StyledMenuProps } from './StyledMenu';
 import styles from './styles.module.scss';
@@ -58,7 +57,6 @@ const StyledMap: React.FC<StyledMapProps> & {
       />
       {controlsMenu && <StyledMenu {...controlsMenu} />}
       {children}
-      <MeasureStyle />
     </div>
   );
 };

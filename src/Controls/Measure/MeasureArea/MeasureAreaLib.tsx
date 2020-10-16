@@ -3,7 +3,6 @@ import LineString from 'ol/geom/LineString';
 import Polygon from 'ol/geom/Polygon';
 import { Vector as VectorSource } from 'ol/source';
 import { getLength, getArea } from 'ol/sphere';
-
 import Draw, { DrawEvent } from 'ol/interaction/Draw';
 import GeometryType from 'ol/geom/GeometryType';
 import Style from 'ol/style/Style';
@@ -13,6 +12,8 @@ import CircleStyle from 'ol/style/Circle';
 import { EventsKey } from 'ol/events';
 import { unByKey } from 'ol/Observable';
 import OverlayPositioning from 'ol/OverlayPositioning';
+import styles from '../styles.scss';
+
 let sketch: Feature | null;
 let helpTooltipElement: HTMLElement;
 let helpTooltip: Overlay;
@@ -79,7 +80,8 @@ const StartMeasure = ({ map, source, type }: StartMeasureProps): void => {
       helpTooltipElement.parentNode.removeChild(helpTooltipElement);
     }
     helpTooltipElement = document.createElement('div');
-    helpTooltipElement.className = 'ol-tooltip hidden';
+    // helpTooltipElement.className = 'ol-tooltip hidden';
+    helpTooltipElement.className = styles.olTooltip + ' hidden';
     helpTooltip = new Overlay({
       element: helpTooltipElement,
       offset: [15, 0],
@@ -93,7 +95,9 @@ const StartMeasure = ({ map, source, type }: StartMeasureProps): void => {
       measureTooltipElement.parentNode.removeChild(measureTooltipElement);
     }
     measureTooltipElement = document.createElement('div');
-    measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
+    // measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
+    measureTooltipElement.className =
+      styles.olTooltip + ' ' + styles.olTooltipMeasure;
     measureTooltip = new Overlay({
       element: measureTooltipElement,
       offset: [0, -15],
@@ -132,7 +136,7 @@ const StartMeasure = ({ map, source, type }: StartMeasureProps): void => {
     createMeasureTooltip();
     createHelpTooltip();
 
-    interface MapDrawEvent extends DrawEvent, MapBrowserEvent { }
+    interface MapDrawEvent extends DrawEvent, MapBrowserEvent {}
 
     let listener: EventsKey;
     draw.on('drawstart', function (evt: MapDrawEvent) {
@@ -157,7 +161,9 @@ const StartMeasure = ({ map, source, type }: StartMeasureProps): void => {
 
     draw.on('drawend', function () {
       if (measureTooltipElement) {
-        measureTooltipElement.className = 'ol-tooltip ol-tooltip-static';
+        // measureTooltipElement.className = 'ol-tooltip ol-tooltip-static';
+        measureTooltipElement.className =
+          styles.olTooltip + ' ' + styles.olTooltipStatic;
         measureTooltip.setOffset([0, -7]);
       }
       sketch = null;

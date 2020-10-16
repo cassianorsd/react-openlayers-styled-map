@@ -68,7 +68,7 @@ const MeasureRadius: React.FC<MeasureRadiusProps> = ({
       styled={styled}
       icon={icon || <RiShareCircleFill size={20} color='#fff' />}
       activeLabel={activeLabel || 'Measure Radius'}
-      color={color || 'blue'}
+      color={color || '#446CD5'}
       controlKey='MeasureRadius'
       enable={onEnable}
       disable={onDisable}

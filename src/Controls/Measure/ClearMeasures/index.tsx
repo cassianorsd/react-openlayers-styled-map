@@ -48,7 +48,7 @@ const ClearMeasures: React.FC<ClearMeasuresProps> = ({
       styled={styled}
       icon={icon || <FaTrashAlt size={20} color='#fff' />}
       activeLabel={activeLabel || 'Limpando Medidas'}
-      color={color || 'blue'}
+      color={color || '#446CD5'}
       enable={onEnable}
       disable={onDisable}
       controlKey='ClearMeasures'

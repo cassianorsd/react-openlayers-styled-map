@@ -8,6 +8,7 @@ import OverlayPositioning from 'ol/OverlayPositioning';
 import { transform } from 'ol/proj';
 import { Vector as VectorSource } from 'ol/source';
 import { getDistance } from 'ol/sphere';
+import styles from '../styles.scss';
 
 let draw: Draw;
 let tooltipElement: HTMLElement | null;
@@ -28,7 +29,7 @@ const StartMeasure = ({ map, source }: StartMeasureProps): void => {
 
   const createTooltip = (): void => {
     tooltipElement = document.createElement('div');
-    tooltipElement.className = 'ol-tooltip';
+    tooltipElement.className = styles.olTooltip;
     tooltip = new Overlay({
       element: tooltipElement,
       offset: [15, 0],
@@ -60,7 +61,9 @@ const StartMeasure = ({ map, source }: StartMeasureProps): void => {
 
   draw.on('drawend', () => {
     if (tooltipElement)
-      tooltipElement.className = 'ol-tooltip ol-tooltip-static-measure-circle';
+      // tooltipElement.className = 'ol-tooltip ol-tooltip-static-measure-circle';
+      tooltipElement.className =
+        styles.olTooltip + ' ' + styles.olTooltipStaticMeasureCircle;
     tooltipElement = null;
     if (listener) unByKey(listener);
   });

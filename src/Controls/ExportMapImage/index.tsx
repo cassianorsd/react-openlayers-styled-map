@@ -37,7 +37,7 @@ const ExportMapImage: React.FC<ExportMapImageProps> = ({
       styled={styled}
       icon={icon || <FaImage size={20} color='#fff' />}
       activeLabel={activeLabel || ''}
-      color={color || 'green'}
+      color={color || '#9ACD32'}
       controlKey='ExportMapImage'
       loading={rendering}
       enable={onEnable}

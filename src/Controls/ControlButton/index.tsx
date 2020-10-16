@@ -2,13 +2,13 @@ import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { useMap } from '../../Hooks';
 import Spinner from 'react-spinkit';
 import styles from './styles.scss';
-import Theme, { ThemeProps } from '../../Theme';
 import classnames from 'classnames';
-
+import { css } from 'emotion';
+import { darken } from 'polished';
 export interface ControlButtonProps {
   styled?: boolean;
   icon?: ReactNode;
-  color?: keyof ThemeProps;
+  color?: string;
   activeLabel?: string;
   controlKey: string;
   enable?: () => void;
@@ -43,7 +43,6 @@ const ControlButton: React.FC<ControlButtonProps> = ({
       if (disable) disable();
     }
   }, [activeMenuControl, controlKey, active, enable, disable]);
-
   return (
     <button
       onClick={handleClick}
@@ -57,9 +56,13 @@ const ControlButton: React.FC<ControlButtonProps> = ({
       <div
         className={classnames(
           styles.content,
-          Theme.red,
-          Theme[color || 'blank'],
-          Theme.hover
+          styled &&
+            css`
+              background-color: ${color || '#fff'};
+              &:hover {
+                background-color: ${darken(0.1, color || '#fff')};
+              }
+            `
         )}
       >
         {styled && activeLabel && (

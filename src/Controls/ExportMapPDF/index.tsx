@@ -38,7 +38,7 @@ const ExportMapPDF: React.FC<ExportMapPDFProps> = ({
       styled={styled}
       icon={icon || <FaFilePdf size={20} color='#fff' />}
       activeLabel={activeLabel || ''}
-      color={color || 'green'}
+      color={color || '#9ACD32'}
       controlKey='ExportMapPDF'
       enable={onEnable}
       disable={onDisable}
