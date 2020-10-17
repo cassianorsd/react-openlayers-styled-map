@@ -42,7 +42,7 @@ yarn add ol
 In [react-openlayers-styled-map](https://cassianorsd.github.io/react-openlayers-styled-map/) is possible to test a working demo/project of the component and also a debug page to quick test some XYZ/WMS layer sources.
 
 
-The page is using routing from [react-router-dom](https://www.npmjs.com/package/react-router-dom) to test the map re-mounting capabilities.
+The page is also using routing from [react-router-dom](https://www.npmjs.com/package/react-router-dom) library to test the map component remounting capabilities and bugs.
 
 
 ## Usage
