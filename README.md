@@ -5,6 +5,26 @@
 [![NPM](https://img.shields.io/npm/v/react-openlayers-styled-map.svg)](https://www.npmjs.com/package/react-openlayers-styled-map) [![TypeScript Style Guide](https://img.shields.io/badge/code_style-typecript-brightgreen.svg)](https://www.typescriptlang.org/)
 ![NPM](https://img.shields.io/npm/l/react-openlayers-styled-map)
 
+
+This (react-openlayers-styled-map) is a React.JS component made in TypeScrypt. 
+It acts as a wrapper around [OpenLayers](https://openlayers.org/) map object and tries to supress the complexity of a starting map project. 
+
+
+Currently, the lib has a simple global state hook that provides access to the key functions and the OL map object reference on the entire react project.
+
+Also, it is available as a styled interface some usefull ready-to-use map controls, some of them directly translated from OL Docs.
+
+
+* Measure Polygon area;
+* Measure Distances;
+* Export map as image; (uses [html2canvas](https://www.npmjs.com/package/html2canvas))
+* Export map as PDF; (uses [jsPDF](https://www.npmjs.com/package/jspdf))
+* Draw Circle Radius
+* Pin Coordinates
+* Redirect to Google Street View from point
+
+
+
 ## Install
 
 ```bash
@@ -18,7 +38,10 @@ npm install ol
 yarn add ol
 ```
 
-### Styled and Unstyled
+### Styled and Default Styled
+
+Each control component has a ```styled``` prop to enable the styled interface. 
+
 
 <img src='README/map.png' width='100%'>
 
