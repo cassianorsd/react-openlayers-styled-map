@@ -24,7 +24,6 @@ Also, some usefull styled and ready-to-use map controls, some of them directly t
 * Redirect to Google Street View from point
 
 
-
 ## Install
 
 ```bash
@@ -38,12 +37,10 @@ npm install ol
 yarn add ol
 ```
 
-### Styled and Default Styled
+# Demo
 
-Each control component has a ```styled``` prop to enable the styled interface. 
-
-
-<img src='README/map.png' width='100%'>
+In (react-openlayers-styled-map)[https://cassianorsd.github.io/react-openlayers-styled-map/] is possible to test a working demo/project of the component and also a debug page to quick test some XYZ/WMS layer sources.
+The page is using routing from (react-router-dom)[https://www.npmjs.com/package/react-router-dom] to test the map re-mounting capabilities.
 
 
 ## Usage
@@ -197,6 +194,16 @@ Usage
     </StyledMap.Controls>       
 </StyledMap>
 ```
+
+
+### Styled and Default Styled
+
+Each control component has a ```styled``` prop to enable the styled interface. 
+
+
+<img src='README/map.png' width='100%'>
+
+
 
 ## License
 
