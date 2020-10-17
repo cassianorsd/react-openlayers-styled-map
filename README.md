@@ -10,15 +10,15 @@ This (react-openlayers-styled-map) is a React.JS component made in Typescript.
 It acts as a wrapper around [OpenLayers](https://openlayers.org/) map object and tries to supress the complexity of a starting map project. 
 
 
-Currently, the lib has a simple global state hook that provides access to the key functions and the OL map object reference on the entire react project.
+Currently, the lib has a simple global state hook that provides access from any part of a react project to the OL map object and some extra key functions.
 
-Also, it is available as a styled interface some usefull ready-to-use map controls, some of them directly translated from OL Docs.
+Also, some usefull styled and ready-to-use map controls, some of them directly translated from OL Docs.
 
 
-* Measure Polygon area;
-* Measure Distances;
-* Export map as image; (uses [html2canvas](https://www.npmjs.com/package/html2canvas))
-* Export map as PDF; (uses [jsPDF](https://www.npmjs.com/package/jspdf))
+* Measure Polygon area
+* Measure Distance
+* Export map as image (uses [html2canvas](https://www.npmjs.com/package/html2canvas))
+* Export map as PDF (uses [jsPDF](https://www.npmjs.com/package/jspdf))
 * Draw Circle Radius
 * Pin Coordinates
 * Redirect to Google Street View from point
