@@ -20,8 +20,8 @@ yarn add ol
 
 # Styled and Unstyled
 
-![](/README/styled-minimap.png)
-![](/README/unstyled-minimap.png)
+<img src='README/styled-minimap.png' width='300px'>
+<img src='README/unstyled-minimap.png' width='300px'>
 
 
 ## Usage
