@@ -18,10 +18,9 @@ npm install ol
 yarn add ol
 ```
 
-# Styled and Unstyled
+### Styled and Unstyled
 
-<img src='README/styled-minimap.png' width='300px'>
-<img src='README/unstyled-minimap.png' width='300px'>
+<img src='README/map.png' width='100%'>
 
 
 ## Usage
