@@ -20,7 +20,7 @@ yarn add ol
 
 # Styled and Unstyled
 
-![](/README/styled-minimap.png = 250x250)
+![](/README/styled-minimap.png =300x300)
 ![](/README/unstyled-minimap.png)
 
 
