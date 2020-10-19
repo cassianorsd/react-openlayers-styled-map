@@ -8,7 +8,7 @@
 This (react-openlayers-styled-map) is a React.JS component made in Typescript.
 It acts as a wrapper around [OpenLayers](https://openlayers.org/) map object and tries to supress the complexity of a starting map project.
 
-<a href="https://www.buymeacoffee.com/cassianorsd" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 30px !important;width: 10px !important;" ></a>
+<a href="https://www.buymeacoffee.com/cassianorsd" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" alt="Buy Me A Coffee" style="height: 30px !important;width: 108px !important;" ></a>
 
 Currently, the lib has a simple global state hook that provides access from any part of a react project to the OL map object and some extra key functions.
 
