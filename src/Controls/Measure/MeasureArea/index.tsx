@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FaDrawPolygon } from 'react-icons/fa';
+import { FaDrawPolygon, FaEraser } from 'react-icons/fa';
 import MeasureAreaLib from './MeasureAreaLib';
 import { useMap } from '../../../Hooks';
 import VectorSource from 'ol/source/Vector';
@@ -33,22 +33,22 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
       source: source,
       style: new Style({
         fill: new Fill({
-          color: 'rgba(255, 255, 255, 0.2)',
+          color: 'rgba(1, 171, 116,0.2)',
         }),
         stroke: new Stroke({
-          color: '#ffcc33',
+          color: 'rgba(1, 171, 116,1)',
           width: 2,
         }),
         image: new Circle({
           radius: 7,
           fill: new Fill({
-            color: '#ffcc33',
+            color: 'rgba(1, 171, 116,0.2)',
           }),
         }),
       }),
     })
   );
-  const { map, addLayer } = useMap();
+  const { map, addLayer, setActiveMenuControl } = useMap();
 
   useEffect(() => {
     if (map) {
@@ -70,6 +70,13 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
     if (map) MeasureAreaLib.StopMeasure({ map });
   }, [map]);
 
+  const onClear = useCallback(() => {
+    source.clear();
+    if (!map) return;
+    setActiveMenuControl(undefined);
+    MeasureAreaLib.ClearOverlays({ map });
+  }, [source, map, setActiveMenuControl]);
+
   return (
     <ControlButton
       styled={styled}
@@ -80,6 +87,10 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
       enable={onEnable}
       disable={onDisable}
       toolTipText={toolTipText || 'Draw polygon to measure content area'}
+      badgeButton={{
+        content: <FaEraser size={14} color='#fff' />,
+        action: onClear,
+      }}
     />
   );
 };

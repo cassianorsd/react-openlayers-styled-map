@@ -13,6 +13,7 @@ import { EventsKey } from 'ol/events';
 import { unByKey } from 'ol/Observable';
 import OverlayPositioning from 'ol/OverlayPositioning';
 import styles from '../styles.scss';
+import classnames from 'classnames';
 
 let sketch: Feature | null;
 let helpTooltipElement: HTMLElement;
@@ -95,8 +96,11 @@ const StartMeasure = ({ map, source, type }: StartMeasureProps): void => {
     }
     measureTooltipElement = document.createElement('div');
     // measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
-    measureTooltipElement.className =
-      styles.olTooltip + ' ' + styles.olTooltipMeasure;
+    measureTooltipElement.className = classnames(
+      styles.olTooltip,
+      styles.olTooltipMeasure,
+      styles.Distance
+    );
     measureTooltip = new Overlay({
       element: measureTooltipElement,
       offset: [0, -15],

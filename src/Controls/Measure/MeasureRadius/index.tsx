@@ -9,6 +9,7 @@ import Style from 'ol/style/Style';
 import Circle from 'ol/style/Circle';
 import VectorLayer from 'ol/layer/Vector';
 import ControlButton, { ControlButtonProps } from '../../ControlButton';
+import { FaEraser } from 'react-icons/fa';
 
 export type MeasureRadiusProps = Omit<
   ControlButtonProps,
@@ -32,22 +33,22 @@ const MeasureRadius: React.FC<MeasureRadiusProps> = ({
       source: source,
       style: new Style({
         fill: new Fill({
-          color: 'rgba(255, 255, 255, 0.2)',
+          color: 'rgba(98, 65, 199,0.2)',
         }),
         stroke: new Stroke({
-          color: '#ffcc33',
+          color: 'rgba(98, 65, 199,1)',
           width: 2,
         }),
         image: new Circle({
           radius: 7,
           fill: new Fill({
-            color: '#ffcc33',
+            color: 'rgba(98, 65, 199,0.2)',
           }),
         }),
       }),
     })
   );
-  const { map, addLayer } = useMap();
+  const { map, addLayer, setActiveMenuControl } = useMap();
 
   useEffect(() => {
     if (map) {
@@ -66,7 +67,12 @@ const MeasureRadius: React.FC<MeasureRadiusProps> = ({
       DrawCircleLib.StopMeasure({ map });
     }
   }, [map]);
-
+  const onClear = useCallback(() => {
+    source.clear();
+    if (!map) return;
+    setActiveMenuControl(undefined);
+    DrawCircleLib.ClearOverlays({ map });
+  }, [source, map, setActiveMenuControl]);
   return (
     <ControlButton
       styled={styled}
@@ -77,6 +83,10 @@ const MeasureRadius: React.FC<MeasureRadiusProps> = ({
       enable={onEnable}
       disable={onDisable}
       toolTipText={toolTipText || 'Draw a circle and get final radius.'}
+      badgeButton={{
+        content: <FaEraser size={14} color='#fff' />,
+        action: onClear,
+      }}
     />
   );
 };

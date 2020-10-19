@@ -1,5 +1,3 @@
-
-
 .olTooltip {
   position: relative;
   background: rgba(0, 0, 0, 0.5);
@@ -19,27 +17,45 @@
   color: black;
   border: 1px solid white;
 }
+
+.olTooltipStatic.Area {
+  background-color: rgba(1, 171, 116, 1);
+  color: black;
+  border: 1px solid white;
+}
+.Area.olTooltipStatic:before {
+  border-top-color: rgba(1, 171, 116, 1);
+}
+
+.olTooltipStatic.Distance {
+  background-color: rgb(42, 82, 188);
+  color: white;
+  border: 1px solid white;
+}
+.Distance.olTooltipStatic:before {
+  border-top-color: rgb(42, 82, 188);
+}
+
+.olTooltipStatic.Radius {
+  background-color: rgba(98, 65, 199, 1);
+  color: white;
+  border: 1px solid white;
+}
+.Radius.olTooltipStatic:before {
+  visibility: hidden;
+}
+
 .olTooltipMeasure:before,
 .olTooltipStatic:before {
   border-top: 6px solid rgba(0, 0, 0, 0.5);
   border-right: 6px solid transparent;
   border-left: 6px solid transparent;
-  content: "";
+  content: '';
   position: absolute;
   bottom: -6px;
   margin-left: -7px;
   left: 50%;
 }
 .olTooltipStatic:before {
-  border-top-color: #ffcc33;
-}
-
-.olTooltipStaticMeasureCircle {
-  background-color: #ffcc33;
-  color: black;
-  border: 1px solid white;
-}
-
-.olTooltipStaticMeasureCircle:before {
   border-top-color: #ffcc33;
 }

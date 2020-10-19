@@ -7,6 +7,7 @@ import ClearMeasures from './Measure/ClearMeasures';
 import MeasureRadius from './Measure/MeasureRadius';
 import PinCoordinates from './PinCoordinates';
 import ControlButton from './ControlButton';
+import GetCurrentLocation from '../components/Controls/CurrentLocation';
 
 export default {
   GoogleStreetView,
@@ -18,4 +19,5 @@ export default {
   MeasureRadius,
   PinCoordinates,
   ControlButton,
+  GetCurrentLocation,
 };

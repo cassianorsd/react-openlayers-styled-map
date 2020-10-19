@@ -4,10 +4,12 @@
   position: relative;
   right: 0;
   & + div {
-    margin-top: 10px;
+    margin-top: 8px;
+    @media (max-width: 600px) {
+      margin-top: 8px;
+    }
   }
   width: max-content;
-
   .toolTipText {
     top: 0.125em;
   }
@@ -16,6 +18,13 @@
     .toolTipText {
       visibility: visible;
     }
+  }
+}
+
+.control.controlWithBadge {
+  margin-bottom: 10px;
+  @media (max-width: 600px) {
+    margin-bottom: 20px;
   }
 }
 
@@ -37,6 +46,33 @@
   line-height: 10px;
   direction: ltr;
   text-align: center;
+}
+
+.badgeButton {
+  background-color: #fff;
+  position: absolute;
+  bottom: -8px;
+  right: -5px;
+  width: 18px;
+  height: 18px;
+  overflow: hidden;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  svg,
+  span {
+    display: inline-block;
+  }
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
+
+  @media (max-width: 600px) {
+    width: 23px;
+    height: 23px;
+    bottom: -15px;
+  }
 }
 
 .control.styled {
@@ -128,7 +164,7 @@
     .activeLabel {
       opacity: 1;
     }
-    svg {
+    .IconDiv > svg {
       color: #000 !important;
     }
   }

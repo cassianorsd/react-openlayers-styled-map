@@ -11,13 +11,23 @@ import styles from './styles.scss';
 interface PopupProps {
   onClose: () => void;
   position: Coordinate;
+  copyText?: string;
+  copiedText?: string;
 }
 
-const Popup: React.FC<PopupProps> = ({ onClose, position }) => {
+const Popup: React.FC<PopupProps> = ({
+  onClose,
+  position,
+  copyText,
+  copiedText,
+}) => {
   console.log(onClose, position);
-  const handleCopy = useCallback((text: string) => {
-    cogoToast.success(`Copied: ${text}`);
-  }, []);
+  const handleCopy = useCallback(
+    (text: string) => {
+      cogoToast.success(`${copiedText || 'Copied'}: ${text}`);
+    },
+    [copiedText]
+  );
 
   return (
     <div>
@@ -44,7 +54,7 @@ const Popup: React.FC<PopupProps> = ({ onClose, position }) => {
             >
               <button className={styles.copyButton}>
                 <FaRegCopy size={20} />
-                <span>Copy</span>
+                <span>{copyText || 'Copy'}</span>
               </button>
             </CopyToClipboard>
           </div>
@@ -61,6 +71,8 @@ interface AddPopupOptions {
   position: Coordinate;
   options?: {
     clearOthers?: boolean;
+    copyText?: string;
+    copiedText?: string;
   };
 }
 const addPopup = ({ map, position, options }: AddPopupOptions): void => {
@@ -91,6 +103,8 @@ const addPopup = ({ map, position, options }: AddPopupOptions): void => {
         popupOverlay.setPosition(undefined);
         map.removeOverlay(popupOverlay);
       },
+      copyText: options?.copyText,
+      copiedText: options?.copiedText,
     }),
     container
   );

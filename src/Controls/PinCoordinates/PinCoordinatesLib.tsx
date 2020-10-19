@@ -4,8 +4,18 @@ import { unByKey } from 'ol/Observable';
 import PinCoordinatesPopup from './PinCoordinatesPopup';
 
 let evtKeys: EventsKey;
+interface StartPinCoordinateInteractionProps {
+  map: Map;
+  options?: {
+    copyText?: string;
+    copiedText?: string;
+  };
+}
 
-const startPinCoordinateInteraction = (map: Map): void => {
+const startPinCoordinateInteraction = ({
+  map,
+  options,
+}: StartPinCoordinateInteractionProps): void => {
   map.getViewport().style.cursor = 'crosshair';
 
   evtKeys = map.on('singleclick', (e: MapBrowserEvent) => {
@@ -13,7 +23,11 @@ const startPinCoordinateInteraction = (map: Map): void => {
     PinCoordinatesPopup.addPopup({
       map,
       position,
-      options: { clearOthers: true },
+      options: {
+        clearOthers: true,
+        copyText: options?.copyText,
+        copiedText: options?.copiedText,
+      },
     });
   });
 };

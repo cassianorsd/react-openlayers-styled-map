@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './StyledMenu.module.scss';
 import classNames from 'classnames';
+
 export interface StyledMenuProps {
   showRibbon?: boolean;
 }

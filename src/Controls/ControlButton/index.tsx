@@ -1,4 +1,10 @@
-import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import React, {
+  CSSProperties,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { useMap } from '../../Hooks';
 import Spinner from 'react-spinkit';
 import styles from './styles.scss';
@@ -21,6 +27,9 @@ export interface ControlButtonProps {
   enable?: () => void;
   disable?: () => void;
   loading?: boolean;
+  badgeButton?:
+    | { style?: CSSProperties; content: ReactNode; action?: () => void }
+    | false;
 }
 
 const ControlButton: React.FC<ControlButtonProps> = ({
@@ -34,6 +43,7 @@ const ControlButton: React.FC<ControlButtonProps> = ({
   activeLabel,
   loading,
   toolTipText,
+  badgeButton,
 }) => {
   const [active, setActive] = useState(false);
   const { setActiveMenuControl, activeMenuControl } = useMap();
@@ -58,6 +68,7 @@ const ControlButton: React.FC<ControlButtonProps> = ({
         'ol-control',
         styles.control,
         styled && styles.styled,
+        badgeButton && styles.controlWithBadge,
         active && styles.active
       )}
     >
@@ -94,6 +105,24 @@ const ControlButton: React.FC<ControlButtonProps> = ({
           {children}
         </div>
       </button>
+      {badgeButton && (
+        <span
+          style={badgeButton.style}
+          className={classnames(
+            styles.badgeButton,
+            css`
+              background-color: ${badgeButton?.style?.backgroundColor ||
+              darken(0.2, color || '#fff')};
+              &:hover {
+                background-color: black !important;
+              }
+            `
+          )}
+          onClick={badgeButton.action}
+        >
+          {badgeButton.content}
+        </span>
+      )}
     </div>
   );
 };

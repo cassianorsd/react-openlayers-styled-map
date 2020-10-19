@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FaRuler } from 'react-icons/fa';
+import { FaEraser, FaRuler } from 'react-icons/fa';
 import MeasureDistanceLib from './MeasureDistanceLib';
 import { useMap } from '../../../Hooks';
 import VectorSource from 'ol/source/Vector';
@@ -32,22 +32,22 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
       source: source,
       style: new Style({
         fill: new Fill({
-          color: 'rgba(255, 255, 255, 0.2)',
+          color: 'rgb(42, 82, 188)',
         }),
         stroke: new Stroke({
-          color: '#ffcc33',
-          width: 2,
+          color: 'rgb(42, 82, 188)',
+          width: 3,
         }),
         image: new Circle({
           radius: 7,
           fill: new Fill({
-            color: '#ffcc33',
+            color: 'rgb(42, 82, 188)',
           }),
         }),
       }),
     })
   );
-  const { map, addLayer } = useMap();
+  const { map, addLayer, setActiveMenuControl } = useMap();
 
   useEffect(() => {
     if (map) {
@@ -69,6 +69,13 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
     if (map) MeasureDistanceLib.StopMeasure({ map });
   }, [map]);
 
+  const onClear = useCallback(() => {
+    source.clear();
+    if (!map) return;
+    setActiveMenuControl(undefined);
+    MeasureDistanceLib.ClearOverlays({ map });
+  }, [source, map, setActiveMenuControl]);
+
   return (
     <ControlButton
       styled={styled}
@@ -79,6 +86,10 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
       enable={onEnable}
       disable={onDisable}
       toolTipText={toolTipText || 'Draw polyline and get total length'}
+      badgeButton={{
+        content: <FaEraser size={14} color='#fff' />,
+        action: onClear,
+      }}
     />
   );
 };

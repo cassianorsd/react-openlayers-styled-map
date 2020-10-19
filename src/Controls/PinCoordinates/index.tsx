@@ -4,10 +4,14 @@ import PinCoordinatesLib from './PinCoordinatesLib';
 import { useMap } from '../../Hooks';
 import ControlButton, { ControlButtonProps } from '../ControlButton';
 
-export type PinCoordinatesProps = Omit<
-  ControlButtonProps,
-  'controlKey' | 'disable' | 'enable' | 'loading'
->;
+export interface PinCoordinatesProps
+  extends Omit<
+    ControlButtonProps,
+    'controlKey' | 'disable' | 'enable' | 'loading'
+  > {
+  copyText?: string;
+  copiedText?: string;
+}
 
 const PinCoordinates: React.FC<PinCoordinatesProps> = ({
   styled,
@@ -18,13 +22,18 @@ const PinCoordinates: React.FC<PinCoordinatesProps> = ({
   icon,
   color,
   toolTipText,
+  copyText,
+  copiedText,
 }) => {
   const { map } = useMap();
 
   const onEnable = useCallback(() => {
     if (!map) return;
-    PinCoordinatesLib.startPinCoordinateInteraction(map);
-  }, [map]);
+    PinCoordinatesLib.startPinCoordinateInteraction({
+      map,
+      options: { copyText, copiedText },
+    });
+  }, [map, copyText, copiedText]);
 
   const onDisable = useCallback(() => {
     if (!map) return;

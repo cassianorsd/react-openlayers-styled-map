@@ -9,6 +9,11 @@ import { transform } from 'ol/proj';
 import { Vector as VectorSource } from 'ol/source';
 import { getDistance } from 'ol/sphere';
 import styles from '../styles.scss';
+import classnames from 'classnames';
+import Style from 'ol/style/Style';
+import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
+import CircleStyle from 'ol/style/Circle';
 
 let draw: Draw;
 let tooltipElement: HTMLElement | null;
@@ -25,6 +30,25 @@ const StartMeasure = ({ map, source }: StartMeasureProps): void => {
   draw = new Draw({
     source,
     type: GeometryType.CIRCLE,
+    style: new Style({
+      fill: new Fill({
+        color: 'rgba(98, 65, 199,0.2)',
+      }),
+      stroke: new Stroke({
+        color: 'rgba(98, 65, 199,0.8)',
+        lineDash: [10, 10],
+        width: 2,
+      }),
+      image: new CircleStyle({
+        radius: 5,
+        stroke: new Stroke({
+          color: 'rgba(98, 65, 199,0.8)',
+        }),
+        fill: new Fill({
+          color: 'rgba(98, 65, 199,0.2)',
+        }),
+      }),
+    }),
   });
 
   const createTooltip = (): void => {
@@ -62,8 +86,11 @@ const StartMeasure = ({ map, source }: StartMeasureProps): void => {
   draw.on('drawend', () => {
     if (tooltipElement)
       // tooltipElement.className = 'ol-tooltip ol-tooltip-static-measure-circle';
-      tooltipElement.className =
-        styles.olTooltip + ' ' + styles.olTooltipStaticMeasureCircle;
+      tooltipElement.className = classnames(
+        styles.olTooltip,
+        styles.olTooltipStatic,
+        styles.Radius
+      );
     tooltipElement = null;
     if (listener) unByKey(listener);
   });

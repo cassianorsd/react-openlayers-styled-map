@@ -13,6 +13,7 @@ import { EventsKey } from 'ol/events';
 import { unByKey } from 'ol/Observable';
 import OverlayPositioning from 'ol/OverlayPositioning';
 import styles from '../styles.scss';
+import classnames from 'classnames';
 
 let sketch: Feature | null;
 let helpTooltipElement: HTMLElement;
@@ -162,8 +163,11 @@ const StartMeasure = ({ map, source, type }: StartMeasureProps): void => {
     draw.on('drawend', function () {
       if (measureTooltipElement) {
         // measureTooltipElement.className = 'ol-tooltip ol-tooltip-static';
-        measureTooltipElement.className =
-          styles.olTooltip + ' ' + styles.olTooltipStatic;
+        measureTooltipElement.className = classnames(
+          styles.olTooltip,
+          styles.olTooltipStatic,
+          styles.Area
+        );
         measureTooltip.setOffset([0, -7]);
       }
       sketch = null;
