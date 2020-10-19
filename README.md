@@ -5,10 +5,10 @@
 [![NPM](https://img.shields.io/npm/v/react-openlayers-styled-map.svg)](https://www.npmjs.com/package/react-openlayers-styled-map) [![TypeScript Style Guide](https://img.shields.io/badge/code_style-typecript-brightgreen.svg)](https://www.typescriptlang.org/)
 ![NPM](https://img.shields.io/npm/l/react-openlayers-styled-map)
 
+<a href="https://www.buymeacoffee.com/cassianorsd" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" width='150px' alt="Buy Me A Coffee"></a>
+
 This (react-openlayers-styled-map) is a React.JS component made in Typescript.
 It acts as a wrapper around [OpenLayers](https://openlayers.org/) map object and tries to supress the complexity of a starting map project.
-
-<a href="https://www.buymeacoffee.com/cassianorsd" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" width='150px' alt="Buy Me A Coffee"></a>
 
 Currently, the lib has a simple global state hook that provides access from any part of a react project to the OL map object and some extra key functions.
 
