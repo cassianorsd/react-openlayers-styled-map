@@ -5,24 +5,22 @@
 [![NPM](https://img.shields.io/npm/v/react-openlayers-styled-map.svg)](https://www.npmjs.com/package/react-openlayers-styled-map) [![TypeScript Style Guide](https://img.shields.io/badge/code_style-typecript-brightgreen.svg)](https://www.typescriptlang.org/)
 ![NPM](https://img.shields.io/npm/l/react-openlayers-styled-map)
 
+This (react-openlayers-styled-map) is a React.JS component made in Typescript.
+It acts as a wrapper around [OpenLayers](https://openlayers.org/) map object and tries to supress the complexity of a starting map project.
 
-This (react-openlayers-styled-map) is a React.JS component made in Typescript. 
-It acts as a wrapper around [OpenLayers](https://openlayers.org/) map object and tries to supress the complexity of a starting map project. 
-
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="cassianorsd" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000" data-font-color="#000" data-coffee-color="#fff" ></script>
 
 Currently, the lib has a simple global state hook that provides access from any part of a react project to the OL map object and some extra key functions.
 
 Also, some usefull styled and ready-to-use map controls, some of them directly translated from OL Docs.
 
-
-* Measure Polygon area
-* Measure Distance
-* Export map as image (uses [html2canvas](https://www.npmjs.com/package/html2canvas))
-* Export map as PDF (uses [jsPDF](https://www.npmjs.com/package/jspdf))
-* Draw Circle Radius
-* Pin Coordinates
-* Redirect to Google Street View from point
-
+- Measure Polygon area
+- Measure Distance
+- Export map as image (uses [html2canvas](https://www.npmjs.com/package/html2canvas))
+- Export map as PDF (uses [jsPDF](https://www.npmjs.com/package/jspdf))
+- Draw Circle Radius
+- Pin Coordinates
+- Redirect to Google Street View from point
 
 ## Install
 
@@ -41,59 +39,59 @@ yarn add ol
 
 In [react-openlayers-styled-map](https://cassianorsd.github.io/react-openlayers-styled-map/) is possible to test a working demo/project of the component and also a debug page to quick test some XYZ/WMS layer sources.
 
-
 The page is also using routing from [react-router-dom](https://www.npmjs.com/package/react-router-dom) library to test the map component remounting capabilities and bugs.
-
 
 ## Usage
 
 ### Map Component
-```tsx
-import React, { Component } from 'react'
 
-import { StyledMap, Controls } from 'react-openlayers-styled-map'
+```tsx
+import React, { Component } from 'react';
+
+import { StyledMap, Controls } from 'react-openlayers-styled-map';
 
 const Page = () => {
   return (
-            <StyledMap
-              id='map' // Optional, just in case of conflict with other components
-              startCoordinates={[-49.20, -26.50]}
-              startZoom={11}
-              tileDebug // Enable tile debug overlay for testing
-              osmBasemap //Enable OSM Background for quick testing
-              defaultControls={{   
-                /*
+    <StyledMap
+      id='map' // Optional, just in case of conflict with other components
+      startCoordinates={[-49.2, -26.5]}
+      startZoom={11}
+      tileDebug // Enable tile debug overlay for testing
+      osmBasemap //Enable OSM Background for quick testing
+      defaultControls={{
+        /*
                 You can leave {} to enable the default props for each control
                 See Openlayers Specific control documentation for custom properties
                 */
-                fullScreenMode: { tipLabel: 'Click to toggle' }, 
-                zoomButtons:{},
-                zoomSlider: {},
-                scale: {
-                  bar: true,
-                  minWidth: 130,
-                  steps: 4
-                }
-              }}
-            >
-              <StyledMap.Controls showRibbon >
-                <Controls.GoogleStreetView styled activeLabel='custom label'/>
-                <Controls.ExportMapImage  styled color='purple'/>
-                <Controls.ExportMapPDF  styled />
-                <Controls.MeasureArea styled />
-                <Controls.MeasureDistance styled />
-                <Controls.MeasureRadius styled />
-                <Controls.ClearMeasures styled />
-                <Controls.PinCoordinates styled />     
-              </StyledMap.Controls>       
-            </StyledMap>
-  )
-}
+        fullScreenMode: { tipLabel: 'Click to toggle' },
+        zoomButtons: {},
+        zoomSlider: {},
+        scale: {
+          bar: true,
+          minWidth: 130,
+          steps: 4,
+        },
+      }}
+    >
+      <StyledMap.Controls showRibbon>
+        <Controls.GoogleStreetView styled activeLabel='custom label' />
+        <Controls.ExportMapImage styled color='purple' />
+        <Controls.ExportMapPDF styled />
+        <Controls.MeasureArea styled />
+        <Controls.MeasureDistance styled />
+        <Controls.MeasureRadius styled />
+        <Controls.ClearMeasures styled />
+        <Controls.PinCoordinates styled />
+      </StyledMap.Controls>
+    </StyledMap>
+  );
+};
 ```
 
 ### Hooks / Methods Abstractions
 
 #### Access map object
+
 ```tsx
 
 import { useMap } from 'react-openlayers-styled-map'
@@ -126,10 +124,10 @@ const Component = () => {
 
   setActiveMenuControl('GoogleStreetView') // Remotely enable menu control
   setActiveMenuControl(undefined) // Disable all menu controls, this method triggers the onDisable method on the currently active control
-  
+
   //addLayer method wraps around map.addLayer and register the objects in the activeLayers
   // for and easy to use access for custom management components Ex: like Layer Selectors or TreeViews
-  addLayer({ 
+  addLayer({
     layerKey: 'layerUniqueName2',
     layerObject:new TileLayer({source: new OSM()})
     });
@@ -141,15 +139,13 @@ const Component = () => {
 }
 ```
 
-
 ## Custom Menu Control
 
 You can create a new custom control just wrapping the default ControlButton component and point the enable/disable callbacks and a unique key.
 
-
 ```tsx
 import React, { useCallback } from 'react';
-import { Controls,useMap } from 'react-openlayers-styled-map'
+import { Controls, useMap } from 'react-openlayers-styled-map';
 import { FaCrosshairs } from 'react-icons/fa';
 import { toLonLat } from 'ol/proj';
 import { MapBrowserEvent } from 'ol';
@@ -188,24 +184,19 @@ const MyCustomControl: React.FC = () => {
 
 Usage
 
-
 ```tsx
 <StyledMap {...ANOTHER PROPS}>
     <StyledMap.Controls showRibbon >
-      <MyCustomControl styled />     
-    </StyledMap.Controls>       
+      <MyCustomControl styled />
+    </StyledMap.Controls>
 </StyledMap>
 ```
 
-
 ### Styled and Default Styled
 
-Each control component has a ```styled``` prop to enable the styled interface. 
-
+Each control component has a `styled` prop to enable the styled interface.
 
 <img src='README/map.png' width='100%'>
-
-
 
 ## License
 
