@@ -11,10 +11,14 @@ export type GoogleStreetViewProps = Omit<
 
 const GoogleStreetView: React.FC<GoogleStreetViewProps> = ({
   styled,
-  activeLabel,
+  activeLabel = {
+    title: 'Google Street View',
+    text: 'Single click on desired location to open street view.',
+  },
   children,
   color,
   icon,
+  toolTipText,
 }) => {
   const { map } = useMap();
 
@@ -35,10 +39,11 @@ const GoogleStreetView: React.FC<GoogleStreetViewProps> = ({
       styled={!!styled}
       icon={icon || <FaStreetView size={20} color='#fff' />}
       color={color || '#FE2C54'}
-      activeLabel={activeLabel || 'Google Street View'}
+      activeLabel={activeLabel}
       controlKey='GoogleStreetView'
       enable={onEnable}
       disable={onDisable}
+      toolTipText={toolTipText || 'Google Street View'}
     >
       {children}
     </ControlButton>

@@ -14,6 +14,7 @@ const ExportMapImage: React.FC<ExportMapImageProps> = ({
   activeLabel,
   icon,
   color,
+  toolTipText,
 }) => {
   const [rendering, setRendering] = useState(false);
   const { map, setActiveMenuControl } = useMap();
@@ -36,12 +37,13 @@ const ExportMapImage: React.FC<ExportMapImageProps> = ({
     <ControlButton
       styled={styled}
       icon={icon || <FaImage size={20} color='#fff' />}
-      activeLabel={activeLabel || ''}
+      activeLabel={activeLabel || false}
       color={color || '#9ACD32'}
       controlKey='ExportMapImage'
       loading={rendering}
       enable={onEnable}
       disable={onDisable}
+      toolTipText={toolTipText || 'Export Image of Current View'}
     />
   );
 };

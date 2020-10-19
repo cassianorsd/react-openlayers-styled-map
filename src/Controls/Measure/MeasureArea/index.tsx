@@ -18,9 +18,13 @@ export type MeasureAreaProps = Omit<
 
 const MeasureArea: React.FC<MeasureAreaProps> = ({
   styled,
-  activeLabel,
+  activeLabel = {
+    title: 'Measure Area',
+    text: 'Click on map to start drawing.',
+  },
   icon,
   color,
+  toolTipText,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -70,11 +74,12 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
     <ControlButton
       styled={styled}
       icon={icon || <FaDrawPolygon size={20} color='#fff' />}
-      activeLabel={activeLabel || 'Measure Area'}
+      activeLabel={activeLabel}
       color={color || '#446CD5'}
       controlKey='MeasureArea'
       enable={onEnable}
       disable={onDisable}
+      toolTipText={toolTipText || 'Draw polygon to measure content area'}
     />
   );
 };

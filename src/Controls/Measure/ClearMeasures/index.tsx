@@ -14,9 +14,10 @@ export type ClearMeasuresProps = Omit<
 
 const ClearMeasures: React.FC<ClearMeasuresProps> = ({
   styled,
-  activeLabel,
+  activeLabel = { text: 'Cleaning drawings...' },
   icon,
   color,
+  toolTipText,
 }) => {
   const [isClearing, setIsClearing] = useState(false);
   const { setActiveMenuControl, map, getLayer } = useMap();
@@ -47,12 +48,13 @@ const ClearMeasures: React.FC<ClearMeasuresProps> = ({
     <ControlButton
       styled={styled}
       icon={icon || <FaTrashAlt size={20} color='#fff' />}
-      activeLabel={activeLabel || 'Limpando Medidas'}
+      activeLabel={activeLabel}
       color={color || '#446CD5'}
       enable={onEnable}
       disable={onDisable}
       controlKey='ClearMeasures'
       loading={isClearing}
+      toolTipText={toolTipText || 'Clear all measures from the map'}
     />
   );
 };

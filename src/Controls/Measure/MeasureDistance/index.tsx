@@ -17,9 +17,13 @@ export type MeasureDistanceProps = Omit<
 >;
 const MeasureDistance: React.FC<MeasureDistanceProps> = ({
   styled,
-  activeLabel,
+  activeLabel = {
+    title: 'Measure Distances',
+    text: 'Click on map to start drawing.',
+  },
   icon,
   color,
+  toolTipText,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -69,11 +73,12 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
     <ControlButton
       styled={styled}
       icon={icon || <FaRuler size={20} color='#fff' />}
-      activeLabel={activeLabel || 'Measure Distance'}
+      activeLabel={activeLabel}
       color={color || '#446CD5'}
       controlKey='MeasureDistance'
       enable={onEnable}
       disable={onDisable}
+      toolTipText={toolTipText || 'Draw polyline and get total length'}
     />
   );
 };

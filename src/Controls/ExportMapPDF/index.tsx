@@ -18,6 +18,7 @@ const ExportMapPDF: React.FC<ExportMapPDFProps> = ({
   icon,
   color,
   options,
+  toolTipText,
 }) => {
   const [isModalOpen, setModalIsOpen] = useState(false);
 
@@ -37,12 +38,13 @@ const ExportMapPDF: React.FC<ExportMapPDFProps> = ({
     <ControlButton
       styled={styled}
       icon={icon || <FaFilePdf size={20} color='#fff' />}
-      activeLabel={activeLabel || ''}
+      activeLabel={activeLabel || false}
       color={color || '#9ACD32'}
       controlKey='ExportMapPDF'
       enable={onEnable}
       disable={onDisable}
       loading={isModalOpen}
+      toolTipText={toolTipText || 'Generate PDF image of current view'}
     >
       <ExportPDFModal
         isOpen={isModalOpen}

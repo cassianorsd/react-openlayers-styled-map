@@ -5,11 +5,18 @@ import styles from './styles.scss';
 import classnames from 'classnames';
 import { css } from 'emotion';
 import { darken } from 'polished';
+
 export interface ControlButtonProps {
   styled?: boolean;
   icon?: ReactNode;
   color?: string;
-  activeLabel?: string;
+  activeLabel?:
+    | {
+        title?: string;
+        text?: string;
+      }
+    | false;
+  toolTipText?: string;
   controlKey: string;
   enable?: () => void;
   disable?: () => void;
@@ -26,6 +33,7 @@ const ControlButton: React.FC<ControlButtonProps> = ({
   enable,
   activeLabel,
   loading,
+  toolTipText,
 }) => {
   const [active, setActive] = useState(false);
   const { setActiveMenuControl, activeMenuControl } = useMap();
@@ -43,40 +51,50 @@ const ControlButton: React.FC<ControlButtonProps> = ({
       if (disable) disable();
     }
   }, [activeMenuControl, controlKey, active, enable, disable]);
+
   return (
-    <button
-      onClick={handleClick}
+    <div
       className={classnames(
-        styles.controlButton,
-        active && styles.active,
-        styled && styles.styled
+        'ol-control',
+        styles.control,
+        styled && styles.styled,
+        active && styles.active
       )}
-      id={`${controlKey}-button`}
     >
-      <div
-        className={classnames(
-          styles.content,
-          styled &&
-            css`
-              background-color: ${color || '#fff'};
-              &:hover {
-                background-color: ${darken(0.1, color || '#fff')};
-              }
-            `
-        )}
-      >
-        {styled && activeLabel && (
-          <span className={styles.activeLabel}>{activeLabel}</span>
-        )}
-        {loading && (
-          <div className={styles.IconDiv}>
-            <Spinner name='circle' color='#fff' fadeIn='quarter' />
-          </div>
-        )}
-        {!loading && Icon && <div className={styles.IconDiv}>{Icon}</div>}
-        {children}
-      </div>
-    </button>
+      {toolTipText && !active && (
+        <span className={styles.toolTipText}>{toolTipText}</span>
+      )}
+      <button onClick={handleClick}>
+        <div
+          className={classnames(
+            styles.buttonContent,
+            styled &&
+              css`
+                background-color: ${color || '#fff'}!important;
+                &:hover {
+                  background-color: ${darken(0.1, color || '#fff')}!important;
+                }
+              `
+          )}
+        >
+          {styled && activeLabel && (
+            <span className={styles.activeLabel}>
+              <span className={styles.activeLabelTitle}>
+                {activeLabel.title}
+              </span>
+              <span className={styles.activeLabelText}>{activeLabel.text}</span>
+            </span>
+          )}
+          {loading && (
+            <div className={styles.IconDiv}>
+              <Spinner name='circle' color='#000' fadeIn='none' />
+            </div>
+          )}
+          {!loading && Icon && <div className={styles.IconDiv}>{Icon}</div>}
+          {children}
+        </div>
+      </button>
+    </div>
   );
 };
 

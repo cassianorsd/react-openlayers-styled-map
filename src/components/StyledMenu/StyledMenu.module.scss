@@ -1,0 +1,40 @@
+.container {
+  top: 80px;
+  right: 0px;
+  width: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: rgba(0, 0, 0, 0);
+  &:hover {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  padding: 0px;
+}
+
+.content {
+  right: 0.5em;
+  position: relative;
+  direction: rtl;
+}
+
+.container.ribbon {
+  top: 80px;
+  right: 0px;
+  width: 15px;
+  height: auto;
+  max-height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 10px 0px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 0px;
+
+  background-color: rgba(230, 230, 230, 0.8);
+  &:hover {
+    background-color: rgba(230, 230, 230, 0.8);
+  }
+}

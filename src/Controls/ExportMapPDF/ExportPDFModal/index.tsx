@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import { FaTimes } from 'react-icons/fa';
-import {
-  ModalContent,
-  ModalTitle,
-  ModalHeader,
-  CloseButton,
-  ModalForm,
-  ModalActionDiv,
-} from './styles';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
-import { Button } from 'semantic-ui-react';
 import { useMap } from '../../../Hooks';
 import ExportMapPDFLib, {
   PageDimmentions,
   PageOrientation,
 } from '../ExportMapPDFLib';
 import Spinner from 'react-spinkit';
+import styles from './styles.module.scss';
+import classnames from 'classnames';
 
 const customStyles: ReactModal.Styles = {
   content: {
@@ -29,6 +22,7 @@ const customStyles: ReactModal.Styles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     borderRadius: '10px',
+    overflow: 'visible',
   },
 };
 ReactModal.setAppElement('#root');
@@ -106,14 +100,14 @@ const ExportPDFModal: React.FC<ExportPDFModalProps> = ({
         contentLabel='Example Modal'
         style={customStyles}
       >
-        <ModalContent>
-          <ModalHeader>
-            <ModalTitle>Export PDF</ModalTitle>
-            <CloseButton onClick={onClose}>
-              <FaTimes size={20} />
-            </CloseButton>
-          </ModalHeader>
-          <ModalForm onSubmit={onSubmit}>
+        <div className={styles.modalContent}>
+          <div className={styles.modalHeader}>
+            <span className={styles.modalTitle}>Export PDF</span>
+            <button className={styles.modalCloseButton} onClick={onClose}>
+              <FaTimes size={16} />
+            </button>
+          </div>
+          <form onSubmit={onSubmit}>
             <span>Página:</span>
             <Controller
               name='pageSize'
@@ -130,16 +124,23 @@ const ExportPDFModal: React.FC<ExportPDFModalProps> = ({
               control={control}
               defaultValue={{ value: 'landscape', label: 'Paisagem' }}
             />
-          </ModalForm>
-          <ModalActionDiv>
-            <Button color='green' onClick={onSubmit}>
-              Gerar
-            </Button>
-            <Button color='red' onClick={onClose}>
+          </form>
+          <div className={styles.modalActionDiv}>
+            <button
+              className={classnames(styles.button, styles.positive)}
+              onClick={onSubmit}
+            >
+              Gerar PDF
+            </button>
+
+            <button
+              className={classnames(styles.button, styles.negative)}
+              onClick={onClose}
+            >
               Cancelar
-            </Button>
-          </ModalActionDiv>
-        </ModalContent>
+            </button>
+          </div>
+        </div>
       </ReactModal>
       <ReactModal isOpen={isRendering} style={customStyles}>
         <div

@@ -19,7 +19,7 @@ const StyledMenu: React.FC<StyledMenuProps> = ({
         showRibbon && styles.ribbon
       )}
     >
-      {children}
+      <div className={styles.content}>{children}</div>
     </div>
   );
 };

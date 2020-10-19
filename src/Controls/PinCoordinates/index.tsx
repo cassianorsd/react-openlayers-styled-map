@@ -11,9 +11,13 @@ export type PinCoordinatesProps = Omit<
 
 const PinCoordinates: React.FC<PinCoordinatesProps> = ({
   styled,
-  activeLabel,
+  activeLabel = {
+    title: 'Get Coordinates',
+    text: 'Click on desired location on map to get information.',
+  },
   icon,
   color,
+  toolTipText,
 }) => {
   const { map } = useMap();
 
@@ -31,11 +35,12 @@ const PinCoordinates: React.FC<PinCoordinatesProps> = ({
     <ControlButton
       styled={styled}
       icon={icon || <FaMapMarkerAlt size={20} color='#fff' />}
-      activeLabel={activeLabel || 'Pin Coordinates'}
+      activeLabel={activeLabel}
       color={color || '#FF8C00'}
       controlKey='PinCoordinates'
       enable={onEnable}
       disable={onDisable}
+      toolTipText={toolTipText || 'Get Coordinates from point'}
     />
   );
 };

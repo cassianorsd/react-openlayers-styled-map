@@ -17,9 +17,13 @@ export type MeasureRadiusProps = Omit<
 
 const MeasureRadius: React.FC<MeasureRadiusProps> = ({
   styled,
-  activeLabel,
+  activeLabel = {
+    title: 'Measure Radius',
+    text: 'Click on map to start drawing.',
+  },
   icon,
   color,
+  toolTipText,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -67,11 +71,12 @@ const MeasureRadius: React.FC<MeasureRadiusProps> = ({
     <ControlButton
       styled={styled}
       icon={icon || <RiShareCircleFill size={20} color='#fff' />}
-      activeLabel={activeLabel || 'Measure Radius'}
+      activeLabel={activeLabel}
       color={color || '#446CD5'}
       controlKey='MeasureRadius'
       enable={onEnable}
       disable={onDisable}
+      toolTipText={toolTipText || 'Draw a circle and get final radius.'}
     />
   );
 };

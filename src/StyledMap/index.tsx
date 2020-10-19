@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 import { ControlProps, useMap } from '../Hooks';
 import 'semantic-ui-css/semantic.min.css';
 import { Options as TileDebugOptions } from 'ol/source/TileDebug';
-import StyledMenu, { StyledMenuProps } from './StyledMenu';
 import styles from './styles.module.scss';
+import StyledMenu, { StyledMenuProps } from '../components/StyledMenu';
 
 export interface StyledMapProps {
   id?: string;
   osmBasemap?: boolean;
   defaultControls?: ControlProps;
-  controlsMenu?: StyledMenuProps;
   startZoom?: number;
   startCoordinates?: [number, number];
   tileDebug?: TileDebugOptions;
@@ -21,7 +20,6 @@ const StyledMap: React.FC<StyledMapProps> & {
   id,
   osmBasemap,
   defaultControls,
-  controlsMenu,
   startZoom,
   startCoordinates,
   tileDebug,
@@ -55,7 +53,6 @@ const StyledMap: React.FC<StyledMapProps> & {
           height: '100%',
         }}
       />
-      {controlsMenu && <StyledMenu {...controlsMenu} />}
       {children}
     </div>
   );
