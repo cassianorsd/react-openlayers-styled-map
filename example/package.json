@@ -31,7 +31,8 @@
   },
   "devDependencies": {
     "@babel/plugin-syntax-object-rest-spread": "^7.8.3",
-    "@types/react-router-dom": "^5.1.5"
+    "@types/react-router-dom": "^5.1.5",
+    "@types/styled-components": "^5.1.4"
   },
   "eslintConfig": {
     "extends": "react-app"
