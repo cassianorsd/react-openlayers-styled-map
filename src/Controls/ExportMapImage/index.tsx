@@ -11,7 +11,7 @@ export type ExportMapImageProps = Omit<
 
 const ExportMapImage: React.FC<ExportMapImageProps> = ({
   styled,
-  activeLabel,
+  activeLabel = { text: 'Generating image...' },
   icon,
   color,
   toolTipText,
@@ -37,7 +37,7 @@ const ExportMapImage: React.FC<ExportMapImageProps> = ({
     <ControlButton
       styled={styled}
       icon={icon || <FaImage size={20} color='#fff' />}
-      activeLabel={activeLabel || false}
+      activeLabel={activeLabel}
       color={color || '#9ACD32'}
       controlKey='ExportMapImage'
       loading={rendering}
