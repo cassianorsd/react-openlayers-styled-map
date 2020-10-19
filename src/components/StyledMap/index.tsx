@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { ControlProps, useMap } from '../Hooks';
+import { ControlProps, useMap } from '../../Hooks';
 import 'semantic-ui-css/semantic.min.css';
 import { Options as TileDebugOptions } from 'ol/source/TileDebug';
 import styles from './styles.module.scss';
-import StyledMenu, { StyledMenuProps } from '../components/StyledMenu';
+import StyledMenu, { StyledMenuProps } from '../StyledMenu';
 
 export interface StyledMapProps {
   id?: string;

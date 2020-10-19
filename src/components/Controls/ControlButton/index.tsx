@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { useMap } from '../../Hooks';
+import { useMap } from '../../../Hooks';
 import Spinner from 'react-spinkit';
 import styles from './styles.scss';
 import classnames from 'classnames';

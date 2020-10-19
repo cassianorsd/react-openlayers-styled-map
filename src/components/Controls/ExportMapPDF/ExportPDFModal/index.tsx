@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 import { FaTimes } from 'react-icons/fa';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
-import { useMap } from '../../../Hooks';
+import { useMap } from '../../../../Hooks';
 import ExportMapPDFLib, {
   PageDimmentions,
   PageOrientation,

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FaEraser, FaRuler } from 'react-icons/fa';
-import MeasureDistanceLib from './MeasureDistanceLib';
-import { useMap } from '../../../Hooks';
+import { FaDrawPolygon, FaEraser } from 'react-icons/fa';
+import MeasureAreaLib from './MeasureAreaLib';
+import { useMap } from '../../../../Hooks';
 import VectorSource from 'ol/source/Vector';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
@@ -11,14 +11,15 @@ import VectorLayer from 'ol/layer/Vector';
 import GeometryType from 'ol/geom/GeometryType';
 import ControlButton, { ControlButtonProps } from '../../ControlButton';
 
-export type MeasureDistanceProps = Omit<
+export type MeasureAreaProps = Omit<
   ControlButtonProps,
   'controlKey' | 'disable' | 'enable' | 'loading'
 >;
-const MeasureDistance: React.FC<MeasureDistanceProps> = ({
+
+const MeasureArea: React.FC<MeasureAreaProps> = ({
   styled,
   activeLabel = {
-    title: 'Measure Distances',
+    title: 'Measure Area',
     text: 'Click on map to start drawing.',
   },
   icon,
@@ -32,16 +33,16 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
       source: source,
       style: new Style({
         fill: new Fill({
-          color: 'rgb(42, 82, 188)',
+          color: 'rgba(1, 171, 116,0.2)',
         }),
         stroke: new Stroke({
-          color: 'rgb(42, 82, 188)',
-          width: 3,
+          color: 'rgba(1, 171, 116,1)',
+          width: 2,
         }),
         image: new Circle({
           radius: 7,
           fill: new Fill({
-            color: 'rgb(42, 82, 188)',
+            color: 'rgba(1, 171, 116,0.2)',
           }),
         }),
       }),
@@ -51,41 +52,41 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
 
   useEffect(() => {
     if (map) {
-      addLayer({ layerKey: 'measureDistance', layerObject: vector });
+      addLayer({ layerKey: 'measureArea', layerObject: vector });
     }
   }, [map, addLayer, vector]);
 
   const onEnable = useCallback(() => {
     if (map && source) {
-      MeasureDistanceLib.StartMeasure({
+      MeasureAreaLib.StartMeasure({
         map,
         source,
-        type: GeometryType.LINE_STRING,
+        type: GeometryType.POLYGON,
       });
     }
   }, [map, source]);
 
   const onDisable = useCallback(() => {
-    if (map) MeasureDistanceLib.StopMeasure({ map });
+    if (map) MeasureAreaLib.StopMeasure({ map });
   }, [map]);
 
   const onClear = useCallback(() => {
     source.clear();
     if (!map) return;
     setActiveMenuControl(undefined);
-    MeasureDistanceLib.ClearOverlays({ map });
+    MeasureAreaLib.ClearOverlays({ map });
   }, [source, map, setActiveMenuControl]);
 
   return (
     <ControlButton
       styled={styled}
-      icon={icon || <FaRuler size={20} color='#fff' />}
+      icon={icon || <FaDrawPolygon size={20} color='#fff' />}
       activeLabel={activeLabel}
       color={color || '#446CD5'}
-      controlKey='MeasureDistance'
+      controlKey='MeasureArea'
       enable={onEnable}
       disable={onDisable}
-      toolTipText={toolTipText || 'Draw polyline and get total length'}
+      toolTipText={toolTipText || 'Draw polygon to measure content area'}
       badgeButton={{
         content: <FaEraser size={14} color='#fff' />,
         action: onClear,
@@ -94,4 +95,4 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
   );
 };
 
-export default MeasureDistance;
+export default MeasureArea;

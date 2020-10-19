@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { FaFilePdf } from 'react-icons/fa';
 import ExportPDFModal, { ExportPDFModalOptions } from './ExportPDFModal';
-import { useMap } from '../../Hooks';
+import { useMap } from '../../../Hooks';
 import ControlButton, { ControlButtonProps } from '../ControlButton';
 
 export interface ExportMapPDFProps
@@ -28,7 +28,6 @@ const ExportMapPDF: React.FC<ExportMapPDFProps> = ({
     setModalIsOpen(true);
   }, []);
 
-  const onDisable = useCallback(() => {}, []);
   const closeModal = useCallback(() => {
     setModalIsOpen(false);
     setActiveMenuControl(undefined);
@@ -42,7 +41,6 @@ const ExportMapPDF: React.FC<ExportMapPDFProps> = ({
       color={color || '#9ACD32'}
       controlKey='ExportMapPDF'
       enable={onEnable}
-      disable={onDisable}
       loading={isModalOpen}
       toolTipText={toolTipText || 'Generate PDF image of current view'}
     >

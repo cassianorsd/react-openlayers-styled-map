@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { FaImage } from 'react-icons/fa';
-import { useMap } from '../../Hooks';
+import { useMap } from '../../../Hooks';
 import ExportMapImageLib from './ExportMapImageLib';
 import ControlButton, { ControlButtonProps } from '../ControlButton';
 

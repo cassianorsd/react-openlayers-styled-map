@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { FaStreetView } from 'react-icons/fa';
-import { useMap } from '../../Hooks';
+import { useMap } from '../../../Hooks';
 import GoogleStreetViewLib from './GoogleStreetViewLib';
 import ControlButton, { ControlButtonProps } from '../ControlButton';
 

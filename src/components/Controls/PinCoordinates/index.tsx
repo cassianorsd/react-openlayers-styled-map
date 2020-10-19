@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import PinCoordinatesLib from './PinCoordinatesLib';
-import { useMap } from '../../Hooks';
+import { useMap } from '../../../Hooks';
 import ControlButton, { ControlButtonProps } from '../ControlButton';
 
 export interface PinCoordinatesProps

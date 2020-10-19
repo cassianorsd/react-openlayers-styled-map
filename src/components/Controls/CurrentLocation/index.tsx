@@ -1,9 +1,7 @@
 import { circular } from 'ol/geom/Polygon';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BiCurrentLocation } from 'react-icons/bi';
-import ControlButton, {
-  ControlButtonProps,
-} from '../../../Controls/ControlButton';
+import ControlButton, { ControlButtonProps } from '../ControlButton';
 import { useMap } from '../../../Hooks';
 import VectorSource from 'ol/source/Vector';
 import Fill from 'ol/style/Fill';
