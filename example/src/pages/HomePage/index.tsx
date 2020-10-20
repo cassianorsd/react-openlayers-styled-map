@@ -29,7 +29,7 @@ const HomePage:React.FC = ()=>{
           <Controls.MeasureRadius styled />
           <Controls.ClearMeasures styled />
           <Controls.PinCoordinates styled/>
-          <Controls.GetCurrentLocation styled/>
+          <Controls.GetCurrentLocation styled />
         </StyledMap.Controls>
       </StyledMap>
     </Content>

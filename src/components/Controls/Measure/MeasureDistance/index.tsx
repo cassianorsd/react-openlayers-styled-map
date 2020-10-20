@@ -24,6 +24,7 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
   icon,
   color,
   toolTipText,
+  badgeButton,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -86,10 +87,15 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
       enable={onEnable}
       disable={onDisable}
       toolTipText={toolTipText || 'Draw polyline and get total length'}
-      badgeButton={{
-        content: <FaEraser size={14} color='#fff' />,
-        action: onClear,
-      }}
+      badgeButton={
+        badgeButton || badgeButton === false
+          ? badgeButton
+          : {
+              content: <FaEraser size={14} color='#fff' />,
+              action: onClear,
+              toolTipText: 'Clear drawings',
+            }
+      }
     />
   );
 };

@@ -14,14 +14,14 @@
     top: 0.125em;
   }
 
-  &:hover {
+  button:hover {
     .toolTipText {
       visibility: visible;
     }
   }
 }
 
-.control.controlWithBadge {
+.control.withBadge {
   margin-bottom: 10px;
   @media (max-width: 600px) {
     margin-bottom: 20px;
@@ -38,7 +38,7 @@
   visibility: hidden;
   width: max-content;
   max-width: 200px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
@@ -46,6 +46,29 @@
   line-height: 10px;
   direction: ltr;
   text-align: center;
+  font-size: 12px;
+  color: #000;
+  font-weight: normal;
+}
+
+.badgeTooltip {
+  position: absolute;
+  top: 0px;
+  right: 25px;
+  visibility: hidden;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: max-content;
+  height: 100%;
+  padding: 2px 5px 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  line-height: 12px;
+  max-width: 200px;
 }
 
 .badgeButton {
@@ -55,7 +78,6 @@
   right: -5px;
   width: 18px;
   height: 18px;
-  overflow: hidden;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -72,6 +94,12 @@
     width: 23px;
     height: 23px;
     bottom: -15px;
+  }
+
+  &:hover {
+    .badgeTooltip {
+      visibility: visible;
+    }
   }
 }
 
@@ -150,12 +178,6 @@
     }
   }
 
-  &:hover {
-    .toolTipText {
-      visibility: visible;
-    }
-  }
-
   &.active {
     .buttonContent {
       background-color: $controlActiveColor !important;
@@ -169,99 +191,3 @@
     }
   }
 }
-
-// .hoverTooltip {
-//   position: absolute;
-//   box-sizing: border-box;
-//   visibility: hidden;
-//   font-size: 11px;
-//   color: #000;
-//   background-color: rgba(255, 255, 255, 0.8);
-//   top: 2.5px;
-//   right: 35px;
-//   height: 25px;
-//   max-width: 200px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   width: max-content;
-//   border-radius: 5px;
-//   padding: 0px 5px 0px;
-//   line-height: 12px;
-//   font-weight: bold;
-// }
-
-// .controlButton.styled {
-//   min-width: 30px;
-//   height: 30px;
-//   border-radius: 15px;
-//   button,
-//   button:hover,
-//   button:active {
-//     background-color: transparent !important;
-//   }
-
-//   &:hover {
-//     .hoverTooltip {
-//       visibility: visible;
-//     }
-//   }
-
-//   &.active {
-//     .content {
-//       background-color: $controlActiveColor !important;
-//       max-width: 200px;
-//       justify-content: flex-end;
-//     }
-//     .activeLabel {
-//       max-width: 200px;
-//       padding: 2px 10px 2px;
-//       opacity: 1;
-//     }
-//   }
-
-//   .content {
-//     position: absolute;
-//     top: 0;
-//     min-width: 30px;
-//     max-width: 30px;
-//     height: 30px;
-//     border-radius: 15px;
-//     width: max-content;
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: center;
-//     align-items: center;
-//     overflow: hidden;
-//     transition: all 200ms ease;
-//     right: 0;
-//     direction: ltr;
-//   }
-
-//   .IconDiv {
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: center;
-//     align-items: center;
-//     flex-basis: 30px;
-//     min-width: 30px;
-//   }
-
-//   .activeLabel {
-//     transition: all 200ms ease;
-//     box-sizing: border-box;
-//     max-width: 0px;
-//     overflow: hidden;
-//     display: flex;
-//     flex-direction: row;
-//     flex-wrap: wrap;
-//     justify-content: center;
-//     align-items: center;
-//     line-height: 12px;
-//     font-size: 12px;
-//     height: 30px;
-//     font-weight: normal;
-//     color: #000;
-//     opacity: 0;
-//   }
-// }

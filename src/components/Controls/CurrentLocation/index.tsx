@@ -13,14 +13,11 @@ import { Feature } from 'ol';
 import Point from 'ol/geom/Point';
 import { fromLonLat } from 'ol/proj';
 import { FaTrashAlt } from 'react-icons/fa';
-export interface GetCurrentLocationProps
-  extends Omit<
-    ControlButtonProps,
-    'controlKey' | 'disable' | 'enable' | 'loading'
-  > {
-  copyText?: string;
-  copiedText?: string;
-}
+
+export type GetCurrentLocationProps = Omit<
+  ControlButtonProps,
+  'controlKey' | 'disable' | 'enable' | 'loading'
+>;
 
 const GetCurrentLocation: React.FC<GetCurrentLocationProps> = ({
   styled,
@@ -28,6 +25,7 @@ const GetCurrentLocation: React.FC<GetCurrentLocationProps> = ({
   icon,
   color,
   toolTipText = 'Current Location',
+  badgeButton,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -94,11 +92,15 @@ const GetCurrentLocation: React.FC<GetCurrentLocationProps> = ({
       controlKey='GetCurrentLocation'
       enable={onEnable}
       toolTipText={toolTipText}
-      badgeButton={{
-        // style: { backgroundColor: 'transparent' },
-        content: <FaTrashAlt size={14} color='#fff' />,
-        action: onClear,
-      }}
+      badgeButton={
+        badgeButton || badgeButton === false
+          ? badgeButton
+          : {
+              content: <FaTrashAlt size={14} color='#fff' />,
+              action: onClear,
+              toolTipText: 'Clear map',
+            }
+      }
     />
   );
 };

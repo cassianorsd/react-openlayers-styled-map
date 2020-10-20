@@ -25,6 +25,7 @@ const MeasureRadius: React.FC<MeasureRadiusProps> = ({
   icon,
   color,
   toolTipText,
+  badgeButton,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -83,10 +84,15 @@ const MeasureRadius: React.FC<MeasureRadiusProps> = ({
       enable={onEnable}
       disable={onDisable}
       toolTipText={toolTipText || 'Draw a circle and get final radius.'}
-      badgeButton={{
-        content: <FaEraser size={14} color='#fff' />,
-        action: onClear,
-      }}
+      badgeButton={
+        badgeButton || badgeButton === false
+          ? badgeButton
+          : {
+              content: <FaEraser size={14} color='#fff' />,
+              action: onClear,
+              toolTipText: 'Clear drawings',
+            }
+      }
     />
   );
 };

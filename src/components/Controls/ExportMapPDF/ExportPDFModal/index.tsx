@@ -23,6 +23,7 @@ const customStyles: ReactModal.Styles = {
     transform: 'translate(-50%, -50%)',
     borderRadius: '10px',
     overflow: 'visible',
+    fontSize: '12px',
   },
 };
 ReactModal.setAppElement('#root');

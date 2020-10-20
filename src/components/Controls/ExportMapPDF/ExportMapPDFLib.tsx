@@ -24,7 +24,13 @@ const exportPDF = ({
 }: ExportPDFOptions): void => {
   if (startCallback) startCallback();
   map.once('rendercomplete', function () {
-    html2canvas(map.getViewport()).then((canvas) => {
+    html2canvas(map.getViewport(), {
+      allowTaint: true,
+      useCORS: true,
+      ignoreElements: (el: HTMLElement): boolean => {
+        return el.classList.contains('ol-control');
+      },
+    }).then((canvas) => {
       const pdf = new JsPDF(orientation, undefined, pageSize);
       const dim = pageDimmentions;
       const size = map.getSize();

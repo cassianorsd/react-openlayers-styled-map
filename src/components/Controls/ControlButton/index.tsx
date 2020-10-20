@@ -28,7 +28,12 @@ export interface ControlButtonProps {
   disable?: () => void;
   loading?: boolean;
   badgeButton?:
-    | { style?: CSSProperties; content: ReactNode; action?: () => void }
+    | {
+        style?: CSSProperties;
+        content: ReactNode;
+        action?: () => void;
+        toolTipText?: string;
+      }
     | false;
 }
 
@@ -68,14 +73,14 @@ const ControlButton: React.FC<ControlButtonProps> = ({
         'ol-control',
         styles.control,
         styled && styles.styled,
-        badgeButton && styles.controlWithBadge,
+        badgeButton && styles.withBadge,
         active && styles.active
       )}
     >
-      {toolTipText && !active && (
-        <span className={styles.toolTipText}>{toolTipText}</span>
-      )}
-      <button onClick={handleClick}>
+      <button onClick={handleClick} className={styles.btn}>
+        {toolTipText && !active && (
+          <span className={styles.toolTipText}>{toolTipText}</span>
+        )}
         <div
           className={classnames(
             styles.buttonContent,
@@ -120,6 +125,11 @@ const ControlButton: React.FC<ControlButtonProps> = ({
           )}
           onClick={badgeButton.action}
         >
+          {badgeButton.toolTipText && (
+            <span className={styles.badgeTooltip}>
+              {badgeButton.toolTipText}
+            </span>
+          )}
           {badgeButton.content}
         </span>
       )}

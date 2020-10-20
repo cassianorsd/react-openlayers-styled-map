@@ -25,6 +25,7 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
   icon,
   color,
   toolTipText,
+  badgeButton,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -87,10 +88,15 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
       enable={onEnable}
       disable={onDisable}
       toolTipText={toolTipText || 'Draw polygon to measure content area'}
-      badgeButton={{
-        content: <FaEraser size={14} color='#fff' />,
-        action: onClear,
-      }}
+      badgeButton={
+        badgeButton || badgeButton === false
+          ? badgeButton
+          : {
+              content: <FaEraser size={14} color='#fff' />,
+              action: onClear,
+              toolTipText: 'Clear drawings',
+            }
+      }
     />
   );
 };
