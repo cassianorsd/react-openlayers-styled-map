@@ -3,7 +3,7 @@ import React, {
   ReactNode,
   useCallback,
   useEffect,
-  useState,
+  useState
 } from 'react';
 import { useMap } from '../../../Hooks';
 import Spinner from 'react-spinkit';
@@ -11,6 +11,7 @@ import styles from './styles.scss';
 import classnames from 'classnames';
 import { css } from 'emotion';
 import { darken } from 'polished';
+import { useMapContext } from '../../../MapContext';
 
 export interface ControlButtonProps {
   styled?: boolean;
@@ -48,10 +49,11 @@ const ControlButton: React.FC<ControlButtonProps> = ({
   activeLabel,
   loading,
   toolTipText,
-  badgeButton,
+  badgeButton
 }) => {
   const [active, setActive] = useState(false);
-  const { setActiveMenuControl, activeMenuControl } = useMap();
+  const { mapid } = useMapContext();
+  const { setActiveMenuControl, activeMenuControl } = useMap(mapid);
   const handleClick = useCallback(() => {
     if (!active) setActiveMenuControl(controlKey);
     else setActiveMenuControl(undefined);

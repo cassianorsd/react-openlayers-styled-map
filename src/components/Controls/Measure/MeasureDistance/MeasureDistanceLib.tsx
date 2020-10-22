@@ -85,7 +85,7 @@ const StartMeasure = ({ map, source, type }: StartMeasureProps): void => {
     helpTooltip = new Overlay({
       element: helpTooltipElement,
       offset: [15, 0],
-      positioning: OverlayPositioning.CENTER_LEFT,
+      positioning: OverlayPositioning.CENTER_LEFT
     });
     map.addOverlay(helpTooltip);
   }
@@ -104,7 +104,7 @@ const StartMeasure = ({ map, source, type }: StartMeasureProps): void => {
     measureTooltip = new Overlay({
       element: measureTooltipElement,
       offset: [0, -15],
-      positioning: OverlayPositioning.BOTTOM_CENTER,
+      positioning: OverlayPositioning.BOTTOM_CENTER
     });
     overlays.push(measureTooltip);
     map.addOverlay(measureTooltip);
@@ -116,23 +116,23 @@ const StartMeasure = ({ map, source, type }: StartMeasureProps): void => {
       type,
       style: new Style({
         fill: new Fill({
-          color: 'rgba(255, 255, 255, 0.2)',
+          color: 'rgba(255, 255, 255, 0.2)'
         }),
         stroke: new Stroke({
           color: 'rgba(0, 0, 0, 0.5)',
           lineDash: [10, 10],
-          width: 2,
+          width: 2
         }),
         image: new CircleStyle({
           radius: 5,
           stroke: new Stroke({
-            color: 'rgba(0, 0, 0, 0.7)',
+            color: 'rgba(0, 0, 0, 0.7)'
           }),
           fill: new Fill({
-            color: 'rgba(255, 255, 255, 0.2)',
-          }),
-        }),
-      }),
+            color: 'rgba(255, 255, 255, 0.2)'
+          })
+        })
+      })
     });
     map.addInteraction(draw);
 

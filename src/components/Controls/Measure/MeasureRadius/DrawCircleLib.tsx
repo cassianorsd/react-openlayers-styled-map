@@ -32,23 +32,23 @@ const StartMeasure = ({ map, source }: StartMeasureProps): void => {
     type: GeometryType.CIRCLE,
     style: new Style({
       fill: new Fill({
-        color: 'rgba(98, 65, 199,0.2)',
+        color: 'rgba(98, 65, 199,0.2)'
       }),
       stroke: new Stroke({
         color: 'rgba(98, 65, 199,0.8)',
         lineDash: [10, 10],
-        width: 2,
+        width: 2
       }),
       image: new CircleStyle({
         radius: 5,
         stroke: new Stroke({
-          color: 'rgba(98, 65, 199,0.8)',
+          color: 'rgba(98, 65, 199,0.8)'
         }),
         fill: new Fill({
-          color: 'rgba(98, 65, 199,0.2)',
-        }),
-      }),
-    }),
+          color: 'rgba(98, 65, 199,0.2)'
+        })
+      })
+    })
   });
 
   const createTooltip = (): void => {
@@ -57,7 +57,7 @@ const StartMeasure = ({ map, source }: StartMeasureProps): void => {
     tooltip = new Overlay({
       element: tooltipElement,
       offset: [15, 0],
-      positioning: OverlayPositioning.CENTER_LEFT,
+      positioning: OverlayPositioning.CENTER_LEFT
     });
     overlays.push(tooltip);
     map.addOverlay(tooltip);

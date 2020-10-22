@@ -6,6 +6,7 @@ import MeasureAreaLib from '../MeasureArea/MeasureAreaLib';
 import { useMap } from '../../../../Hooks';
 import VectorLayer from 'ol/layer/Vector';
 import ControlButton, { ControlButtonProps } from '../../ControlButton';
+import { useMapContext } from '../../../../MapContext';
 
 export type ClearMeasuresProps = Omit<
   ControlButtonProps,
@@ -17,10 +18,12 @@ const ClearMeasures: React.FC<ClearMeasuresProps> = ({
   activeLabel = { text: 'Cleaning drawings...' },
   icon,
   color,
-  toolTipText,
+  toolTipText
 }) => {
   const [isClearing, setIsClearing] = useState(false);
-  const { setActiveMenuControl, map, getLayer } = useMap();
+  const { mapid } = useMapContext();
+
+  const { setActiveMenuControl, map, getLayer } = useMap(mapid);
 
   const onEnable = useCallback(() => {
     if (!map) return;

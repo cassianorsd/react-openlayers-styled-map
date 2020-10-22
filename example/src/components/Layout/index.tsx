@@ -8,7 +8,7 @@ const Layout: React.FC = ({children}) => {
   <LayoutContainer>
     <NavBarContainer>
       <MenuButton to='/'>
-        Map
+        Simple Map
       </MenuButton>
       <MenuButton to='/blank'>
         Blank Page

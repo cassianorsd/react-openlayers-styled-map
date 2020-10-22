@@ -3,6 +3,7 @@ import { FaImage } from 'react-icons/fa';
 import { useMap } from '../../../Hooks';
 import ExportMapImageLib from './ExportMapImageLib';
 import ControlButton, { ControlButtonProps } from '../ControlButton';
+import { useMapContext } from '../../../MapContext';
 
 export type ExportMapImageProps = Omit<
   ControlButtonProps,
@@ -12,12 +13,13 @@ export type ExportMapImageProps = Omit<
 const ExportMapImage: React.FC<ExportMapImageProps> = ({
   styled,
   activeLabel = { text: 'Generating image...' },
-  icon,
+  icon = <FaImage size={20} color='#fff' />,
   color,
-  toolTipText,
+  toolTipText
 }) => {
   const [rendering, setRendering] = useState(false);
-  const { map, setActiveMenuControl } = useMap();
+  const { mapid } = useMapContext();
+  const { map, setActiveMenuControl } = useMap(mapid);
 
   const onEnable = useCallback(() => {
     if (!map) return;
@@ -36,7 +38,7 @@ const ExportMapImage: React.FC<ExportMapImageProps> = ({
   return (
     <ControlButton
       styled={styled}
-      icon={icon || <FaImage size={20} color='#fff' />}
+      icon={icon}
       activeLabel={activeLabel}
       color={color || '#9ACD32'}
       controlKey='ExportMapImage'

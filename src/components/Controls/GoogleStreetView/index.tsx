@@ -3,6 +3,7 @@ import { FaStreetView } from 'react-icons/fa';
 import { useMap } from '../../../Hooks';
 import GoogleStreetViewLib from './GoogleStreetViewLib';
 import ControlButton, { ControlButtonProps } from '../ControlButton';
+import { useMapContext } from '../../../MapContext';
 
 export type GoogleStreetViewProps = Omit<
   ControlButtonProps,
@@ -13,14 +14,15 @@ const GoogleStreetView: React.FC<GoogleStreetViewProps> = ({
   styled,
   activeLabel = {
     title: 'Google Street View',
-    text: 'Single click on desired location to open street view.',
+    text: 'Single click on desired location to open street view.'
   },
   children,
   color,
-  icon,
-  toolTipText,
+  icon = <FaStreetView size={20} color='#fff' />,
+  toolTipText
 }) => {
-  const { map } = useMap();
+  const { mapid } = useMapContext();
+  const { map } = useMap(mapid);
 
   const onEnable = useCallback(() => {
     if (map) {
@@ -37,7 +39,7 @@ const GoogleStreetView: React.FC<GoogleStreetViewProps> = ({
   return (
     <ControlButton
       styled={!!styled}
-      icon={icon || <FaStreetView size={20} color='#fff' />}
+      icon={icon}
       color={color || '#FE2C54'}
       activeLabel={activeLabel}
       controlKey='GoogleStreetView'

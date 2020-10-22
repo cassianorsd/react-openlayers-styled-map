@@ -3,6 +3,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 import PinCoordinatesLib from './PinCoordinatesLib';
 import { useMap } from '../../../Hooks';
 import ControlButton, { ControlButtonProps } from '../ControlButton';
+import { useMapContext } from '../../../MapContext';
 
 export interface PinCoordinatesProps
   extends Omit<
@@ -17,21 +18,23 @@ const PinCoordinates: React.FC<PinCoordinatesProps> = ({
   styled,
   activeLabel = {
     title: 'Get Coordinates',
-    text: 'Click on desired location on map to get information.',
+    text: 'Click on desired location on map to get information.'
   },
   icon,
   color,
   toolTipText,
   copyText,
-  copiedText,
+  copiedText
 }) => {
-  const { map } = useMap();
+  const { mapid } = useMapContext();
+
+  const { map } = useMap(mapid);
 
   const onEnable = useCallback(() => {
     if (!map) return;
     PinCoordinatesLib.startPinCoordinateInteraction({
       map,
-      options: { copyText, copiedText },
+      options: { copyText, copiedText }
     });
   }, [map, copyText, copiedText]);
 

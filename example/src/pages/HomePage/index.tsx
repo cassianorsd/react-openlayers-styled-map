@@ -10,7 +10,8 @@ const HomePage:React.FC = ()=>{
   <Layout>
     <Content>
       <StyledMap
-        osmBasemap
+        debugOptions={{osmBasemap:true}}
+        id='map1'
         defaultControls={{
           fullScreenMode:{},
           scale:{bar:true,minWidth:100},
@@ -29,7 +30,7 @@ const HomePage:React.FC = ()=>{
           <Controls.MeasureRadius styled />
           <Controls.ClearMeasures styled />
           <Controls.PinCoordinates styled/>
-          <Controls.GetCurrentLocation styled />
+          <Controls.CurrentLocation styled />
         </StyledMap.Controls>
       </StyledMap>
     </Content>

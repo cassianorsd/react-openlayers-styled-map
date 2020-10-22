@@ -1,212 +1,115 @@
-import { Map, View } from 'ol';
-import React from 'react';
-import 'ol/ol.css';
+import { Map } from 'ol';
 import BaseLayer from 'ol/layer/Base';
-import globalHook, { Store } from 'use-global-hook';
-import { OSM, TileDebug } from 'ol/source';
-import { Options as TileDebugOptions } from 'ol/source/TileDebug';
-import TileLayer from 'ol/layer/Tile';
-import { fromLonLat } from 'ol/proj';
-import { Control } from 'ol/control';
+import { createGlobalState } from 'react-hooks-global-state';
 
-import ZoomSlider, {
-  Options as ZoomSliderOptions,
-} from 'ol/control/ZoomSlider';
-import ScaleLine, { Options as ScaleLineOptions } from 'ol/control/ScaleLine';
-import Zoom, { Options as ZoomOptions } from 'ol/control/Zoom';
-import FullScreen, {
-  Options as FullScreenOptions,
-} from 'ol/control/FullScreen';
-import { Coordinate } from 'ol/coordinate';
-
-interface GlobalMapState {
-  map: Map | undefined;
+interface MapState {
+  map?: Map;
   activeMenuControl: string | undefined;
 }
 
-type MapStore = Store<GlobalMapState, GlobalMapActions>;
+interface MapStore {
+  [key: string]: MapState;
+}
 
-export interface AddLayerProps {
+interface MapGlobalState {
+  maps: MapStore;
+}
+
+const { useGlobalState } = createGlobalState<MapGlobalState>({
+  maps: {}
+});
+
+interface AddLayerProps {
   layerKey: string;
   layerObject: BaseLayer;
 }
-
-export interface RemoveLayerProps {
+interface RemoveLayerProps {
   layerKey?: string;
   layerObject?: BaseLayer;
 }
-
-interface GlobalMapActions {
-  initMap: (initMapProps: InitMapProps) => void;
-  addLayer: (addLayerProps: AddLayerProps) => void;
-  removeLayer: (removeLayerProps: RemoveLayerProps) => void;
+interface UseMapReturn {
+  map?: Map;
+  activeMenuControl: string | undefined;
+  setActiveMenuControl: (key: string | undefined) => void;
+  addLayer: (options: AddLayerProps) => void;
+  removeLayer: (options: RemoveLayerProps) => void;
   getLayer: (layerKey: string) => BaseLayer | undefined;
-  setActiveMenuControl: (controlKey: string | undefined) => void;
 }
 
-export interface ControlProps {
-  fullScreenMode?: FullScreenOptions;
-  zoomButtons?: ZoomOptions;
-  zoomSlider?: ZoomSliderOptions;
-  scale?: ScaleLineOptions;
-}
+function useMap(mapid: string): UseMapReturn {
+  const [mapState, setMapState] = useGlobalState('maps');
+  const { activeMenuControl, map } = mapState[mapid] || {};
 
-export interface InitMapProps {
-  id: string;
-  startZoom?: number;
-  startCoordinates: Coordinate;
-  defaultControls?: {
-    fullScreenMode?: FullScreenOptions;
-    zoomButtons?: ZoomOptions;
-    zoomSlider?: ZoomSliderOptions;
-    scale?: ScaleLineOptions;
+  const setActiveMenuControl = (controlKey: string | undefined): void => {
+    setMapState((prev) => ({
+      ...prev,
+      [mapid]: { ...prev[mapid], activeMenuControl: controlKey }
+    }));
   };
-  defaultOSMBasemap?: boolean;
-  tileDebug?: TileDebugOptions;
-}
 
-const initMap = (
-  store: MapStore,
-  {
-    id,
-    startCoordinates,
-    startZoom,
-    defaultControls,
-    defaultOSMBasemap,
-    tileDebug,
-  }: InitMapProps
-): void => {
-  if (store.state.map) {
-    store.state.map.setTarget(undefined);
-  }
-  const el = document.getElementById(id);
-  if (!el) return;
-  const controls = [];
-  if (defaultControls?.zoomButtons)
-    controls.push(new Zoom(defaultControls.zoomButtons));
-  if (defaultControls?.scale)
-    controls.push(new ScaleLine(defaultControls.scale));
-  if (defaultControls?.fullScreenMode)
-    controls.push(new FullScreen(defaultControls.fullScreenMode));
-  if (defaultControls?.zoomSlider)
-    controls.push(new ZoomSlider(defaultControls.zoomSlider));
+  const removeLayer = ({ layerKey, layerObject }: RemoveLayerProps): void => {
+    if (!map) return;
+    if (layerObject) {
+      map.removeLayer(layerObject);
+    } else if (layerKey) {
+      map
+        .getLayers()
+        .getArray()
+        .filter((layer: BaseLayer) => layer.get('layerKey') === layerKey)
+        .forEach((layer) => {
+          if (!map) return;
+          map.removeLayer(layer);
+        });
+    }
+  };
 
-  // const styledMenuContainer = document.createElement('div');
-  const styledMenuContainer = document.getElementById('StyledMenu');
-  if (styledMenuContainer) {
-    styledMenuContainer.id = 'styledMenuContainer';
-    const styledMenuControl = new Control({ element: styledMenuContainer });
-    controls.push(styledMenuControl);
-  }
-
-  const layers: BaseLayer[] = [];
-  if (defaultOSMBasemap)
-    layers.push(new TileLayer({ zIndex: 1, source: new OSM() }));
-
-  if (tileDebug)
-    layers.push(
-      new TileLayer({ zIndex: 1000, source: new TileDebug(tileDebug) })
-    );
-
-  const map = new Map({
-    target: el,
-    layers,
-    view: new View({
-      center: fromLonLat(startCoordinates),
-      zoom: startZoom || 10,
-    }),
-    controls,
-  });
-  store.actions.setActiveMenuControl(undefined);
-  console.log('[MAP ENGINE] Started.');
-
-  store.setState({ ...store.state, map });
-};
-
-const setActiveMenuControl = (
-  store: MapStore,
-  controlKey: string | undefined
-): void => {
-  store.setState({ ...store.state, activeMenuControl: controlKey });
-};
-
-const addLayer = (
-  store: MapStore,
-  { layerKey, layerObject }: AddLayerProps
-): void => {
-  if (!store.state.map) return;
-  layerObject.set('layerKey', layerKey);
-  store.actions.removeLayer({ layerKey });
-  store.state.map.addLayer(layerObject);
-};
-
-const removeLayer = (
-  store: MapStore,
-  { layerKey, layerObject }: AddLayerProps
-): void => {
-  if (!store.state.map) return;
-  if (layerObject) {
-    store.state.map.removeLayer(layerObject);
-  } else if (layerKey) {
-    store.state.map
+  const getLayer = (layerKey: string): BaseLayer | undefined => {
+    if (!map) return;
+    const layer = map
       .getLayers()
       .getArray()
-      .filter((layer: BaseLayer) => layer.get('layerKey') === layerKey)
-      .forEach((layer) => {
-        if (!store.state.map) return;
-        store.state.map.removeLayer(layer);
-      });
-  }
-};
+      .find((layer: BaseLayer) => layer.get('layerKey') === layerKey);
+    return layer || undefined;
+  };
 
-const getLayer = (store: MapStore, layerKey: string): BaseLayer | undefined => {
-  if (!store.state.map) return;
-  const layer = store.state.map
-    .getLayers()
-    .getArray()
-    .find((layer: BaseLayer) => layer.get('layerKey') === layerKey);
-  return layer || undefined;
-};
-
-const initialGlobalMapState: GlobalMapState = {
-  map: undefined,
-  // map: new Map({
-  //   target: undefined,
-  //   layers: [],
-  //   view: new View({
-  //     center: [0, 0],
-  //     zoom: 2,
-  //   }),
-  //   controls: [],
-  // }),
-  activeMenuControl: undefined,
-};
-const globalActions = {
-  initMap,
-  addLayer,
-  removeLayer,
-  getLayer,
-  setActiveMenuControl,
-};
-const useGlobalMap = globalHook<GlobalMapState, GlobalMapActions>(
-  React,
-  initialGlobalMapState,
-  globalActions
-);
-
-export type UseMapProps = GlobalMapState & GlobalMapActions;
-
-function useMap(): UseMapProps {
-  const [store, actions] = useGlobalMap();
+  const addLayer = ({ layerKey, layerObject }: AddLayerProps): void => {
+    if (!map) return;
+    layerObject.set('layerKey', layerKey);
+    removeLayer({ layerKey });
+    map.addLayer(layerObject);
+  };
 
   return {
-    initMap: actions.initMap,
-    map: store.map,
-    addLayer: actions.addLayer,
-    removeLayer: actions.removeLayer,
-    getLayer: actions.getLayer,
-    activeMenuControl: store.activeMenuControl,
-    setActiveMenuControl: actions.setActiveMenuControl,
+    map,
+    activeMenuControl,
+    setActiveMenuControl,
+    addLayer,
+    removeLayer,
+    getLayer
   };
 }
-export { useMap, useGlobalMap };
+
+interface UseMapRegisterReturn {
+  registerMap: (mapid: string, map: Map) => void;
+}
+
+function useMapRegister(): UseMapRegisterReturn {
+  const [, setState] = useGlobalState('maps');
+  const registerMap = (mapid: string, map: Map): void => {
+    if (!mapid) {
+      throw new Error(
+        `You must define a unique mapid on useMap
+        or passing as option on registerMap`
+      );
+    }
+    setState((prev) => ({
+      ...prev,
+      [mapid]: { map, activeMenuControl: undefined }
+    }));
+  };
+  return {
+    registerMap
+  };
+}
+
+export { useMap, useMapRegister };

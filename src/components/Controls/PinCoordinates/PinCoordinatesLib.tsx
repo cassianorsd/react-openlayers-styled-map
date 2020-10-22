@@ -14,7 +14,7 @@ interface StartPinCoordinateInteractionProps {
 
 const startPinCoordinateInteraction = ({
   map,
-  options,
+  options
 }: StartPinCoordinateInteractionProps): void => {
   map.getViewport().style.cursor = 'crosshair';
 
@@ -26,8 +26,8 @@ const startPinCoordinateInteraction = ({
       options: {
         clearOthers: true,
         copyText: options?.copyText,
-        copiedText: options?.copiedText,
-      },
+        copiedText: options?.copiedText
+      }
     });
   });
 };

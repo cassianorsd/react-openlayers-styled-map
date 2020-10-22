@@ -10,7 +10,7 @@ const UnStyledMapPage:React.FC = ()=>{
   <Layout>
     <Content>
       <StyledMap
-        osmBasemap
+        id='map1'
         defaultControls={{
           fullScreenMode:{},
           scale:{bar:true,minWidth:100},

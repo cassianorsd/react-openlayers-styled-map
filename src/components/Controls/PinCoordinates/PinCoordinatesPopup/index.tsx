@@ -19,11 +19,12 @@ const Popup: React.FC<PopupProps> = ({
   onClose,
   position,
   copyText,
-  copiedText,
+  copiedText
 }) => {
   console.log(onClose, position);
   const handleCopy = useCallback(
     (text: string) => {
+      console.log(text);
       cogoToast.success(`${copiedText || 'Copied'}: ${text}`);
     },
     [copiedText]
@@ -87,8 +88,8 @@ const addPopup = ({ map, position, options }: AddPopupOptions): void => {
     autoPan: true,
     autoPanMargin: 100,
     autoPanAnimation: {
-      duration: 250,
-    },
+      duration: 250
+    }
   });
   if (options?.clearOthers) {
     overlays.forEach((overlay) => map.removeOverlay(overlay));
@@ -104,7 +105,7 @@ const addPopup = ({ map, position, options }: AddPopupOptions): void => {
         map.removeOverlay(popupOverlay);
       },
       copyText: options?.copyText,
-      copiedText: options?.copiedText,
+      copiedText: options?.copiedText
     }),
     container
   );

@@ -1,23 +1,23 @@
+import ControlButton from './ControlButton';
 import GoogleStreetView from './GoogleStreetView';
 import ExportMapImage from './ExportMapImage';
 import ExportMapPDF from './ExportMapPDF';
-import MeasureDistance from './Measure/MeasureDistance';
-import MeasureArea from './Measure/MeasureArea';
-import ClearMeasures from './Measure/ClearMeasures';
-import MeasureRadius from './Measure/MeasureRadius';
+import CurrentLocation from './CurrentLocation';
 import PinCoordinates from './PinCoordinates';
-import ControlButton from './ControlButton';
-import GetCurrentLocation from './CurrentLocation';
+import ClearMeasures from './Measure/ClearMeasures';
+import MeasureArea from './Measure/MeasureArea';
+import MeasureDistance from './Measure/MeasureDistance';
+import MeasureRadius from './Measure/MeasureRadius';
 
 export default {
+  ControlButton,
   GoogleStreetView,
   ExportMapImage,
   ExportMapPDF,
-  MeasureDistance,
-  MeasureArea,
-  ClearMeasures,
-  MeasureRadius,
+  CurrentLocation,
   PinCoordinates,
-  ControlButton,
-  GetCurrentLocation,
+  ClearMeasures,
+  MeasureDistance,
+  MeasureRadius,
+  MeasureArea
 };

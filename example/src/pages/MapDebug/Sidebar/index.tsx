@@ -19,7 +19,7 @@ type XYZFormData = {
 const Sidebar:React.FC = () => {
   const [tileDebug,setTileDebug] = useState(false)
   const [osmBasemap,setOsmBasemap] = useState(false)
-  const {addLayer,removeLayer} = useMap()
+  const {addLayer,removeLayer} = useMap('map1')
   const { register, handleSubmit } = useForm<XYZFormData>();
 
   useEffect(()=>{
@@ -142,7 +142,7 @@ const Sidebar:React.FC = () => {
           <textarea 
           defaultValue={JSON.stringify(
             {
-              zIndex:1,
+              zIndex:2,
             },null,2)}
           ref={register} 
           id='xyzLayerOptions' 

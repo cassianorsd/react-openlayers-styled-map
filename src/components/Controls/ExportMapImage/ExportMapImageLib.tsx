@@ -1,6 +1,6 @@
 import { Map } from 'ol';
 import html2canvas from 'html2canvas';
-import { saveAs } from 'file-saver';
+import fs from 'file-saver';
 
 const exportPNG = (map: Map, callback: () => void): void => {
   map.once('rendercomplete', function () {
@@ -9,11 +9,11 @@ const exportPNG = (map: Map, callback: () => void): void => {
       useCORS: true,
       ignoreElements: (el: HTMLElement): boolean => {
         return el.classList.contains('ol-control');
-      },
+      }
     }).then((canvas) => {
       canvas.toBlob((blob) => {
         if (blob) {
-          saveAs(blob, 'map.png');
+          fs.saveAs(blob, 'map.png');
           callback();
         }
       });

@@ -13,19 +13,20 @@ import { Feature } from 'ol';
 import Point from 'ol/geom/Point';
 import { fromLonLat } from 'ol/proj';
 import { FaTrashAlt } from 'react-icons/fa';
+import { useMapContext } from '../../../MapContext';
 
-export type GetCurrentLocationProps = Omit<
+export type CurrentLocationProps = Omit<
   ControlButtonProps,
   'controlKey' | 'disable' | 'enable' | 'loading'
 >;
 
-const GetCurrentLocation: React.FC<GetCurrentLocationProps> = ({
+const CurrentLocation: React.FC<CurrentLocationProps> = ({
   styled,
   activeLabel,
   icon,
   color,
   toolTipText = 'Current Location',
-  badgeButton,
+  badgeButton
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -34,22 +35,23 @@ const GetCurrentLocation: React.FC<GetCurrentLocationProps> = ({
       source: source,
       style: new Style({
         fill: new Fill({
-          color: 'rgba(42, 82, 188,0.15)',
+          color: 'rgba(42, 82, 188,0.15)'
         }),
         stroke: new Stroke({
           color: 'rgba(42, 82, 188,0.8)',
-          width: 2,
+          width: 2
         }),
         image: new Circle({
           radius: 7,
           fill: new Fill({
-            color: 'rgba(42, 82, 188,0.8)',
-          }),
-        }),
-      }),
+            color: 'rgba(42, 82, 188,0.8)'
+          })
+        })
+      })
     })
   );
-  const { map, addLayer, setActiveMenuControl } = useMap();
+  const { mapid } = useMapContext();
+  const { map, addLayer, setActiveMenuControl } = useMap(mapid);
 
   useEffect(() => {
     if (map) {
@@ -71,11 +73,11 @@ const GetCurrentLocation: React.FC<GetCurrentLocationProps> = ({
         new Feature(
           accuracy.transform('EPSG:4326', map.getView().getProjection())
         ),
-        new Feature(new Point(fromLonLat(coords))),
+        new Feature(new Point(fromLonLat(coords)))
       ]);
       map.getView().fit(source.getExtent(), {
         maxZoom: 18,
-        duration: 500,
+        duration: 500
       });
       setTimeout(() => {
         setActiveMenuControl(undefined);
@@ -89,7 +91,7 @@ const GetCurrentLocation: React.FC<GetCurrentLocationProps> = ({
       icon={icon || <BiCurrentLocation size={20} color='#fff' />}
       activeLabel={activeLabel}
       color={color || '#FF8C00'}
-      controlKey='GetCurrentLocation'
+      controlKey='CurrentLocation'
       enable={onEnable}
       toolTipText={toolTipText}
       badgeButton={
@@ -98,11 +100,11 @@ const GetCurrentLocation: React.FC<GetCurrentLocationProps> = ({
           : {
               content: <FaTrashAlt size={14} color='#fff' />,
               action: onClear,
-              toolTipText: 'Clear map',
+              toolTipText: 'Clear map'
             }
       }
     />
   );
 };
 
-export default GetCurrentLocation;
+export default CurrentLocation;

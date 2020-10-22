@@ -3,6 +3,7 @@ import { FaFilePdf } from 'react-icons/fa';
 import ExportPDFModal, { ExportPDFModalOptions } from './ExportPDFModal';
 import { useMap } from '../../../Hooks';
 import ControlButton, { ControlButtonProps } from '../ControlButton';
+import { useMapContext } from '../../../MapContext';
 
 export interface ExportMapPDFProps
   extends Omit<
@@ -18,11 +19,12 @@ const ExportMapPDF: React.FC<ExportMapPDFProps> = ({
   icon,
   color,
   options,
-  toolTipText,
+  toolTipText
 }) => {
   const [isModalOpen, setModalIsOpen] = useState(false);
+  const { mapid } = useMapContext();
 
-  const { setActiveMenuControl } = useMap();
+  const { setActiveMenuControl } = useMap(mapid);
 
   const onEnable = useCallback(() => {
     setModalIsOpen(true);

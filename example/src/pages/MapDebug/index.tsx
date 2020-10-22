@@ -12,6 +12,7 @@ const MapDebug:React.FC = () => {
     <Content>
       <MapContainer>
       <StyledMap
+        id='map1'
         defaultControls={{
           fullScreenMode:{},
           scale:{bar:true,minWidth:100},

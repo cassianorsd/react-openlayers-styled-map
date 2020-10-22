@@ -1,58 +1,47 @@
 import React, { useEffect } from 'react';
-import { ControlProps, useMap } from '../../Hooks';
-import { Options as TileDebugOptions } from 'ol/source/TileDebug';
-import styles from './styles.module.scss';
-import StyledMenu, { StyledMenuProps } from '../StyledMenu';
+import 'ol/ol.css';
 
-export interface StyledMapProps {
-  id?: string;
-  osmBasemap?: boolean;
-  defaultControls?: ControlProps;
-  startZoom?: number;
-  startCoordinates?: [number, number];
-  tileDebug?: TileDebugOptions;
+import { useMapRegister } from '../../Hooks';
+import { initMap, InitMapOptions } from './MapConstructor';
+import StyledMenu, { StyledMenuProps } from '../StyledMenu';
+import MapContext from '../../MapContext';
+
+export interface StyledMapProps
+  extends Pick<
+    InitMapOptions,
+    'debugOptions' | 'startZoom' | 'startCoordinates' | 'defaultControls'
+  > {
+  id: string;
 }
 
 const StyledMap: React.FC<StyledMapProps> & {
   Controls: React.FC<StyledMenuProps>;
 } = ({
   id,
-  osmBasemap,
-  defaultControls,
-  startZoom,
-  startCoordinates,
-  tileDebug,
   children,
+  debugOptions,
+  startCoordinates,
+  startZoom,
+  defaultControls
 }) => {
-  const { initMap } = useMap();
+  const { registerMap } = useMapRegister();
   useEffect(() => {
-    initMap({
-      id: id || 'map',
-      startCoordinates: startCoordinates || [0, 0],
-      startZoom: startZoom,
-      defaultControls,
-      defaultOSMBasemap: osmBasemap,
-      tileDebug,
+    const m = initMap({
+      targetId: id,
+      debugOptions,
+      startCoordinates,
+      startZoom,
+      defaultControls
     });
-  }, [
-    id,
-    osmBasemap,
-    defaultControls,
-    initMap,
-    startCoordinates,
-    startZoom,
-    tileDebug,
-  ]);
+    if (m) {
+      registerMap(id, m);
+    }
+  }, []);
   return (
-    <div className={styles.container}>
-      <div
-        id={id || 'map'}
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-      />
-      {children}
+    <div id={id} style={{ width: '100%', height: '100%' }}>
+      <MapContext.Provider value={{ mapid: id }}>
+        {children}
+      </MapContext.Provider>
     </div>
   );
 };

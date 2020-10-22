@@ -24,8 +24,8 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "ol": "^6.4.3",
-    "react": "^16.0.0"
+    "react": "^16.0.0",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -40,9 +40,8 @@
     "@types/react-copy-to-clipboard": "^4.3.0",
     "@types/react-dom": "^16.9.7",
     "@types/react-modal": "^3.10.6",
-    "@types/react-select": "^3.0.20",
+    "@types/react-select": "^3.0.22",
     "@types/react-spinkit": "^3.0.6",
-    "@types/use-global-hook": "^0.1.2",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "babel-eslint": "^10.0.3",
@@ -56,7 +55,6 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.17.0",
-    "eslint-plugin-react-hooks": "^4.1.2",
     "eslint-plugin-standard": "^4.0.1",
     "gh-pages": "^2.2.0",
     "microbundle-crl": "^0.13.10",
@@ -77,14 +75,14 @@
     "html2canvas": "^1.0.0-rc.7",
     "jspdf": "^2.1.1",
     "node-sass": "^4.14.1",
-    "polished": "^3.6.7",
+    "ol": "^6.4.3",
+    "polished": "^4.0.3",
     "react-copy-to-clipboard": "^5.0.2",
-    "react-dom": "^16.13.1",
-    "react-hook-form": "^6.8.6",
+    "react-hook-form": "^6.9.5",
+    "react-hooks-global-state": "^1.0.1",
     "react-icons": "^3.11.0",
     "react-modal": "^3.11.2",
     "react-select": "^3.1.0",
-    "react-spinkit": "^3.0.0",
-    "use-global-hook": "^0.2.1"
+    "react-spinkit": "^3.0.0"
   }
 }

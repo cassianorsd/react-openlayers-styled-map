@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './StyledMenu.module.scss';
 import classNames from 'classnames';
+import { useMapContext } from '../../MapContext';
 
 export interface StyledMenuProps {
   showRibbon?: boolean;
@@ -8,12 +9,13 @@ export interface StyledMenuProps {
 
 const StyledMenu: React.FC<StyledMenuProps> = ({
   showRibbon = true,
-  children,
+  children
 }) => {
+  const { mapid } = useMapContext();
   if (!children) return <span />;
   return (
     <div
-      id='StyledMenu'
+      id={`StyledMenu-map-${mapid}`}
       className={classNames(
         'ol-control',
         styles.container,

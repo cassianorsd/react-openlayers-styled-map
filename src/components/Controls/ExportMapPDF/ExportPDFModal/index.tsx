@@ -6,11 +6,12 @@ import Select from 'react-select';
 import { useMap } from '../../../../Hooks';
 import ExportMapPDFLib, {
   PageDimmentions,
-  PageOrientation,
+  PageOrientation
 } from '../ExportMapPDFLib';
 import Spinner from 'react-spinkit';
 import styles from './styles.module.scss';
 import classnames from 'classnames';
+import { useMapContext } from '../../../../MapContext';
 
 const customStyles: ReactModal.Styles = {
   content: {
@@ -23,15 +24,15 @@ const customStyles: ReactModal.Styles = {
     transform: 'translate(-50%, -50%)',
     borderRadius: '10px',
     overflow: 'visible',
-    fontSize: '12px',
-  },
+    fontSize: '12px'
+  }
 };
 ReactModal.setAppElement('#root');
 
 const defaultPageSizes: { value: string; label: string }[] = [
   { value: 'A3', label: 'A3' },
   { value: 'A4', label: 'A4' },
-  { value: 'A5', label: 'A5' },
+  { value: 'A5', label: 'A5' }
 ];
 
 const defaultPageSizesDimmentions: { [key: string]: [number, number] } = {
@@ -40,12 +41,12 @@ const defaultPageSizesDimmentions: { [key: string]: [number, number] } = {
   A2: [594, 420],
   A3: [420, 297],
   A4: [297, 210],
-  A5: [210, 148],
+  A5: [210, 148]
 };
 
 const defaultPageOrientations: { value: string; label: string }[] = [
   { value: 'landscape', label: 'Paisagem' },
-  { value: 'portrait', label: 'Retrato' },
+  { value: 'portrait', label: 'Retrato' }
 ];
 type FormData = {
   pageSize: { value: string; label: string };
@@ -61,14 +62,16 @@ export interface ExportPDFModalOptions {
 export interface ExportPDFModalProps extends ReactModal.Props {
   options?: ExportPDFModalOptions;
   onClose: () => void;
+  isOpen: boolean;
 }
 
 const ExportPDFModal: React.FC<ExportPDFModalProps> = ({
   isOpen,
   onClose,
-  options,
+  options
 }) => {
-  const { map, setActiveMenuControl } = useMap();
+  const { mapid } = useMapContext();
+  const { map, setActiveMenuControl } = useMap(mapid);
   const { control, handleSubmit } = useForm<FormData>();
   const [isRendering, setIsRendering] = useState(false);
 
@@ -88,7 +91,7 @@ const ExportPDFModal: React.FC<ExportPDFModalProps> = ({
           setActiveMenuControl(undefined);
           setIsRendering(false);
           onClose();
-        },
+        }
       });
     }
   });
@@ -152,7 +155,7 @@ const ExportPDFModal: React.FC<ExportPDFModalProps> = ({
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-around',
-            alignItems: 'center',
+            alignItems: 'center'
           }}
         >
           <Spinner
