@@ -13,6 +13,9 @@ const Layout: React.FC = ({children}) => {
       <MenuButton to='/blank'>
         Blank Page
       </MenuButton>
+      <MenuButton to='/multi'>
+        Multiple Maps
+      </MenuButton>
       <MenuButton to='/map-debug'>
         Map Debug
       </MenuButton>

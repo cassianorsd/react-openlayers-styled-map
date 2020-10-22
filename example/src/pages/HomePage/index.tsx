@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyledMap,Controls } from 'react-openlayers-styled-map'
-import 'react-openlayers-styled-map/dist/index.css'
 import Layout from '../../components/Layout'
 import { Content } from './styles'
 
