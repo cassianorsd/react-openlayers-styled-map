@@ -21,12 +21,12 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
   styled,
   activeLabel = {
     title: 'Measure Area',
-    text: 'Click on map to start drawing.'
+    text: 'Click on map to start drawing.',
   },
   icon,
   color,
   toolTipText,
-  badgeButton
+  badgeButton,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -35,19 +35,19 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
       source: source,
       style: new Style({
         fill: new Fill({
-          color: 'rgba(1, 171, 116,0.2)'
+          color: 'rgba(1, 171, 116,0.2)',
         }),
         stroke: new Stroke({
           color: 'rgba(1, 171, 116,1)',
-          width: 2
+          width: 2,
         }),
         image: new Circle({
           radius: 7,
           fill: new Fill({
-            color: 'rgba(1, 171, 116,0.2)'
-          })
-        })
-      })
+            color: 'rgba(1, 171, 116,0.2)',
+          }),
+        }),
+      }),
     })
   );
   const { mapid } = useMapContext();
@@ -64,7 +64,7 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
       MeasureAreaLib.StartMeasure({
         map,
         source,
-        type: GeometryType.POLYGON
+        type: GeometryType.POLYGON,
       });
     }
   }, [map, source]);
@@ -96,7 +96,7 @@ const MeasureArea: React.FC<MeasureAreaProps> = ({
           : {
               content: <FaEraser size={14} color='#fff' />,
               action: onClear,
-              toolTipText: 'Clear drawings'
+              toolTipText: 'Clear drawings',
             }
       }
     />

@@ -1,0 +1,33 @@
+.container {
+  top: 80px;
+  right: 0px;
+  width: 15px;
+  &,
+  &:hover,
+  &:active {
+    background-color: transparent;
+  }
+  padding: 0px;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.content {
+  position: relative;
+  background-color: transparent;
+  right: 0px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-evenly;
+  right: 0.5em;
+}
+
+.container.ribbon {
+  &,
+  &:hover,
+  &:active {
+    background-color: rgba(230, 230, 230, 0.8);
+  }
+}

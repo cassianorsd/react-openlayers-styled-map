@@ -20,12 +20,12 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
   styled,
   activeLabel = {
     title: 'Measure Distances',
-    text: 'Click on map to start drawing.'
+    text: 'Click on map to start drawing.',
   },
   icon,
   color,
   toolTipText,
-  badgeButton
+  badgeButton,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -34,19 +34,19 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
       source: source,
       style: new Style({
         fill: new Fill({
-          color: 'rgb(42, 82, 188)'
+          color: 'rgb(42, 82, 188)',
         }),
         stroke: new Stroke({
           color: 'rgb(42, 82, 188)',
-          width: 3
+          width: 3,
         }),
         image: new Circle({
           radius: 7,
           fill: new Fill({
-            color: 'rgb(42, 82, 188)'
-          })
-        })
-      })
+            color: 'rgb(42, 82, 188)',
+          }),
+        }),
+      }),
     })
   );
   const { mapid } = useMapContext();
@@ -63,7 +63,7 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
       MeasureDistanceLib.StartMeasure({
         map,
         source,
-        type: GeometryType.LINE_STRING
+        type: GeometryType.LINE_STRING,
       });
     }
   }, [map, source]);
@@ -95,7 +95,7 @@ const MeasureDistance: React.FC<MeasureDistanceProps> = ({
           : {
               content: <FaEraser size={14} color='#fff' />,
               action: onClear,
-              toolTipText: 'Clear drawings'
+              toolTipText: 'Clear drawings',
             }
       }
     />

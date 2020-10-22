@@ -3,7 +3,7 @@ import 'ol/ol.css';
 
 import { useMapRegister } from '../../Hooks';
 import { initMap, InitMapOptions } from './MapConstructor';
-import StyledMenu, { StyledMenuProps } from '../StyledMenu';
+import StyledMenu, { StyledMenuProps } from '../StyledMenuV2';
 import MapContext from '../../MapContext';
 
 export interface StyledMapProps
@@ -22,7 +22,7 @@ const StyledMap: React.FC<StyledMapProps> & {
   debugOptions,
   startCoordinates,
   startZoom,
-  defaultControls
+  defaultControls,
 }) => {
   const { registerMap } = useMapRegister();
   useEffect(() => {
@@ -31,7 +31,7 @@ const StyledMap: React.FC<StyledMapProps> & {
       debugOptions,
       startCoordinates,
       startZoom,
-      defaultControls
+      defaultControls,
     });
     if (m) {
       registerMap(id, m);

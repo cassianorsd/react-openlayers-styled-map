@@ -18,13 +18,13 @@ const PinCoordinates: React.FC<PinCoordinatesProps> = ({
   styled,
   activeLabel = {
     title: 'Get Coordinates',
-    text: 'Click on desired location on map to get information.'
+    text: 'Click on desired location on map to get information.',
   },
   icon,
   color,
   toolTipText,
   copyText,
-  copiedText
+  copiedText,
 }) => {
   const { mapid } = useMapContext();
 
@@ -34,7 +34,7 @@ const PinCoordinates: React.FC<PinCoordinatesProps> = ({
     if (!map) return;
     PinCoordinatesLib.startPinCoordinateInteraction({
       map,
-      options: { copyText, copiedText }
+      options: { copyText, copiedText },
     });
   }, [map, copyText, copiedText]);
 

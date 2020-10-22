@@ -19,5 +19,5 @@ export default {
   ClearMeasures,
   MeasureDistance,
   MeasureRadius,
-  MeasureArea
+  MeasureArea,
 };

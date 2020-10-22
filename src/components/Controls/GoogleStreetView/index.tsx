@@ -14,12 +14,12 @@ const GoogleStreetView: React.FC<GoogleStreetViewProps> = ({
   styled,
   activeLabel = {
     title: 'Google Street View',
-    text: 'Single click on desired location to open street view.'
+    text: 'Single click on desired location to open street view.',
   },
   children,
   color,
   icon = <FaStreetView size={20} color='#fff' />,
-  toolTipText
+  toolTipText,
 }) => {
   const { mapid } = useMapContext();
   const { map } = useMap(mapid);
@@ -38,7 +38,7 @@ const GoogleStreetView: React.FC<GoogleStreetViewProps> = ({
 
   return (
     <ControlButton
-      styled={!!styled}
+      styled={styled}
       icon={icon}
       color={color || '#FE2C54'}
       activeLabel={activeLabel}

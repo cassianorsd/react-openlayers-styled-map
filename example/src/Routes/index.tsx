@@ -8,7 +8,7 @@ import MultiMapsPage from '../pages/MultiMapsPage';
 
 const Routes: React.FC = () => {
   return (
-    <Switch>
+    <Switch >
       <Route path="/blank" component={BlankPage}/>
       <Route path="/map-debug" component={MapDebug}/>
       <Route path="/multi" component={MultiMapsPage}/>

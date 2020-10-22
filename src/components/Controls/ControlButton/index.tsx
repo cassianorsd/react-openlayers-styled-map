@@ -1,9 +1,10 @@
 import React, {
   CSSProperties,
+  HTMLProps,
   ReactNode,
   useCallback,
   useEffect,
-  useState
+  useState,
 } from 'react';
 import { useMap } from '../../../Hooks';
 import Spinner from 'react-spinkit';
@@ -13,8 +14,8 @@ import { css } from 'emotion';
 import { darken } from 'polished';
 import { useMapContext } from '../../../MapContext';
 
-export interface ControlButtonProps {
-  styled?: boolean;
+export interface ControlButtonProps extends HTMLProps<HTMLDivElement> {
+  styled?: 'styled' | 'ol' | 'unstyled';
   icon?: ReactNode;
   color?: string;
   activeLabel?:
@@ -40,7 +41,7 @@ export interface ControlButtonProps {
 
 const ControlButton: React.FC<ControlButtonProps> = ({
   children,
-  styled,
+  styled = 'styled',
   icon: Icon,
   color,
   controlKey,
@@ -49,7 +50,8 @@ const ControlButton: React.FC<ControlButtonProps> = ({
   activeLabel,
   loading,
   toolTipText,
-  badgeButton
+  badgeButton,
+  ...rest
 }) => {
   const [active, setActive] = useState(false);
   const { mapid } = useMapContext();
@@ -69,15 +71,27 @@ const ControlButton: React.FC<ControlButtonProps> = ({
     }
   }, [activeMenuControl, controlKey, active, enable, disable]);
 
+  if (styled === 'unstyled')
+    return (
+      <div
+        className='controlButton'
+        id={controlKey}
+        onClick={handleClick}
+        {...rest}
+      >
+        {children}
+      </div>
+    );
   return (
     <div
       className={classnames(
         'ol-control',
         styles.control,
-        styled && styles.styled,
+        styled === 'styled' && styles.styled,
         badgeButton && styles.withBadge,
         active && styles.active
       )}
+      {...rest}
     >
       <button onClick={handleClick} className={styles.btn}>
         {toolTipText && !active && (
@@ -86,7 +100,7 @@ const ControlButton: React.FC<ControlButtonProps> = ({
         <div
           className={classnames(
             styles.buttonContent,
-            styled &&
+            styled === 'styled' &&
               css`
                 background-color: ${color || '#fff'}!important;
                 &:hover {
@@ -95,7 +109,7 @@ const ControlButton: React.FC<ControlButtonProps> = ({
               `
           )}
         >
-          {styled && activeLabel && (
+          {styled === 'styled' && activeLabel && (
             <span className={styles.activeLabel}>
               <span className={styles.activeLabelTitle}>
                 {activeLabel.title}

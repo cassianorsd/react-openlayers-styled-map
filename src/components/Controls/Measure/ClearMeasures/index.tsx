@@ -18,7 +18,7 @@ const ClearMeasures: React.FC<ClearMeasuresProps> = ({
   activeLabel = { text: 'Cleaning drawings...' },
   icon,
   color,
-  toolTipText
+  toolTipText,
 }) => {
   const [isClearing, setIsClearing] = useState(false);
   const { mapid } = useMapContext();

@@ -4,10 +4,10 @@
   position: relative;
   right: 0;
   & + div {
-    margin-top: 8px;
-    @media (max-width: 600px) {
-      margin-top: 8px;
-    }
+    margin-top: 5px;
+    // @media (max-width: 600px) {
+    //   margin-top: 5px;
+    // }
   }
   width: max-content;
   .toolTipText {

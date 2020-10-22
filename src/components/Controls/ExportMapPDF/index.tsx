@@ -19,7 +19,7 @@ const ExportMapPDF: React.FC<ExportMapPDFProps> = ({
   icon,
   color,
   options,
-  toolTipText
+  toolTipText,
 }) => {
   const [isModalOpen, setModalIsOpen] = useState(false);
   const { mapid } = useMapContext();

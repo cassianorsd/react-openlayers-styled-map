@@ -15,7 +15,7 @@ const ExportMapImage: React.FC<ExportMapImageProps> = ({
   activeLabel = { text: 'Generating image...' },
   icon = <FaImage size={20} color='#fff' />,
   color,
-  toolTipText
+  toolTipText,
 }) => {
   const [rendering, setRendering] = useState(false);
   const { mapid } = useMapContext();

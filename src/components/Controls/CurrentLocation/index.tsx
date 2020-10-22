@@ -26,7 +26,7 @@ const CurrentLocation: React.FC<CurrentLocationProps> = ({
   icon,
   color,
   toolTipText = 'Current Location',
-  badgeButton
+  badgeButton,
 }) => {
   const [source] = useState<VectorSource>(new VectorSource());
   const [vector] = useState<VectorLayer>(
@@ -35,19 +35,19 @@ const CurrentLocation: React.FC<CurrentLocationProps> = ({
       source: source,
       style: new Style({
         fill: new Fill({
-          color: 'rgba(42, 82, 188,0.15)'
+          color: 'rgba(42, 82, 188,0.15)',
         }),
         stroke: new Stroke({
           color: 'rgba(42, 82, 188,0.8)',
-          width: 2
+          width: 2,
         }),
         image: new Circle({
           radius: 7,
           fill: new Fill({
-            color: 'rgba(42, 82, 188,0.8)'
-          })
-        })
-      })
+            color: 'rgba(42, 82, 188,0.8)',
+          }),
+        }),
+      }),
     })
   );
   const { mapid } = useMapContext();
@@ -73,11 +73,11 @@ const CurrentLocation: React.FC<CurrentLocationProps> = ({
         new Feature(
           accuracy.transform('EPSG:4326', map.getView().getProjection())
         ),
-        new Feature(new Point(fromLonLat(coords)))
+        new Feature(new Point(fromLonLat(coords))),
       ]);
       map.getView().fit(source.getExtent(), {
         maxZoom: 18,
-        duration: 500
+        duration: 500,
       });
       setTimeout(() => {
         setActiveMenuControl(undefined);
@@ -100,7 +100,7 @@ const CurrentLocation: React.FC<CurrentLocationProps> = ({
           : {
               content: <FaTrashAlt size={14} color='#fff' />,
               action: onClear,
-              toolTipText: 'Clear map'
+              toolTipText: 'Clear map',
             }
       }
     />
