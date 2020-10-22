@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7a194a294108763905d8fbc6b202831c",
+    "revision": "8dce4b895f8120034f31cf9beaeeded6",
     "url": "/react-openlayers-styled-map/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-openlayers-styled-map/static/css/3.4fba6d1d.chunk.css"
   },
   {
-    "revision": "12f991d40de60918c059",
+    "revision": "de1d04c49447461909d6",
     "url": "/react-openlayers-styled-map/static/css/main.4c24b486.chunk.css"
   },
   {
@@ -36,8 +36,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-openlayers-styled-map/static/js/4.02186a6e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "12f991d40de60918c059",
-    "url": "/react-openlayers-styled-map/static/js/main.97c9b920.chunk.js"
+    "revision": "de1d04c49447461909d6",
+    "url": "/react-openlayers-styled-map/static/js/main.ff87ab03.chunk.js"
   },
   {
     "revision": "4d4312c54ef2222b7780",
