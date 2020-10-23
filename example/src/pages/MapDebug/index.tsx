@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../components/Layout';
+import Layout from '../../components/Layout2';
 import { Content, MapContainer, SidebarContainer } from './styles';
 import { StyledMap, Controls } from 'react-openlayers-styled-map';
 import Sidebar from './Sidebar';

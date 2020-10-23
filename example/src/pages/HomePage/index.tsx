@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledMap, Controls } from 'react-openlayers-styled-map';
-import Layout from '../../components/Layout';
+import Layout from '../../components/Layout2';
 import { Content } from './styles';
 
 const HomePage: React.FC = () => {
