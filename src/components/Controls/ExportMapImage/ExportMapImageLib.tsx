@@ -8,8 +8,11 @@ const exportPNG = (map: Map, callback: () => void): void => {
       allowTaint: true,
       useCORS: true,
       ignoreElements: (el: HTMLElement): boolean => {
-        return el.classList.contains('ol-control');
-      }
+        return (
+          el.classList.contains('ol-control') ||
+          el.classList.contains('controlMenu')
+        );
+      },
     }).then((canvas) => {
       canvas.toBlob((blob) => {
         if (blob) {

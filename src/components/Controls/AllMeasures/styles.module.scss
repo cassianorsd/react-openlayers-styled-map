@@ -1,0 +1,90 @@
+@import 'src/Theme/variables.scss';
+
+.drawerLeft {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  max-width: 0px;
+  overflow: hidden;
+  transition: all 200ms ease-in-out;
+  box-sizing: border-box;
+  opacity: 0;
+  button {
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 200ms ease-in-out;
+  }
+
+  button.active {
+    background-color: $controlActiveColor;
+    svg {
+      filter: invert(100%);
+    }
+  }
+}
+
+.drawerRight {
+  min-width: 30px;
+  width: 30px;
+  height: 30px;
+}
+
+.drawer {
+  max-width: 30px;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  transition: all 200ms ease-in-out;
+  box-sizing: content-box;
+}
+
+.control {
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.btn {
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  margin: 0px;
+  transition: all 200ms ease-in-out;
+}
+
+.control.open {
+  .drawer {
+    max-width: 200px;
+  }
+  .btn {
+    background-color: $controlActiveColor;
+    svg {
+      filter: invert(100%);
+    }
+  }
+
+  .drawerLeft {
+    max-width: 100%;
+    padding: 0 5px 0px 13px;
+    opacity: 1;
+  }
+}

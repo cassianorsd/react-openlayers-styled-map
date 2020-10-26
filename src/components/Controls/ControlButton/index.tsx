@@ -1,21 +1,25 @@
 import React, {
   CSSProperties,
-  HTMLProps,
   ReactNode,
   useCallback,
   useEffect,
+  // useCallback,
+  // useEffect,
   useState,
 } from 'react';
-import { useMap } from '../../../Hooks';
-import Spinner from 'react-spinkit';
+// import { useMap } from '../../../Hooks';
 import styles from './styles.scss';
 import classnames from 'classnames';
+// import { useMapContext } from '../../../MapContext';
 import { css } from 'emotion';
 import { darken } from 'polished';
+import { useMap } from '../../../Hooks';
 import { useMapContext } from '../../../MapContext';
-
-export interface ControlButtonProps extends HTMLProps<HTMLDivElement> {
-  styled?: 'styled' | 'ol' | 'unstyled';
+import Spinner from 'react-spinkit';
+// import Spinner from 'react-spinkit';
+export interface ControlButtonProps {
+  as?: ReactNode;
+  styled?: boolean;
   icon?: ReactNode;
   color?: string;
   activeLabel?:
@@ -41,7 +45,7 @@ export interface ControlButtonProps extends HTMLProps<HTMLDivElement> {
 
 const ControlButton: React.FC<ControlButtonProps> = ({
   children,
-  styled = 'styled',
+  as: CustomComponent,
   icon: Icon,
   color,
   controlKey,
@@ -51,15 +55,18 @@ const ControlButton: React.FC<ControlButtonProps> = ({
   loading,
   toolTipText,
   badgeButton,
-  ...rest
 }) => {
   const [active, setActive] = useState(false);
   const { mapid } = useMapContext();
   const { setActiveMenuControl, activeMenuControl } = useMap(mapid);
-  const handleClick = useCallback(() => {
-    if (!active) setActiveMenuControl(controlKey);
-    else setActiveMenuControl(undefined);
-  }, [active, setActiveMenuControl, controlKey]);
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => {
+      e.stopPropagation();
+      if (!active) setActiveMenuControl(controlKey);
+      else setActiveMenuControl(undefined);
+    },
+    [active, setActiveMenuControl, controlKey]
+  );
 
   useEffect(() => {
     if (activeMenuControl === controlKey && !active) {
@@ -71,83 +78,80 @@ const ControlButton: React.FC<ControlButtonProps> = ({
     }
   }, [activeMenuControl, controlKey, active, enable, disable]);
 
-  if (styled === 'unstyled')
-    return (
-      <div
-        className='controlButton'
-        id={controlKey}
-        onClick={handleClick}
-        {...rest}
-      >
-        {children}
-      </div>
-    );
   return (
     <div
       className={classnames(
-        'ol-control',
         styles.control,
-        styled === 'styled' && styles.styled,
-        badgeButton && styles.withBadge,
-        active && styles.active
+        !CustomComponent && styles.styled,
+        active && styles.active,
+        badgeButton && styles.hasBadge
       )}
-      {...rest}
     >
-      <button onClick={handleClick} className={styles.btn}>
-        {toolTipText && !active && (
-          <span className={styles.toolTipText}>{toolTipText}</span>
-        )}
-        <div
-          className={classnames(
-            styles.buttonContent,
-            styled === 'styled' &&
-              css`
-                background-color: ${color || '#fff'}!important;
-                &:hover {
-                  background-color: ${darken(0.1, color || '#fff')}!important;
-                }
-              `
-          )}
-        >
-          {styled === 'styled' && activeLabel && (
-            <span className={styles.activeLabel}>
-              <span className={styles.activeLabelTitle}>
-                {activeLabel.title}
-              </span>
-              <span className={styles.activeLabelText}>{activeLabel.text}</span>
-            </span>
-          )}
-          {loading && (
-            <div className={styles.IconDiv}>
-              <Spinner name='circle' color='#000' fadeIn='none' />
+      {CustomComponent ? (
+        <div onClick={handleClick}>{CustomComponent}</div>
+      ) : (
+        <div>
+          <div className={styles.drawer} onClick={handleClick}>
+            <div className={styles.drawerLeft}>
+              {activeLabel && (
+                <span className={styles.activeLabel}>
+                  <span className={styles.activeLabelTitle}>
+                    {activeLabel.title}
+                  </span>
+                  <span className={styles.activeLabelText}>
+                    {activeLabel.text}
+                  </span>
+                </span>
+              )}
+            </div>
+            <div className={styles.drawerRight}>
+              <button
+                className={classnames(
+                  styles.btn,
+                  css`
+                    background-color: ${color};
+                    &:hover {
+                      background-color: ${darken(0.1, color || 'white')};
+                    }
+                  `
+                )}
+              >
+                {toolTipText && (
+                  <span className={styles.toolTipText}>{toolTipText}</span>
+                )}
+                <div className={styles.iconDiv}>
+                  {loading && (
+                    <Spinner name='circle' color='#000' fadeIn='none' />
+                  )}
+                  {!loading && Icon && Icon}
+                  {children}
+                </div>
+              </button>
+            </div>
+          </div>
+          {badgeButton && (
+            <div
+              className={classnames(
+                styles.badgeButton,
+                css`
+                  background-color: ${badgeButton?.style?.backgroundColor ||
+                  darken(0.2, color || '#fff')};
+                  &:hover {
+                    background-color: black !important;
+                  }
+                `
+              )}
+              onClick={badgeButton.action}
+            >
+              {badgeButton.toolTipText && (
+                <span className={styles.badgeButtonTooltip}>
+                  {badgeButton.toolTipText}
+                </span>
+              )}
+              {badgeButton.content}
             </div>
           )}
-          {!loading && Icon && <div className={styles.IconDiv}>{Icon}</div>}
-          {children}
         </div>
-      </button>
-      {badgeButton && (
-        <span
-          style={badgeButton.style}
-          className={classnames(
-            styles.badgeButton,
-            css`
-              background-color: ${badgeButton?.style?.backgroundColor ||
-              darken(0.2, color || '#fff')};
-              &:hover {
-                background-color: black !important;
-              }
-            `
-          )}
-          onClick={badgeButton.action}
-        >
-          {badgeButton.toolTipText && (
-            <span className={styles.badgeTooltip}>
-              {badgeButton.toolTipText}
-            </span>
-          )}
-          {badgeButton.content}
-        </span>
       )}
     </div>
   );

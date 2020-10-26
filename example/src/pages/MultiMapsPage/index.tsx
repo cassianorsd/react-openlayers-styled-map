@@ -48,67 +48,15 @@ const MultiMapsPage: React.FC = () => {
             startZoom={11}
           >
             <StyledMap.Controls showRibbon>
-              <Controls.GoogleStreetView styled='ol' />
-              <Controls.ExportMapImage styled='ol' />
-              <Controls.ExportMapPDF styled='ol' />
-              <Controls.MeasureArea styled='ol' />
-              <Controls.MeasureDistance styled='ol' />
-              <Controls.MeasureRadius styled='ol' />
-              <Controls.ClearMeasures styled='ol' />
-              <Controls.PinCoordinates styled='ol' />
-              <Controls.CurrentLocation styled='ol' />
-            </StyledMap.Controls>
-          </StyledMap>
-        </div>
-        <div style={{ width: '500px', height: '500px' }}>
-          <StyledMap
-            debugOptions={{ osmBasemap: true }}
-            id='map3'
-            defaultControls={{
-              fullScreenMode: {},
-              scale: { bar: true, minWidth: 100 },
-              zoomButtons: {},
-              zoomSlider: {},
-            }}
-            startCoordinates={[-49.2, -26.5]}
-            startZoom={11}
-          >
-            <StyledMap.Controls showRibbon={false}>
-              <Controls.GoogleStreetView styled='ol' />
-              <Controls.ExportMapImage styled='ol' />
-              <Controls.ExportMapPDF styled='ol' />
-              <Controls.MeasureArea styled='ol' />
-              <Controls.MeasureDistance styled='ol' />
-              <Controls.MeasureRadius styled='ol' />
-              <Controls.ClearMeasures styled='ol' />
-              <Controls.PinCoordinates styled='ol' />
-              <Controls.CurrentLocation styled='ol' />
-            </StyledMap.Controls>
-          </StyledMap>
-        </div>
-        <div style={{ width: '500px', height: '500px' }}>
-          <StyledMap
-            debugOptions={{ osmBasemap: true }}
-            id='map4'
-            defaultControls={{
-              fullScreenMode: {},
-              scale: {},
-              zoomButtons: {},
-              zoomSlider: {},
-            }}
-            startCoordinates={[-49.2, -26.5]}
-            startZoom={11}
-          >
-            <StyledMap.Controls showRibbon={false}>
-              <Controls.GoogleStreetView />
-              <Controls.ExportMapImage />
-              <Controls.ExportMapPDF />
-              <Controls.MeasureArea />
-              <Controls.MeasureDistance />
-              <Controls.MeasureRadius />
-              <Controls.ClearMeasures />
-              <Controls.PinCoordinates />
-              <Controls.CurrentLocation />
+              <Controls.GoogleStreetView styled={false} />
+              <Controls.ExportMapImage styled={false} />
+              <Controls.ExportMapPDF styled={false} />
+              <Controls.MeasureArea styled={false} />
+              <Controls.MeasureDistance styled={false} />
+              <Controls.MeasureRadius styled={false} />
+              <Controls.ClearMeasures styled={false} />
+              <Controls.PinCoordinates styled={false} />
+              <Controls.CurrentLocation styled={false} />
             </StyledMap.Controls>
           </StyledMap>
         </div>

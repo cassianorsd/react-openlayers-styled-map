@@ -20,7 +20,7 @@ const exportPDF = ({
   endCallback,
   pageDimmentions,
   orientation,
-  pageSize
+  pageSize,
 }: ExportPDFOptions): void => {
   if (startCallback) startCallback();
   map.once('rendercomplete', function () {
@@ -28,8 +28,11 @@ const exportPDF = ({
       allowTaint: true,
       useCORS: true,
       ignoreElements: (el: HTMLElement): boolean => {
-        return el.classList.contains('ol-control');
-      }
+        return (
+          el.classList.contains('ol-control') ||
+          el.classList.contains('controlMenu')
+        );
+      },
     }).then((canvas) => {
       const pdf = new JsPDF(orientation, undefined, pageSize);
       const dim = pageDimmentions;
@@ -46,7 +49,7 @@ const exportPDF = ({
         ),
         Math.abs(
           ((orientation === 'landscape' ? dim[1] : dim[0]) - finalSize[1]) / 2
-        )
+        ),
       ];
       pdf.addImage(
         canvas.toDataURL('image/jpeg'),

@@ -10,6 +10,7 @@
   padding: 0px;
   box-sizing: border-box;
   overflow: visible;
+  position: absolute;
 }
 
 .content {
@@ -21,6 +22,7 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-evenly;
+  padding: 10px 0px;
   right: 0.5em;
 }
 
@@ -30,4 +32,6 @@
   &:active {
     background-color: rgba(230, 230, 230, 0.8);
   }
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }

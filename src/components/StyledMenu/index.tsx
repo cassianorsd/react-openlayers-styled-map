@@ -9,7 +9,7 @@ export interface StyledMenuProps {
 
 const StyledMenu: React.FC<StyledMenuProps> = ({
   showRibbon = true,
-  children
+  children,
 }) => {
   const { mapid } = useMapContext();
   if (!children) return <span />;

@@ -29,6 +29,7 @@ const MapDebug: React.FC = () => {
               <Controls.MeasureRadius />
               <Controls.ClearMeasures />
               <Controls.PinCoordinates />
+              <Controls.CurrentLocation />
             </StyledMap.Controls>
           </StyledMap>
         </MapContainer>

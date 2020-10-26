@@ -17,9 +17,9 @@ const StyledMenuV2: React.FC<StyledMenuProps> = ({
     <div
       id={`StyledMenu-map-${mapid}`}
       className={classNames(
-        'ol-control',
         styles.container,
-        showRibbon && styles.ribbon
+        showRibbon && styles.ribbon,
+        'controlMenu'
       )}
     >
       <div className={styles.content}>{children}</div>

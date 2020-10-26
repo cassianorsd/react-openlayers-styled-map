@@ -1,0 +1,236 @@
+@import 'src/Theme/variables';
+
+.control {
+  position: relative;
+  right: 0;
+  & + div {
+    margin-top: 5px;
+  }
+}
+
+.drawer {
+  max-width: 30px;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  transition: all 200ms ease;
+}
+
+.drawerLeft {
+  max-width: 0px;
+  overflow: hidden;
+  box-sizing: border-box;
+  opacity: 0;
+  height: 0px;
+}
+
+.toolTipText {
+  position: absolute;
+  display: none;
+  max-width: 0px;
+  width: max-content;
+}
+
+.badgeButton {
+  position: absolute;
+  bottom: -15px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  @media (max-width: 960px) {
+    bottom: -17px;
+    right: -5px;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.badgeButtonTooltip {
+  position: absolute;
+  display: none;
+  max-width: 0px;
+  width: max-content;
+}
+
+.control.styled {
+  box-sizing: border-box;
+  &,
+  &:hover,
+  &:active {
+    background-color: transparent;
+    padding: 0px;
+  }
+
+  .btn {
+    margin: 0px;
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    transition: all 200ms ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .iconDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .drawer {
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    cursor: pointer;
+  }
+
+  .drawerLeft {
+    transition: all 200ms ease;
+    padding: 2px 5px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: max-content;
+    height: 30px;
+  }
+
+  .activeLabel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 2px 5px 2px;
+    color: #000;
+    opacity: 0;
+    transition: all 200ms ease-in-out;
+    font-size: 10px;
+    line-height: 10px;
+  }
+
+  .activeLabelTitle {
+    font-weight: bold;
+  }
+
+  .activeLabelText {
+    font-weight: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+  }
+
+  .toolTipText {
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 3px;
+    height: 24px;
+    right: 35px;
+    color: #000;
+    width: max-content;
+    background: linear-gradient(77deg, rgba(#fff, 0.66), rgba(#fff, 1));
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 11px;
+    flex-wrap: wrap;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 1px 5px;
+    transition: all 150ms ease-in-out;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  .badgeButtonTooltip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    right: 25px;
+    top: 3px;
+    height: 14px;
+    line-height: 12px;
+    font-size: 12px;
+    overflow: hidden;
+    background: linear-gradient(77deg, rgba(#fff, 0.66), rgba(#fff, 1));
+    transition: all 150ms ease-in-out;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 2px 5px;
+  }
+
+  &:not(.active) {
+    .btn:hover {
+      .toolTipText {
+        opacity: 1;
+        max-width: 160px;
+        white-space: normal;
+      }
+    }
+  }
+
+  .badgeButton:hover {
+    .badgeButtonTooltip {
+      opacity: 1;
+      max-width: 160px;
+      white-space: normal;
+    }
+  }
+
+  &.active {
+    .btn {
+      background-color: $controlActiveColor;
+      svg {
+        filter: invert(100%);
+      }
+    }
+    .drawer {
+      background-color: $controlActiveColor;
+      max-width: 200px;
+    }
+
+    .drawerLeft {
+      max-width: 100%;
+      opacity: 1;
+    }
+    .activeLabel {
+      opacity: 1;
+    }
+  }
+
+  &.hasBadge {
+    margin-bottom: 12px;
+    @media (max-width: 960px) {
+      margin-bottom: 18px;
+    }
+  }
+}
+
+.control.unstyled {
+  &.hasBadge {
+    margin-bottom: 12px;
+    @media (max-width: 960px) {
+      margin-bottom: 18px;
+    }
+  }
+}

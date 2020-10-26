@@ -1,5 +1,6 @@
 import ControlButton from './ControlButton';
 import GoogleStreetView from './GoogleStreetView';
+import AllMeasures from './AllMeasures';
 import ExportMapImage from './ExportMapImage';
 import ExportMapPDF from './ExportMapPDF';
 import CurrentLocation from './CurrentLocation';
@@ -20,4 +21,5 @@ export default {
   MeasureDistance,
   MeasureRadius,
   MeasureArea,
+  AllMeasures,
 };
