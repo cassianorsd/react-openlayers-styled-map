@@ -1,6 +1,6 @@
 {
   "name": "react-openlayers-styled-map",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Openlayers map component wrapped in react component with style and global hooks",
   "author": "cassianorsd",
   "license": "MIT",
